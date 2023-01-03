@@ -1,5 +1,7 @@
 # Wxh16144's Dotfiles
 
+- [.zshrc](./backup/.zshrc)
+
 ## Usage(not recommended)
 
 > **Warning**
