@@ -19,7 +19,7 @@ git clone git@github.com:Wxh16144/dotfiles.git && cd dotfiles
 
 ```bash
 ln -s $PWD/.mackup ~/.mackup \
-ln -s $PWD/.mackup.cfg ~/.mackup.cfg
+ln -s $PWD/.mackup_public.cfg ~/.mackup.cfg
 ```
 
 ### Apply
