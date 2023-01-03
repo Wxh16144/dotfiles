@@ -1,0 +1,20 @@
+[user]
+  # ------------------------------------- #
+  # https://www.ypzdw.com/
+  # ------------------------------------- #
+  # name = Wuxh
+  # email = wuxiaohong@ypzdw.com
+
+  # ------------------------------------- #
+  # https://www.jgjapp.com/
+  # ------------------------------------- #
+  # name = Wu Xiaohong(Red)
+  # email = wuxiaohong@yzgong.com
+  # signingkey = yzgong.com
+
+  # ------------------------------------- #
+  # undefined
+  # ------------------------------------- #
+  name = Wuxh(Red)
+  email = wuxiaohong@example.com
+  # signingkey = undefined

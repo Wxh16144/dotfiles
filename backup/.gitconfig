@@ -1,0 +1,58 @@
+[user]
+	name = wuxh
+	email = wxh1220@gmail.com
+	signingkey = wuxh
+[core]
+	excludesfile = /Users/wuxh/.gitignore_global
+	ignorecase = true
+  # ref: https://stackoverflow.com/a/36427485/11302760
+  # ref: https://code.visualstudio.com/docs/editor/versioncontrol#_vs-code-as-git-editor
+	editor = code --disable-extensions --wait
+
+# ref: https://code.visualstudio.com/docs/editor/versioncontrol#_vs-code-as-git-diff-tool
+[diff]
+  tool = default-difftool
+[difftool "default-difftool"]
+  cmd = code --disable-extensions --wait --diff $LOCAL $REMOTE
+
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+
+[alias]
+  co = checkout
+  cob = checkout -b
+  cor = checkout --orphan # 创建无历史记录的分支
+  coo = !git fetch && git checkout
+  br = branch
+  brd = branch -d
+  st = status
+  aa = add -A .
+  unstage = reset --soft HEAD^
+  cm = commit -m
+  amend = commit --amend --no-edit # 个人需求调整
+  fix = commit --fixup
+  undo = reset HEAD~1
+  rv = revert
+  cp = cherry-pick
+  pu = !git push origin `git branch --show-current`
+  fush = push -f
+  mg = merge --no-ff
+  rb = rebase
+  rbc = rebase --continue
+  rba = rebase --abort
+  rbs = rebase --skip
+  rom = !git fetch && git rebase -i origin/master --autosquash
+  save = stash push
+  pop = stash pop
+  apply = stash apply
+  rl = reflog
+  code = !code --disable-extensions
+  lg = log --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+
+[commit]
+	gpgsign = true
+	template = /Users/wuxh/.stCommitMsg
+
+[includeIf "gitdir:~/Code/CompanyProject/"]
+  path = ~/.gitconfig_work
