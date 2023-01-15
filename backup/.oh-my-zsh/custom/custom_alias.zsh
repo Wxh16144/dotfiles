@@ -5,7 +5,6 @@ alias p="pwd"
 alias e="exit"
 alias cpwd="pwd | pbcopy && echo successfully"
 
-# 工作目录
 export WORKSPACE="$HOME/Code"
 alias w="cd $WORKSPACE"
 
@@ -39,16 +38,21 @@ function s() {
     [[ $(npm run | grep "^  $1$" | wc -l) -eq 1 ]]
   }
 
+  function run_script() {
+    echo "\033[32mCurrent project start method: \033[31;1m$*\033[0m"
+    # execute the input command
+    eval $*
+  }
+
   if has_script start; then
-    nr start
+    run_script $(nr start "?")
   elif has_script dev; then
-    nr dev
+    run_script $(nr dev "?")
   else
     echo "No dev or start script found."
   fi
 }
 
-alias dev="nr dev"
 alias b="nr build"
 alias t="nr test"
 alias lint="nr lint"
@@ -105,7 +109,7 @@ function nrr() {
   fi
 
   set_registry ${registrys[$1]}
-  echo "Set registry to: ${registrys[$1]}"
+  # echo "Set registry to: ${registrys[$1]}"
 }
 
 # -------------------------------- #
@@ -131,6 +135,19 @@ function rmnm(){
   fi
 }
 
+# 删除当前目录所有文件(危险操作)
+function rmc(){
+  local currentDir=$(pwd)
+
+  echo -n -e "Are you sure to remove all files in \033[31;1m$currentDir\033[0m? [y/n] "
+  read agreeRemove
+  if [ $agreeRemove = "y" ]; then
+    rm -rf $currentDir
+    echo "All files have been removed."
+    cd ..
+  fi
+}
+
 # -------------------------------- #
 # Directories
 #
@@ -138,11 +155,13 @@ function rmnm(){
 # `~/Code/StudyProject` for OSS projects
 # -------------------------------- #
 
+# hide a directory or file
 function hidedir(){
   chflags hidden $1
 }
 
-function nohidedir(){
+# unhide a directory or file
+function unhidedir(){
   chflags nohidden $1
 }
 
@@ -173,7 +192,20 @@ function cloneoss() {
     # setting upstream
     git remote add upstream $repo
     git remote set-url origin "git@github.com:Wxh16144/$repoName.git"
+
+    # Get the unique branch name after cloning
+    local branchName=$(git branch -a | grep remotes/origin/HEAD | sed 's/.*\///')
+    if [[ -z $branchName ]]; then
+      branchName="master"
+    fi
+
+    git fetch upstream $branchName
+
+    # track the upstream branch
+    git branch --set-upstream-to=upstream/$branchName $branchName
   fi
+
+  # wait: https://link.wxhboy.cn/9QEF # 克隆后添加书签到 sourcetree
   
   code --disable-extensions .
 }

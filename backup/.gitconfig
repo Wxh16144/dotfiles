@@ -56,3 +56,5 @@
 
 [includeIf "gitdir:~/Code/CompanyProject/"]
   path = ~/.gitconfig_work
+[init]
+	defaultBranch = master
