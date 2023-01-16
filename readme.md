@@ -1,6 +1,9 @@
 # Wxh16144's Dotfiles
 
 - [.zshrc](./backup/.zshrc)
+- [my alias](./backup/.oh-my-zsh/custom/custom_alias.zsh)
+
+English | [简体中文](./readme.zh.md)
 
 ## Usage(not recommended)
 
