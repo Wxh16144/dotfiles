@@ -71,7 +71,12 @@ function reset() {
 }
 
 function main() {
-  before_check
+  if [ "$1" != "-n" ]; then
+    before_check
+  else
+    echo "I sure hope you know what you are doing."
+  fi
+
   check_mackup
   mackup_all_backup
   mackup_public_backup
