@@ -205,9 +205,12 @@ function cloneoss() {
     git branch --set-upstream-to=upstream/$branchName $branchName
   fi
 
-  # wait: https://link.wxhboy.cn/9QEF # 克隆后添加书签到 sourcetree
+  # wait: https://link.wxhboy.cn/9QEF # 克隆后添加书签到 sourcetree # 暂时估计实现不了
+
+  # https://stackoverflow.com/a/19663203/11302760 # 打开 sourcetree 会提示你是否添加书签
+  open -a "SourceTree" .
   
-  code --disable-extensions .
+  # code --disable-extensions . # 打开 vscode, 我感觉自己不需要这个了
 }
 
 # clone oss project https://github.com/react-component/{repoName}
