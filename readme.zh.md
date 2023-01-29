@@ -18,15 +18,8 @@
 git clone git@github.com:Wxh16144/dotfiles.git && cd dotfiles
 ```
 
-### 建立软连接
-
-```bash
-ln -s $PWD/.mackup ~/.mackup \
-ln -s $PWD/.mackup_public.cfg ~/.mackup.cfg
-```
-
 ### 应用
 
 ```bash
-mackup restore
+bash restore.sh
 ```

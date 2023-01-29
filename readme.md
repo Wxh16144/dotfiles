@@ -18,15 +18,8 @@ English | [简体中文](./readme.zh.md)
 git clone git@github.com:Wxh16144/dotfiles.git && cd dotfiles
 ```
 
-### Create soft links
-
-```bash
-ln -s $PWD/.mackup ~/.mackup \
-ln -s $PWD/.mackup_public.cfg ~/.mackup.cfg
-```
-
 ### Apply
 
 ```bash
-mackup restore
+bash restore.sh
 ```
