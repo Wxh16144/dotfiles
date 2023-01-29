@@ -47,8 +47,13 @@
   pop = stash pop
   apply = stash apply
   rl = reflog
-  code = !code --disable-extensions
+
+  # beautify log
   lg = log --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  # commit total count
+  count = rev-list --all --count
+  # open vscode
+  code = !code --disable-extensions
 
 [commit]
 	gpgsign = true
