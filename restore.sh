@@ -47,12 +47,13 @@ function check_isinstall() {
 
 function main() {
   check_isinstall
-  before_check
   replace
   link
 
   # restore
   mackup -frv restore
+  # uninstall
+  mackup -frv uninstall
 }
 
 main
