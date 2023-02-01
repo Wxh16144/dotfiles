@@ -305,3 +305,24 @@ function gbdel() {
   echo "$ignore_branches" | grep ${1-.} | xargs -n 1 -p git branch -D
 }
 
+# 解析 url 并添加 git remote
+function gae(){
+  local url=$1
+  local userName=$(echo $url | awk -F ':' '{print $2}' | awk -F '/' '{print $1}')
+
+  if [[ -z $userName ]] then
+    echo "invalid url"
+    return 1
+  fi
+
+  git remote add $userName $url
+
+  echo -e "remote \033[32;1m$userName\033[0m added"
+
+  echo -n -e "Do you want to fetch remote? [y/N]"
+  read isFetch
+  if [[ $isFetch == "y" ]] then
+    git fetch $userName
+  fi
+}
+
