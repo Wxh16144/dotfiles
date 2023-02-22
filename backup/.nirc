@@ -17,3 +17,5 @@ globalAgent=npm
 {HOME}/Code/Spotec=yarn
 {HOME}/Code/StudyProject/material-ui=yarn
 {HOME}/Code/StudyProject/issues-helper=yarn
+{HOME}/Code/StudyProject/issues-similarity-analysis=yarn
+{HOME}/Code/StudyProject/cssinjs=yarn

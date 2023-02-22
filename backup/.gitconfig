@@ -24,7 +24,8 @@
   cob = checkout -b
   cor = checkout --orphan # 创建无历史记录的分支
   coo = !git fetch && git checkout
-  br = branch
+  # br see: https://stackoverflow.com/a/36517935/11302760
+  br = "!f() { git checkout -b $(whoami)/$1; }; f" 
   brd = branch -d
   st = status
   aa = add -A .

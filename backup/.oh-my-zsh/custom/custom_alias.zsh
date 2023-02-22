@@ -1,6 +1,9 @@
 # https://askubuntu.com/a/473770
 alias c="clear && printf '\e[3J'"
 
+# https://stackoverflow.com/a/19663203/11302760
+alias st='open -a SourceTree .'
+
 alias p="pwd"
 alias e="exit"
 alias cpwd="pwd | pbcopy && echo successfully"
@@ -325,4 +328,3 @@ function gae(){
     git fetch $userName
   fi
 }
-
