@@ -3,7 +3,7 @@
 - [.zshrc](./backup/.zshrc)
 - [my alias](./backup/.oh-my-zsh/custom/custom_alias.zsh)
 
-简体中文 | [English](./readme.en.md)
+简体中文 | [English](./readme.en.md) | [Bilibili#BV1Jg4y1H7gA](https://bilibili.com/video/BV1Jg4y1H7gA)
 
 ## 使用方式(不推荐的)
 
