@@ -3,22 +3,22 @@
 - [.zshrc](./backup/.zshrc)
 - [my alias](./backup/.oh-my-zsh/custom/custom_alias.zsh)
 
-English | [简体中文](./readme.zh.md)
+简体中文 | [English](./readme.en.md)
 
-## Usage(not recommended)
+## 使用方式(不推荐的)
 
 > **Warning**
-> As a rule you don't need to adopt all the configurations, it's dangerous!!! He will overwrite your original configuration, it is recommended that you read the `backup` directory and pick the pieces of configuration that might work for you on demand.
+> 正常来说，你不需要全部采用我的配置，这很危险！！！它会覆盖你原有的配置，建议你阅读 `backup` 这个目录，摘选可能适合你的配置。
 
-### 1. [Install `mackup` (Required)](https://github.com/lra/mackup/blob/master/INSTALL.md)
+### 1. [安装 `mackup` (必须)](https://github.com/lra/mackup/blob/master/INSTALL.md)
 
-### 2. Clone Dotfiles
+### 2. 克隆仓库
 
 ```bash
 git clone git@github.com:Wxh16144/dotfiles.git && cd dotfiles
 ```
 
-### 3. Apply
+### 3. 应用
 
 ```bash
 bash restore.sh
