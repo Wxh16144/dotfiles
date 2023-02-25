@@ -157,6 +157,7 @@ function rmc(){
 # `~/Code/SelfProject` for my projects
 # `~/Code/StudyProject` for OSS projects
 # -------------------------------- #
+export GITHUB_NAME="Wxh16144"
 
 # hide a directory or file
 function hidedir(){
@@ -194,7 +195,7 @@ function cloneoss() {
     local repoName=$(basename "$repo" .git)
     # setting upstream
     git remote add upstream $repo
-    git remote set-url origin "git@github.com:Wxh16144/$repoName.git"
+    git remote set-url origin "git@github.com:$GITHUB_NAME/$repoName.git"
 
     # Get the unique branch name after cloning
     local branchName=$(git branch -a | grep remotes/origin/HEAD | sed 's/.*\///')
@@ -315,6 +316,18 @@ function gae(){
 
   if [[ -z $userName ]] then
     echo "invalid url"
+    return 1
+  fi
+
+  # myself 
+  if [[ $userName == $GITHUB_NAME ]] then
+    userName="origin"
+  fi
+
+  local isExist=$(git remote | grep $userName)
+
+  if [[ -n $isExist ]] then
+    echo "remote $userName already exists"
     return 1
   fi
 
