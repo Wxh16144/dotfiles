@@ -274,7 +274,7 @@ function gfix() {
 
 # 使用一个分支备份当前 git 修改
 function gbp() {
-  local new_branch="$(whoami)/$(date +%Y/%m/%d-%H_%M_%S)"
+  local new_branch="$(whoami)/backup/$(date +%Y-%m-%d-%H_%M_%S)"
 
   # 工作区是干净的
   if [[ -z $(git status --porcelain) ]] then
