@@ -224,6 +224,13 @@ function cloneossrc() {
   cloneoss "$repo" "react-component/$repoName"
 }
 
+# umijs member
+function cloneossumijs() {
+  local repo=$1
+  local repoName=$(basename "$repo" .git)
+  cloneoss "$repo" "umijs/$repoName"
+}
+
 # -------------------------------- #
 # Git shortcut
 # -------------------------------- #
@@ -240,6 +247,12 @@ function gbsw() {
 
   local branch=$(git rev-parse --abbrev-ref HEAD)
   local target=${1:-$defaultTarget}
+
+  # 判断是否存在目标分支
+  if [[ -z $(git branch -a | grep $target) ]] then
+    echo "target branch not found: $target"
+    return 1
+  fi
 
   git checkout $target
   git pull
@@ -305,7 +318,7 @@ function gbp() {
 # 批量删除分支, 支持 grep 参数，输入 y 确定删除
 function gbdel() {
   local branches=$(git branch --all | awk '{print $1}')
-  local ignore_branches=$(echo "$branches" | grep -v -E '^(master|dev|test)$|^dev-|^remotes|\*')
+  local ignore_branches=$(echo "$branches" | grep -v -E '^(master|main|dev|test)$|^dev-|^remotes|\*')
   echo "$ignore_branches" | grep ${1-.} | xargs -n 1 -p git branch -D
 }
 
