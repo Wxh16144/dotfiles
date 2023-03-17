@@ -24,10 +24,6 @@ alias my="cd $MY"
 export PLAY=$WORKSPACE/Playground
 alias play="cd $PLAY"
 
-# 显示/隐藏 隐藏的文件
-alias show="sh $ZSH_CUSTOM/custom_shell/show.sh"
-alias hide="sh $ZSH_CUSTOM/custom_shell/hide.sh"
-
 # -------------------------------- #
 # Node Package Manager
 # -------------------------------- #
@@ -286,12 +282,23 @@ function gfix() {
 }
 
 # 使用一个分支备份当前 git 修改
+# 如果工作区是干净的，你还可以进行 commit message 重写
 function gbp() {
   local new_branch="$(whoami)/backup/$(date +%Y-%m-%d-%H_%M_%S)"
 
   # 工作区是干净的
   if [[ -z $(git status --porcelain) ]] then
+    # 获取当前 commit message
+    local commit_message=$(git log -1 --pretty=%B)
+
     git branch $new_branch
+
+    if [[ -n $1 ]] then
+      git checkout $new_branch
+      git commit --amend -m "$1" --no-verify --no-gpg-sign
+      git checkout -
+    fi
+
     echo "The current workspace is clean, and a new branch:${new_branch} is created"
     return 1
   fi
