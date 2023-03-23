@@ -10,16 +10,20 @@
 > **Warning**
 > As a rule you don't need to adopt all the configurations, it's dangerous!!! He will overwrite your original configuration, it is recommended that you read the `backup` directory and pick the pieces of configuration that might work for you on demand.
 
-### 1. [Install `mackup` (Required)](https://github.com/lra/mackup/blob/master/INSTALL.md)
-
-### 2. Clone Dotfiles
+### 1. Clone Dotfiles
 
 ```bash
 git clone git@github.com:Wxh16144/dotfiles.git && cd dotfiles
 ```
 
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
 ### 3. Apply
 
 ```bash
-bash restore.sh
+npm run restore
 ```

@@ -2,7 +2,9 @@
   "name": "dotfiles",
   "private": true,
   "scripts": {
-    "sync": "node ./scripts/sync.js -df"
+    "start": "npm run sync",
+    "sync": "node ./scripts/sync.js -df",
+    "restore": "node ./scripts/sync.js -dr"
   },
   "devDependencies": {
     "@wuxh/backup-cli": "^0.1.2"
