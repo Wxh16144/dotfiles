@@ -3,6 +3,8 @@ directory = backup
 
 [applications_to_sync]
 iterm2
+bash
+gh
 
 # -------- override --------
 zsh
