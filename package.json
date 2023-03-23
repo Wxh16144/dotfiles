@@ -1,0 +1,10 @@
+{
+  "name": "dotfiles",
+  "private": true,
+  "scripts": {
+    "sync": "node ./scripts/sync.js -df"
+  },
+  "devDependencies": {
+    "@wuxh/backup-cli": "^0.1.2"
+  }
+}

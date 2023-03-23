@@ -1,0 +1,12 @@
+[storage]
+directory = backup
+
+[applications_to_sync]
+iterm2
+
+# -------- override --------
+zsh
+git
+
+# -------- custom --------
+wuxh_ni
