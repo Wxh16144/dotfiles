@@ -19,3 +19,4 @@ globalAgent=npm
 {HOME}/Code/StudyProject/issues-helper=yarn
 {HOME}/Code/StudyProject/issues-similarity-analysis=yarn
 {HOME}/Code/StudyProject/cssinjs=yarn
+{HOME}/Code/StudyProject/postcss-pxtorem=npm

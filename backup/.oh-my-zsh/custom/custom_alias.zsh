@@ -8,6 +8,8 @@ alias p="pwd"
 alias e="exit"
 alias cpwd="pwd | pbcopy && echo successfully"
 
+export APP=/Users/wuxh/Library/Application\ Support
+
 export WORKSPACE="$HOME/Code"
 alias w="cd $WORKSPACE"
 
