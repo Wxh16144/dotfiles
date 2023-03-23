@@ -7,6 +7,6 @@
     "restore": "node ./scripts/sync.js -dr"
   },
   "devDependencies": {
-    "@wuxh/backup-cli": "^0.1.2"
+    "@wuxh/backup-cli": "1.x"
   }
 }
