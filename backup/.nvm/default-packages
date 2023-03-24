@@ -1,0 +1,17 @@
+# Docs: https://github.com/nvm-sh/nvm#default-global-packages-from-file-while-installing
+# Source Code: https://github.com/nvm-sh/nvm/blob/dde04f9392f9f0958d06608290f293c71d4119c8/nvm.sh#L4241-L4274
+# $NVM_DIR/default-packages
+
+pnpm@7.x
+yarn@1.x
+vite
+http-server
+release-it@15.x
+fanyi@8.x
+lambda-view@latest
+
+# ---- mySelf Packages ----
+@wuxh/ni@0.20.0-fork.0
+# @wuxh/backup-cli@latest
+wxh16144@latest
+# tiny-vite@latest

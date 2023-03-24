@@ -32,3 +32,8 @@ load-nvmrc
 # https://github.com/nvm-sh/nvm#use-a-mirror-of-node-binaries
 # https://mirrors.ustc.edu.cn/help/node.html#nvm-node-js
 export NVM_NODEJS_ORG_MIRROR=https://mirrors.ustc.edu.cn/node/
+
+# https://www.voidcanvas.com/global-module-not-found-when-node-version-is-changed-using-nvm/
+function nvm_install() {
+  nvm install $1 --reinstall-packages-from=default --skip-default-packages
+}
