@@ -2,7 +2,16 @@
 alias c="clear && printf '\e[3J'"
 
 # https://stackoverflow.com/a/19663203/11302760
-alias st='open -a SourceTree .'
+# alias st='open -a SourceTree .'
+
+# https://git-fork.com/
+function f(){
+  if [[ -d .git ]]; then
+    open -a Fork .
+  else
+    echo "Not a git repository."
+  fi
+}
 
 alias p="pwd"
 alias e="exit"
@@ -210,7 +219,9 @@ function cloneoss() {
   # wait: https://link.wxhboy.cn/9QEF # 克隆后添加书签到 sourcetree # 暂时估计实现不了
 
   # https://stackoverflow.com/a/19663203/11302760 # 打开 sourcetree 会提示你是否添加书签
-  open -a "SourceTree" .
+  # open -a "SourceTree" . # 暂时不用 SourceTree 了, 使用 Fork
+  
+  open -a "Fork" . # 打开 Fork
   
   # code --disable-extensions . # 打开 vscode, 我感觉自己不需要这个了
 }
