@@ -34,6 +34,7 @@
   aa = add -A .
   unstage = reset --soft HEAD^
   cm = commit -m
+  cmt = commit --template=/Users/wuxh/.stCommitMsg
   amend = commit --amend --no-edit # 个人需求调整
   fix = commit --fixup
   undo = reset HEAD~1
@@ -61,7 +62,6 @@
 
 [commit]
 	gpgsign = true
-	template = /Users/wuxh/.stCommitMsg
 
 [includeIf "gitdir:~/Code/CompanyProject/"]
   path = ~/.gitconfig_work
