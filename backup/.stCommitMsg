@@ -1,4 +1,4 @@
-# type: feat | fix | docs | style | refactor | test | ci | deps
+# type: feat | fix | style | docs | refactor | perf | test | ci | deps
 
 
 
@@ -6,3 +6,4 @@
 # footer(s): reference issue or PR, https://stackoverflow.com/a/6742691
 # Was it a BREAKING CHANGE?
 # Conventional Commits (https://www.conventionalcommits.org)
+# skip GtiHub action `[skip ci]` see: https://link.wxhboy.cn/TtnJ
