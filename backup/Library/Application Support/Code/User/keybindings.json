@@ -1,0 +1,75 @@
+[
+  // {
+  //   "key": "alt+t",
+  //   "command": "vscode-commitizen.commit"
+  // },
+  // {
+  //   "key": "alt+l",
+  //   "command": "changelog.generate"
+  // },
+  // {
+  //   "key": "alt+m",
+  //   "command": "projectManager.listProjectsNewWindow"
+  // },
+  {
+    "key": "cmd+[Comma] w",
+    "command": "workbench.action.openWorkspaceSettings"
+  },
+  {
+    "key": "cmd+[Comma] u",
+    // "key": "cmd+[Comma]",
+    "command": "workbench.action.openGlobalSettings"
+  },
+  {
+    "key": "cmd+shift+g",
+    "command": "workbench.view.scm",
+    "when": "workbench.scm.active"
+  },
+  {
+    // extension: eamodio.gitlens
+    "key": "ctrl+shift+g",
+    "command": "gitlens.showGraphPage"
+  },
+  {
+    "key": "cmd+b",
+    "command": "-markdown.extension.editing.toggleBold",
+    "when": "editorTextFocus && !editorReadonly && editorLangId == 'markdown'"
+  },
+  {
+    "key": "cmd+h",
+    "command": "workbench.action.toggleStatusbarVisibility"
+  },
+  {
+    "key": "cmd+g",
+    "command": "workbench.action.toggleActivityBarVisibility"
+  },
+  {
+    // extension: alefragnani.Bookmarks
+    "key": "alt+cmd+m",
+    "command": "bookmarks.toggleLabeled"
+  },
+  {
+    "key": "shift+cmd+k",
+    "command": "workbench.view.extension.bookmarks"
+  },
+  {
+    "key": "shift+cmd+k",
+    "command": "-editor.action.deleteLines",
+    "when": "textInputFocus && !editorReadonly"
+  },
+  {
+    // extension: mhutchie.git-graph
+    "key": "ctrl+g",
+    "command": "git-graph.view"
+  },
+  {
+    // extension: intellsmi.comment-translate
+    "key": "ctrl+shift+s",
+    "command": "-commentTranslate.select"
+  },
+  {
+    // extension: AngeloPerera.vscode-open-in-fork
+    "key": "ctrl+cmd+s",
+    "command": "openInFork.open"
+  }
+]

@@ -1,0 +1,47 @@
+{
+  // https://segmentfault.com/a/1190000018457312
+  "el-pagination": {
+    "prefix": "elp",
+    "scope": "vue,vue-html",
+    "description": "el-pagination 模版",
+    "body": [
+      "\n",
+      ".clearfix.mtb-15",
+      "  el-pagination.pull-right(background, layout=\"total,prev, pager, next\",",
+      "  :current-page.sync=\"pagination.currPage\", :pageSize=\"pagination.pageSize\", ",
+      "  :total=\"pagination.total\", @current-change=\"getList\", hide-on-single-page)",
+      "\n",
+    ]
+  },
+  "el-table": {
+    "prefix": "elt",
+    "scope": "vue,vue-html",
+    "description": "el-table 模版",
+    "body": [
+      "el-table(border, :data=\"${1:tableLists}\")",
+      "  el-table-column(label=\"${2:字段名称}\", prop=\"${3:id}\", width=\"80\")",
+      "  el-table-column(label=\"${2:插槽}\")",
+      "    template(slot-scope=\"scope\")",
+      "      span ${2:插槽}{{ scope.${3:id} }}\n"
+    ]
+  },
+  "el-form": {
+    "prefix": "elf",
+    "scope": "vue,vue-html",
+    "description": "el-form 模版",
+    "body": [
+      "el-form(size=\"medium\", label-width=\"135px\")",
+      "  el-form-item(label=\"字段名称\", prop=\"id\")",
+      "  el-form-item(label=\"动态校验\", prop=\"id\", ",
+      "    :rules=\"{ validator: ${1:testCheck}, trigger: ['blur', 'change'] }\")",
+    ]
+  },
+  "el-button": {
+    "prefix": "elb",
+    "scope": "vue,vue-html",
+    "description": "el-button",
+    "body": [
+      "el-button(type=\"${1|primary,success,warning,info,danger|}\", ${2|plain,round,circle|}) ${3:按钮}\n",
+    ]
+  },
+}

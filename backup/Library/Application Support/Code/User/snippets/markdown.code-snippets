@@ -1,0 +1,17 @@
+/**
+  * 如果使用不生效，可以尝试设置 editor.quickSuggestions.other 为 true; see: https://github.com/Microsoft/vscode/issues/28048
+  */
+{
+  "Using details": {
+    "prefix": "detail",
+    "scope": "markdown",
+    "description": "Using <details> <summary> expandable content.",
+    "body": [
+      "<details>",
+      "\t<summary>Click to expand</summary>",
+      "\t",
+      "\t$0",
+      "</details>",
+    ]
+  },
+}

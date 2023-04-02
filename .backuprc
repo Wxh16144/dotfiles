@@ -2,6 +2,7 @@
 directory = backup
 
 [applications_to_sync]
+vscode
 iterm2
 bash
 gh

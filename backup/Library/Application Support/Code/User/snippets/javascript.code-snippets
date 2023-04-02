@@ -1,0 +1,35 @@
+{
+	// https://segmentfault.com/a/1190000018457312
+	"Print developer console": {
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"prefix": "mlog",
+		"body": [
+			"$LINE_COMMENT TODO: Should be deleted. assign: @Wxh16144(Red)",
+			"window.console.log('%c@Red', 'color:red;font-family:SF Mono', {",
+			"\tvalue: ${1:$RANDOM},",
+			"})",
+			"$2"
+		],
+		"description": "Personalized output with developer name"
+	},
+	"Print simple console": {
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"prefix": "slog",
+		"body": [
+			"$LINE_COMMENT eslint-disable-next-line no-console",
+			"window.console.log(${1:{ value: $RANDOM \\}})",
+			"$2"
+		],
+		"description": "输出简单的 LOG"
+	},
+	"iife": {
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"prefix": "iife",
+		"body": [
+			"(function(){",
+			"\t$0",
+			"}());"
+		],
+		"description": "IIFE"
+	},
+}

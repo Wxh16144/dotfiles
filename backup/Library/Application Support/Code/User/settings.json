@@ -1,0 +1,303 @@
+{
+  "workbench.startupEditor": "welcomePage",
+  "workbench.settings.editor": "ui", // 控制设置页面每次打开都是json 还是ui
+  "workbench.productIconTheme": "icons-carbon",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.editor.splitSizing": "split", // 分割宽口时不缩小非激活窗口
+  "window.title": "${folderName}${separator}${activeEditorShort}",
+  "window.restoreWindows": "one",
+  "window.restoreFullscreen": true,
+  "window.openFoldersInNewWindow": "on",
+  "window.openFilesInNewWindow": "on",
+  "window.nativeTabs": true,
+  "window.commandCenter": true,
+  "vitest.commandLine": "na test --",
+  "vetur.format.defaultFormatterOptions": {
+    "prettyhtml": {
+      "singleQuote": false, // Prefer double quotes over single quotes
+      "printWidth": 100 // No line exceeds 100 characters
+    },
+    "prettier-eslint": {},
+    "prettier": {
+      // true：在语句末尾打印分号。
+      "singleQuote": true,
+      "semi": true
+    }
+  },
+  "vetur.format.defaultFormatter.ts": "prettier-tslint",
+  "vetur.format.defaultFormatter.stylus": "stylus-supremacy",
+  "vetur.format.defaultFormatter.pug": "none",
+  "vetur.format.defaultFormatter.js": "prettier",
+  "vetur.format.defaultFormatter.html": "prettier",
+  // 移动或修改文件名后引用地方自动修改文件名
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "todohighlight.toggleURI": false,
+  "todohighlight.maxFilesForSearch": 5120,
+  "todohighlight.isEnable": true,
+  "todohighlight.isCaseSensitive": false,
+  "todo-tree.tree.showCountsInTree": true,
+  "todo-tree.tree.scanMode": "workspace only",
+  "todo-tree.tree.hideTreeWhenEmpty": true,
+  "todo-tree.tree.hideIconsWhenGroupedByTag": true,
+  "todo-tree.tree.filterCaseSensitive": true,
+  "todo-tree.tree.disableCompactFolders": true,
+  "terminal.integrated.windowsEnableConpty": false,
+  "terminal.integrated.tabs.title": "${workspaceFolder}${separator}${task}",
+  "terminal.integrated.fontSize": 16,
+  "terminal.integrated.env.osx": {
+    "FIG_NEW_SESSION": "1"
+  },
+  "terminal.integrated.enablePersistentSessions": false,
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.defaultLocation": "editor",
+  "terminal.integrated.cursorStyle": "underline",
+  "terminal.external.osxExec": "iTerm2.app",
+  "svg.preview.mode": "svg",
+  "svg.preview.background": "dark-transparent",
+  "svg.preview.autoShow": true,
+  "stylusSupremacy.insertSpaceBeforeComment": true,
+  "stylusSupremacy.insertSpaceAfterComment": true,
+  "stylusSupremacy.insertSemicolons": false, // 不插入分号
+  // stylus 插件 Manta's Stylus Supremacy
+  "stylusSupremacy.insertColons": false, // 去掉冒号
+  "stylusSupremacy.insertBraces": false, // 删除花括号
+  "search.globalFindClipboard": true,
+  "search.exclude": {
+    "**/yarn.lock": true,
+    "**/tmp": true,
+    "**/pnpm-lock.yaml": true,
+    "**/package-lock.json": true,
+    "**/out/**": true,
+    "**/node_modules": true,
+    "**/logs": true,
+    "**/dist/**": true,
+    "**/bower_components": true,
+    "**/.yarn": true,
+    "**/.vscode": true,
+    "**/.pnpm": true,
+    "**/.output": true,
+    "**/.nuxt": true,
+    "**/.github": true,
+    "**/.git": true
+  },
+  "scm.inputFontSize": 14,
+  "remote.SSH.useLocalServer": false,
+  "remote.SSH.suppressWindowsSshWarning": true,
+  "remote.SSH.showLoginTerminal": true,
+  "remote.SSH.remotePlatform": {
+    "nas_l": "linux",
+    "nas": "linux",
+    "aliyun": "linux"
+  },
+  "projectManager.git.maxDepthRecursion": 3,
+  "projectManager.git.baseFolders": [
+    "$home\\Code"
+  ],
+  "playwright.reuseBrowser": true,
+  "outline.problems.badges": false,
+  "merge-conflict.diffViewPosition": "Beside",
+  "merge-conflict.autoNavigateNextConflict.enabled": true,
+  "material-icon-theme.opacity": 0.88,
+  "leetcode.hint.configWebviewMarkdown": false,
+  "leetcode.filePath": {
+    "default": {
+      "folder": "",
+      "filename": "${id}.${kebab-case-name}.${ext}"
+    }
+  },
+  "leetcode.endpoint": "leetcode-cn",
+  "leetcode.editor.shortcuts": [
+    "solution",
+    "submit",
+    "test",
+    "description"
+  ],
+  "leetcode.defaultLanguage": "typescript",
+  "jest.jestCommandLine": "npm run test --",
+  "jest.autoRun": "off",
+  "javascript.validate.enable": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "javascript.format.enable": true,
+  "hediet.vscode-drawio.local-storage": "eyIuZHJhd2lvLWNvbmZpZyI6IntcImxhbmd1YWdlXCI6XCJcIixcImN1c3RvbUZvbnRzXCI6W10sXCJsaWJyYXJpZXNcIjpcImdlbmVyYWw7Zmxvd2NoYXJ0O2Jvb3RzdHJhcDttb2NrdXBzXCIsXCJjdXN0b21MaWJyYXJpZXNcIjpbXSxcInBsdWdpbnNcIjpbXSxcInJlY2VudENvbG9yc1wiOltcIkYwRjBGMFwiLFwiRkZGRkZGXCIsXCIzMzMzRkZcIixcIjAwQ0MwMFwiLFwiRkYwMDAwXCIsXCJub25lXCIsXCIwMDAwMDBcIixcIkM3RURDQ1wiLFwiRUQwQzBDXCIsXCI2NjY2NjZcIixcIjk5RkZDQ1wiXSxcImZvcm1hdFdpZHRoXCI6MCxcImNyZWF0ZVRhcmdldFwiOmZhbHNlLFwicGFnZUZvcm1hdFwiOntcInhcIjowLFwieVwiOjAsXCJ3aWR0aFwiOjE2NTQsXCJoZWlnaHRcIjoyMzM2fSxcInNlYXJjaFwiOnRydWUsXCJzaG93U3RhcnRTY3JlZW5cIjp0cnVlLFwiZ3JpZENvbG9yXCI6XCIjZDBkMGQwXCIsXCJkYXJrR3JpZENvbG9yXCI6XCIjNEQ0RDREXCIsXCJhdXRvc2F2ZVwiOnRydWUsXCJyZXNpemVJbWFnZXNcIjpudWxsLFwib3BlbkNvdW50ZXJcIjowLFwidmVyc2lvblwiOjE4LFwidW5pdFwiOjEsXCJpc1J1bGVyT25cIjpmYWxzZSxcInVpXCI6XCJcIn0ifQ==",
+  "gitlens.views.searchAndCompare.avatars": false,
+  "gitlens.views.repositories.avatars": false,
+  "gitlens.views.commitDetails.files.layout": "list",
+  "gitlens.statusBar.format": "${agoOrDate} > ${message} By: ${author}",
+  "gitlens.statusBar.command": "gitlens.showQuickFileHistory",
+  "gitlens.statusBar.alignment": "left",
+  "gitlens.sortTagsBy": "date:desc",
+  "gitlens.sortBranchesBy": "date:desc",
+  "gitlens.menus": {
+    "scmItem": {
+      "stash": true,
+      "remote": true,
+      "history": true,
+      "compare": true,
+      "clipboard": true
+    },
+    "scmGroup": {
+      "stashInline": true,
+      "stash": true,
+      "openClose": true,
+      "compare": true
+    },
+    "explorer": {
+      "remote": true,
+      "history": true,
+      "compare": true,
+      "clipboard": true
+    },
+    "editorTab": {
+      "remote": false,
+      "history": true,
+      "compare": true,
+      "clipboard": true
+    },
+    "editorGroup": {
+      "compare": true,
+      "blame": true
+    },
+    "editor": false
+  },
+  "gitlens.graph.dateFormat": null,
+  "gitlens.gitCommands.closeOnFocusOut": true,
+  "gitlens.defaultDateFormat": "YY/MM/DD HH:mm:ss ddd",
+  "gitlens.codeLens.enabled": false,
+  "gitlens.advanced.fileHistoryFollowsRenames": true,
+  "githubPullRequests.pullBranch": "never",
+  "githubIssues.queries": [
+    {
+      "query": "default",
+      "label": "My Issues"
+    },
+    {
+      "query": "author:${user} state:open repo:${owner}/${repository} sort:created-desc",
+      "label": "Created Issues"
+    }
+  ],
+  "github.copilot.enable": {
+    "plaintext": false,
+    "markdown": false,
+    "*": true
+  },
+  "git.useCommitInputAsStashMessage": true,
+  "git.suggestSmartCommit": true,
+  "git.showPushSuccessNotification": true,
+  "git.showActionButton": {
+    "sync": false,
+    "publish": false
+  },
+  "git.pullTags": false, // 同步时候不拉tag
+  "git.inputValidationLength": 100, // 提交最长文本
+  "git.ignoreLegacyWarning": true,
+  "git.confirmSync": false,
+  "git.branchPrefix": "wuxh/", // 分支前缀
+  "git.autoStash": true,
+  "git.autofetch": "all",
+  "git-graph.defaultColumnVisibility": {
+    "Date": true,
+    "Commit": true,
+    "Author": true
+  },
+  "git-graph.date.format": "ISO Date & Time", // 显示时间格式
+  "files.eol": "\n",
+  "files.defaultLanguage": "tsx",
+  "files.autoSaveDelay": 2000,
+  "fileheader.tpl": "/*\r\n * @Author: {author}\r\n * @Date: {createTime}\r\n * @Desc: \r\n */\r\n",
+  "fileheader.LastModifiedBy": "Wuxh",
+  "fileheader.Author": "Wuxh(Red)<wxh1220@gmail.com>",
+  "extensions.autoCheckUpdates": false, // 禁用插件自动更新
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact",
+    "vue",
+    "html",
+    "markdown",
+    "json",
+    "jsonc",
+    "json5"
+  ],
+  "eslint.nodeEnv": "development",
+  "emmet.triggerExpansionOnTab": true,
+  "editor.wordWrap": "on", // 文本过长换行
+  "editor.tabSize": 2,
+  "editor.suggestSelection": "first",
+  "editor.stickyScroll.enabled": true,
+  "editor.scrollBeyondLastLine": false,
+  "editor.rulers": [
+    80,
+    120
+  ],
+  "editor.renderWhitespace": "none",
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "editor.minimap.enabled": true,
+  "editor.lineHeight": 24,
+  "editor.inlineSuggest.enabled": true,
+  "editor.fontSize": 14,
+  "editor.fontLigatures": true,
+  /**
+   * JetBrains Mono: https://www.jetbrains.com/zh-cn/lp/mono
+   * SF Mono: https://developer.apple.com/fonts/
+   * Fira Code: https://github.com/tonsky/FiraCode
+   */
+  "editor.fontFamily": "SF Mono, Monaco",
+  "editor.foldingStrategy": "indentation",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": false,
+    "source.fixAll.stylelint": false,
+    "source.fixAll.eslint": true, // this allows ESLint to auto fix on save
+    "source.fixAll": false
+  },
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "editor.accessibilitySupport": "off",
+  "diffEditor.renderSideBySide": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "debug.showBreakpointsInOverviewRuler": true, // 断点可以显示在概览标尺中
+  "debug.console.fontSize": 14,
+  "cSpell.userWords": [
+    "ahooks",
+    "antfu",
+    "bumpp",
+    "citem",
+    "collapsable",
+    "dumi",
+    "iconify",
+    "immer",
+    "jizhi",
+    "jsapi",
+    "jwork",
+    "pnpm",
+    "Popconfirm",
+    "regexes",
+    "tapd",
+    "umijs",
+    "unocss",
+    "unplugin",
+    "vueuse",
+    "xiaohong",
+    "Xiaohong",
+    "ywkj"
+  ],
+  "commentTranslate.targetLanguage": "zh-CN",
+  "commentTranslate.multiLineMerge": false,
+  "commentTranslate.hover.enabled": true,
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  // 优先规则
+  "[vue]": {
+    "editor.foldingStrategy": "indentation",
+    "editor.defaultFormatter": "Vue.volar"
+  },
+  "[markdown]": {
+    // https://github.com/Microsoft/vscode/issues/28048
+    "editor.quickSuggestions": {
+      "other": true
+    }
+  }
+}
