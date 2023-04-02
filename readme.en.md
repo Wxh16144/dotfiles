@@ -1,7 +1,10 @@
 # Wxh16144's Dotfiles
 
 - [.zshrc](./backup/.zshrc)
-- [my alias](./backup/.oh-my-zsh/custom/custom_alias.zsh)
+- [alias](./backup/.oh-my-zsh/custom/custom_alias.zsh)
+
+- [VSCode setting](./backup/Library/Application%20Support/Code/User/settings.json)
+- [VSCode snippets](./backup/Library/Application%20Support/Code/User/snippets)
 
 [简体中文](./readme.md) | English
 
