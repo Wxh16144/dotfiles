@@ -62,7 +62,9 @@ alias dir="create_and_cd"
 
 # network
 alias ip="get_ip"
-alias ipl="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
+alias ipl="get_ip_local"
+alias ser="start_server"
+
 
 # zsh
 alias zshrc='code --disable-extensions "${ZDOTDIR:-$HOME}"/.zshrc'

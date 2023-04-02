@@ -381,3 +381,40 @@ function get_ip() {
     fi
   done
 }
+
+# 获取本地 ip
+function get_ip_local(){
+  ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'
+}
+
+# 生成二维码
+function qrcode() {
+  local input="$*"
+  [ -z "$input" ] && local input="@/dev/stdin"
+  curl -d "$input" https://qrcode.show
+}
+
+# 启动一个 http 服务，并生成二维码
+function start_server() {
+  local dir=${1:-.}
+  local port=${2:-8000}
+
+  local public_ip=$(get_ip | grep -Eo "([0-9]{1,3}[\.]){3}[0-9]{1,3}" | head -n 1)
+  local local_ip=$(get_ip_local | head -n 1)
+
+  if [[ -n $public_ip ]]; then
+    echo -e "\033[32;1mpublic ip\033[0m: $public_ip"
+    qrcode "http://$public_ip:$port"
+    echo "https://api.qrserver.com/v1/create-qr-code/?data=http://$public_ip:$port" && echo
+  fi
+
+  if [[ -n $local_ip ]]; then
+    echo -e "\033[32;1mlocal ip\033[0m: $local_ip"
+    qrcode "http://$local_ip:$port"
+    echo "https://api.qrserver.com/v1/create-qr-code/?data=http://$local_ip:$port" && echo
+  fi
+
+  # start server
+  http-server $dir -p $port
+
+}
