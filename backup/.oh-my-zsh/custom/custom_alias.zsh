@@ -50,7 +50,7 @@ alias unhidedir="chflags nohidden"
 
 # front-end-node_modules
 alias lsnm="list_node_modules"
-alias rmnm="rm_node_modules"
+alias rmnm="remove_node_modules"
 
 # nvm install
 alias nvmi="nvm_install"
