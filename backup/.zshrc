@@ -20,14 +20,14 @@ ZSH_THEME="spaceship"
 # a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
 ZSH_THEME_RANDOM_CANDIDATES=(
-"mgutz"
-"mira"
-"jreese"
-"strug"
-"gozilla"
-"clean"
-"refined"
-"takashiyoshida"
+  "mgutz"
+  "mira"
+  "jreese"
+  "strug"
+  "gozilla"
+  "clean"
+  "refined"
+  "takashiyoshida"
 )
 
 # Uncomment the following line to use case-sensitive completion.
@@ -39,11 +39,11 @@ ZSH_THEME_RANDOM_CANDIDATES=(
 
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
-zstyle ':omz:update' mode auto      # update automatically without asking
+zstyle ':omz:update' mode auto # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-zstyle ':omz:update' frequency 30   # auto-update every 30 days
+zstyle ':omz:update' frequency 30 # auto-update every 30 days
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -85,21 +85,21 @@ HIST_STAMPS="yyyy/mm/dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-git
-# vscode
+  git
+  # vscode
 
-# docker
-# docker-compose
-# yarn # 使用 https://github.com/antfu/ni 代替
+  # docker
+  # docker-compose
+  # yarn # 使用 https://github.com/antfu/ni 代替
 
-# git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-zsh-autosuggestions
+  # git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  zsh-autosuggestions
 
-# git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
-fast-syntax-highlighting
+  # git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
+  fast-syntax-highlighting
 
-# brew install autojump
-autojump
+  # brew install autojump
+  autojump
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -131,6 +131,9 @@ export LC_ALL=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# load custom alias
+[[ -e "$ZSH_CUSTOM/custom_alias.zsh" ]] && source "$ZSH_CUSTOM/custom_alias.zsh"
+
 source ~/.config/broot/launcher/bash/br
 source ~/.gvm/scripts/gvm
 
@@ -142,4 +145,3 @@ export PATH="$PNPM_HOME:$PATH"
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-

@@ -362,3 +362,22 @@ function git_add_remote() {
     git fetch $userName
   fi
 }
+
+# 通过多个服务商列表获取当前 ip
+function get_ip() {
+  local services=(
+    "https://api.ipify.org" # https://www.ipify.org/
+    "https://api64.ipify.org"
+    "https://ipinfo.io/ip" # https://ipinfo.io/
+    "https://ifconfig.me/ip" # https://ifconfig.me/
+  )
+
+  for service in ${services[@]}; do
+    local ip=$(curl -s $service)
+    if [[ -z $ip ]]; then
+      echo -e "\033[31;1m$service\033[0m: \033[31;1mfailed\033[0m"
+    else
+      echo -e "\033[32;1m$service\033[0m: $ip"
+    fi
+  done
+}

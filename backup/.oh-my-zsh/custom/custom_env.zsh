@@ -3,6 +3,10 @@ export GITHUB_NAME="Wxh16144"
 
 export APP=/Users/wuxh/Library/Application\ Support
 
+# Increase Bash history size. Allow 32³ entries; the default is 1000.
+export HISTSIZE='32768';
+export HISTFILESIZE="${HISTSIZE}";
+
 # my projects directory
 export WORKSPACE="$HOME/Code"
 export COMPANY=$WORKSPACE/CompanyProject

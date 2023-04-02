@@ -35,7 +35,9 @@ alias nrr="npm_registry_manage" # npm registry manage
 # -------------------------------- #
 alias p="pwd"
 alias e="exit"
+alias h='history'
 alias cpwd="pwd | pbcopy && echo successfully"
+alias big='du -s ./* | sort -nr | awk '\''{print $2}'\'' | xargs du -sh'
 
 # https://askubuntu.com/a/473770
 alias c="clear && printf '\e[3J'"
@@ -58,10 +60,18 @@ alias nvmi="nvm_install"
 alias rmc="remove_all_files"
 alias dir="create_and_cd"
 
+# network
+alias ip="get_ip"
+alias ipl="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
+
+# zsh
+alias zshrc='code --disable-extensions "${ZDOTDIR:-$HOME}"/.zshrc'
+alias reload='source "${ZDOTDIR:-$HOME}"/.zshrc'
+alias custom="code --disable-extensions $ZSH_CUSTOM"
+
 # -------------------------------- #
 # Git shortcut
 # -------------------------------- #
-
 alias clone="clone_and_cd"
 alias clonemy="clone_my_project"
 alias cloneoss="clone_oss_project"
