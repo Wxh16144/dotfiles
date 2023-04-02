@@ -39,6 +39,7 @@ function start_fe_project() {
 #   - na: https://github.com/wxh16144/ni
 #   - COMPANY_NPM_REGISTRY 环境变量
 function npm_registry_manage() {
+  local input_registry=$1
   # 预设的 registry
   declare -A registrys
   registrys=(
@@ -55,9 +56,9 @@ function npm_registry_manage() {
 
   set_registry(){
     # 经常遇到安装依赖问题，索性就把所有的 registry 都设置一下
-    npm config set registry $1
-    yarn config set registry $1
-    echo "Set registry to $1"
+    npm config set registry $input_registry
+    yarn config set registry $input_registry
+    echo "Set registry to $input_registry"
   }
 
   # 如果没有参数, 则表示查看当前 registry，并且询问是否要重置为默认 registry [npm]
@@ -74,17 +75,23 @@ function npm_registry_manage() {
   fi
 
   # 判断输入的 registry 是否存在
-  if [ -z ${registrys[$1]} ]; then
-    echo "Registry not found: $1"
-    echo "Available registrys:"
+  if [ -z ${registrys[$input_registry]} ]; then
+    if [[ $input_registry != "h" && $input_registry != "help" && $input_registry != "ls" ]]; then
+      # echo "Registry $input_registry not found."
+      echo "\033[31;1mRegistry $input_registry not found.\033[0m"
+    fi
+
+    echo "\033[32;1mAvailable registrys:"
+
     for key in ${(@k)registrys}; do
-      echo "  $key: ${registrys[$key]}"
+      # echo "  $key: ${registrys[$key]}"
+      echo "\033[31;1m$key\033[0m: \033[32;1m${registrys[$key]}\033[0m"
     done
     return
   fi
 
-  set_registry ${registrys[$1]}
-  # echo "Set registry to: ${registrys[$1]}"
+  set_registry ${registrys[$input_registry]}
+  # echo "Set registry to: ${registrys[$input_registry]}"
 }
 
 # 列出当前目录下的所有 node_modules
@@ -126,8 +133,12 @@ function remove_all_files() {
 # 创建目录并进入, 如果目录已存在则直接进入
 # useage: create_and_cd [dir/path]
 function create_and_cd() {
-  mkdir -p $1
-  cd $1
+  local dir=$1
+  if [[ -d $dir ]]; then
+    cd $dir
+    return
+  fi
+  mkdir -p $dir && cd $dir
 }
 
 # clonse git 仓库并进入
