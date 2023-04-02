@@ -1,0 +1,3 @@
+# export FLAGS_GETOPT_CMD=/Applications/SourceTree.app/Contents/Resources/bin/getopt
+
+export GITFLOW_BRANCH_FEATURE_PREFIX="feat/" # default: feature/

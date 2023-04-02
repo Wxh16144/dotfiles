@@ -1,0 +1,25 @@
+*~
+
+# Mac OS X
+.DS_Store
+Icon?
+._*
+
+# Windows thumbnail cache files
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# dependencies and build artifacts
+/node_modules/
+/dist/
+/target/
+/coverage/
+
+# temporary files
+*.tmp
+*.bak
+
+# logs
+*.log
+*.log.*
