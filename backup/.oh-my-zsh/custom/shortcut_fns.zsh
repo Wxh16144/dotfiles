@@ -364,6 +364,7 @@ function git_add_remote() {
 }
 
 # 通过多个服务商列表获取当前 ip
+# usage: get_ip [count]
 function get_ip() {
   local services=(
     "https://api.ipify.org" # https://www.ipify.org/
@@ -371,6 +372,11 @@ function get_ip() {
     "https://ipinfo.io/ip" # https://ipinfo.io/
     "https://ifconfig.me/ip" # https://ifconfig.me/
   )
+
+  local count=${1:-${#services[@]}}
+
+  # split [0, count)
+  local services=(${services[@]:0:$count})
 
   for service in ${services[@]}; do
     local ip=$(curl -s $service)
@@ -395,26 +401,29 @@ function qrcode() {
 }
 
 # 启动一个 http 服务，并生成二维码
+# usage: start_server [dir] [port]
+# 依赖
+#   http-server: https://www.npmjs.com/package/http-server
 function start_server() {
   local dir=${1:-.}
   local port=${2:-8000}
 
-  local public_ip=$(get_ip | grep -Eo "([0-9]{1,3}[\.]){3}[0-9]{1,3}" | head -n 1)
+  local public_ip=$(get_ip 1 | grep -Eo "([0-9]{1,3}[\.]){3}[0-9]{1,3}" | head -n 1)
   local local_ip=$(get_ip_local | head -n 1)
 
   if [[ -n $public_ip ]]; then
     echo -e "\033[32;1mpublic ip\033[0m: $public_ip"
     qrcode "http://$public_ip:$port"
-    echo "https://api.qrserver.com/v1/create-qr-code/?data=http://$public_ip:$port" && echo
+    echo "https://qrcode.show/http://$public_ip:$port" && echo
   fi
 
   if [[ -n $local_ip ]]; then
     echo -e "\033[32;1mlocal ip\033[0m: $local_ip"
     qrcode "http://$local_ip:$port"
-    echo "https://api.qrserver.com/v1/create-qr-code/?data=http://$local_ip:$port" && echo
+    echo "https://qrcode.show/http://$local_ip:$port" && echo
   fi
 
-  # start server
+  # start server: https://www.npmjs.com/package/http-server
   http-server $dir -p $port
 
 }
