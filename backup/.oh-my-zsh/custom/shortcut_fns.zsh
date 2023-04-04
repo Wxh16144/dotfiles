@@ -33,6 +33,14 @@ function start_fe_project() {
   fi
 }
 
+# 设置 npm、yarn 的 registry
+set_registry(){
+  local registry=$1
+  npm config set registry $registry
+  yarn config set registry $registry
+  echo "Set registry to $registry"
+}
+
 # 管理 npm registry
 # useage: npm_registry_manage [registry]
 # 依赖
@@ -53,13 +61,6 @@ function npm_registry_manage() {
     [self]="http://nas.wxhboy.cn:98/"
     [selfIp]="http://192.168.31.10:98/"
   )
-
-  set_registry(){
-    # 经常遇到安装依赖问题，索性就把所有的 registry 都设置一下
-    npm config set registry $input_registry
-    yarn config set registry $input_registry
-    echo "Set registry to $input_registry"
-  }
 
   # 如果没有参数, 则表示查看当前 registry，并且询问是否要重置为默认 registry [npm]
   if [ $# -eq 0 ]; then
