@@ -81,6 +81,8 @@
     "**/.git": true
   },
   "scm.inputFontSize": 14,
+  "rust-analyzer.inlayHints.typeHints.enable": false, // 关闭类型提示
+  "rust-analyzer.inlayHints.parameterHints.enable": false, // 关闭参数提示
   "remote.SSH.useLocalServer": false,
   "remote.SSH.suppressWindowsSshWarning": true,
   "remote.SSH.showLoginTerminal": true,
@@ -192,8 +194,8 @@
   "git.ignoreLegacyWarning": true,
   "git.confirmSync": false,
   "git.branchPrefix": "wuxh/", // 分支前缀
-  "git.autoStash": true,
   "git.autofetch": "all",
+  "git.autoStash": true,
   "git-graph.defaultColumnVisibility": {
     "Date": true,
     "Commit": true,
@@ -259,6 +261,9 @@
   "diffEditor.ignoreTrimWhitespace": false,
   "debug.showBreakpointsInOverviewRuler": true, // 断点可以显示在概览标尺中
   "debug.console.fontSize": 14,
+  "commentTranslate.targetLanguage": "zh-CN",
+  "commentTranslate.multiLineMerge": false,
+  "commentTranslate.hover.enabled": true,
   "cSpell.userWords": [
     "ahooks",
     "antfu",
@@ -283,9 +288,6 @@
     "Xiaohong",
     "ywkj"
   ],
-  "commentTranslate.targetLanguage": "zh-CN",
-  "commentTranslate.multiLineMerge": false,
-  "commentTranslate.hover.enabled": true,
   "[yaml]": {
     "editor.defaultFormatter": "redhat.vscode-yaml"
   },
