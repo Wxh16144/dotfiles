@@ -14,6 +14,7 @@ export OSS=$WORKSPACE/StudyProject
 export MY=$WORKSPACE/SelfProject
 export PLAY=$WORKSPACE/Playground
 
-# Company registry
+# registry
 export COMPANY_NPM_REGISTRY="https://packages.aliyun.com/616ff38165b9775dd591fcc9/npm/npm-registry/"
+export MY_NPM_REGISTRY="http://nas.wxhboy.cn:98/"
 # export COMPANY_DOCKER_REGISTRY="https://example.com"

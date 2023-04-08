@@ -46,6 +46,7 @@ set_registry(){
 # 依赖
 #   - na: https://github.com/wxh16144/ni
 #   - COMPANY_NPM_REGISTRY 环境变量
+#   - MY_NPM_REGISTRY 环境变量
 function npm_registry_manage() {
   local input_registry=$1
   # 预设的 registry
@@ -57,10 +58,15 @@ function npm_registry_manage() {
     [cnpm]="https://r.cnpmjs.org/"
     [taobao]="https://registry.npmmirror.com/"
     [npmMirror]="https://skimdb.npmjs.com/registry/"
-    [company]=$COMPANY_NPM_REGISTRY
-    [self]="http://nas.wxhboy.cn:98/"
-    [selfIp]="http://192.168.31.10:98/"
   )
+
+  if [[ -n $COMPANY_NPM_REGISTRY ]]; then
+    registrys[company]=$COMPANY_NPM_REGISTRY
+  fi
+
+  if [[ -n $MY_NPM_REGISTRY ]]; then
+    registrys[self]=$MY_NPM_REGISTRY
+  fi
 
   # 如果没有参数, 则表示查看当前 registry，并且询问是否要重置为默认 registry [npm]
   if [ $# -eq 0 ]; then
