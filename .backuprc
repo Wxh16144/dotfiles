@@ -6,6 +6,7 @@ vscode
 iterm2
 bash
 gh
+rust
 
 # -------- override --------
 zsh
