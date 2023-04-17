@@ -97,3 +97,6 @@ alias gbdel="git_batch_delete_branch"
 
 # 解析 url 并添加 git remote
 alias gae="git_add_remote"
+
+# 将指定目录推送到远程仓库
+alias pudir="push_ignored_directory"

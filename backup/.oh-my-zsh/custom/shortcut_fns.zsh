@@ -434,3 +434,56 @@ function start_server() {
   http-server $dir -p $port
 
 }
+
+# 将指定目录推送到远程仓库
+function push_ignored_directory() {
+  local igored_dir=${1:-dist}
+  local branch=${2:-gh-pages}
+  local remote_name=${3:-origin}
+  local force=${4:-false}
+  local current_dir=$(pwd)
+
+  local remote_url=$(git remote get-url $remote_name)
+
+  # ----------------- check remote start -----------------
+  if [[ -z $remote_url ]]; then
+    echo -e "\033[31;1m$remote_name\033[0m is not a remote name"
+    return 1
+  fi
+
+  # ----------------- check dir start ----------------- 
+  if [[ ! -d $igored_dir ]]; then
+    echo -e "\033[31;1m$igored_dir\033[0m is not a directory"
+    return 1
+  fi
+  if [[ -z $(ls -A $igored_dir) ]]; then
+    echo -e "\033[31;1m$igored_dir\033[0m is empty"
+    return 1
+  fi
+  if [[ -d $igored_dir/.git ]]; then
+    echo -e "\033[31;1m$igored_dir\033[0m is a git repository"
+    return 1
+  fi
+  
+  # ----------------- action -----------------
+  local tmp_dir=$(mktemp -d)
+
+  cp -R $igored_dir/. $tmp_dir
+  cd $tmp_dir
+
+  git init
+  git add -A
+  git commit -m "init" --no-verify --no-gpg-sign
+  git remote add origin $remote_url
+  local tmp_current_branch=$(git symbolic-ref --short HEAD)
+  if [[ $force == "true" ]]; then
+    git push origin $tmp_current_branch:$branch --force
+  else
+    git push origin $tmp_current_branch:$branch
+  fi
+
+  cd $current_dir
+  rm -rf $tmp_dir
+
+  echo -e "\033[32;1m$igored_dir\033[0m pushed to \033[32;1m$remote_url\033[0m => \033[32;1m$branch\033[0m"
+}
