@@ -435,6 +435,13 @@ function start_server() {
 
 }
 
+# 统计指定目录下的当个文件行数并排序[降序]（默认忽略 node_modules 目录）
+# usage: count_lines [dir]
+function count_lines(){
+  # https://stackoverflow.com/a/316613/11302760
+  find ${1:-.} -type f -not -path "*/node_modules/*" -print0 | xargs -0 wc -l | sort -nr
+}
+
 # 将指定目录推送到远程仓库
 function push_ignored_directory() {
   local igored_dir=${1:-dist}
