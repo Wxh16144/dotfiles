@@ -9,16 +9,16 @@ globalAgent=npm
 
 ; configuration of a specific item (case sensitive)
 ; https://github.com/antfu/ni/issues/74
-; https://github.com/Wxh16144/ni
+; https://github.com/Wxh16144/ni required: @wuxh/ni >= 0.21.3-fork.0
 [projectAgent]
-{HOME}/Code/CompanyProject=pnpm
-{HOME}/Code/StudyProject/ant-design=yarn
-{HOME}/Code/StudyProject/react-component=yarn
-{HOME}/Code/StudyProject/antd-issue-helper=yarn
-{HOME}/Code/Spotec=yarn
-{HOME}/Code/StudyProject/material-ui=yarn
-{HOME}/Code/StudyProject/issues-helper=yarn
-{HOME}/Code/StudyProject/issues-similarity-analysis=yarn
-{HOME}/Code/StudyProject/cssinjs=yarn
-{HOME}/Code/StudyProject/postcss-pxtorem=npm
-{HOME}/Code/StudyProject/ant-design-vue=yarn
+{WORKSPACE}/Spotec=yarn
+{COMPANY}=yarn
+{OSS}/ant-design=yarn
+{OSS}/react-component=yarn
+{OSS}/antd-issue-helper=yarn
+{OSS}/material-ui=yarn
+{OSS}/issues-helper=yarn
+{OSS}/issues-similarity-analysis=yarn
+{OSS}/cssinjs=yarn
+{OSS}/postcss-pxtorem=npm
+{OSS}/ant-design-vue=yarn
