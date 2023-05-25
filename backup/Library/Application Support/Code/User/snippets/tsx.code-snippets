@@ -1,0 +1,24 @@
+{
+	// https://segmentfault.com/a/1190000018457312
+	"Function Component": {
+		"scope": "typescriptreact",
+		"prefix": "mfc",
+		"body": [
+			"import * as React from \"react\";\n",
+			"export interface ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}Props {",
+			"\tchildren?: React.ReactNode;",
+			"}\n",
+			"function ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}(props: ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}Props) {",
+			"\tconst { children } = props;",
+			"\treturn (",
+			"\t\t<>",
+			"\t\t\t{children}",
+			"\t\t\tThis is ${0:$TM_FILENAME}",
+			"\t\t</>",
+			"\t);",
+			"}\n",
+			"export default ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/};\n"
+		],
+		"description": "Log output to console"
+	}
+}
