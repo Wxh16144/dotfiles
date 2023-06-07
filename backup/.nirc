@@ -22,3 +22,4 @@ globalAgent=npm
 {OSS}/cssinjs=yarn
 {OSS}/postcss-pxtorem=npm
 {OSS}/ant-design-vue=yarn
+{OSS}/react-data-grid=npm
