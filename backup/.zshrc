@@ -11,7 +11,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 
-# git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+# git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
 # ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 ZSH_THEME="spaceship"
 
@@ -101,6 +101,12 @@ plugins=(
 
   # brew install autojump
   autojump
+
+  # git clone https://github.com/spaceship-prompt/spaceship-react.git $ZSH_CUSTOM/plugins/spaceship-react
+  spaceship-react
+
+  # custom spaceship plugin
+  spaceship-commit_hash
 )
 
 source $ZSH/oh-my-zsh.sh
