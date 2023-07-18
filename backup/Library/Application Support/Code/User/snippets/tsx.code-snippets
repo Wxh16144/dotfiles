@@ -6,19 +6,23 @@
 		"body": [
 			"import * as React from \"react\";\n",
 			"export interface ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}Props {",
-			"\tchildren?: React.ReactNode;",
+			"\tslogan?: React.ReactNode;",
 			"}\n",
-			"function ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}(props: ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}Props) {",
+			"function ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}(props: React.PropsWithChildren<${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}Props>) {",
 			"\tconst { children } = props;",
 			"\treturn (",
 			"\t\t<>",
+			"\t\t\t<div className=\"my-slogan\">",
+			"\t\t\t\t<p>魔法师正在进行最后的仪式，为您带来一项惊艳功能</p>",
+			"\t\t\t\t<strong>TBD: The Brilliant Discovery!</strong>",
+			"\t\t\t</div>",
 			"\t\t\t{children}",
-			"\t\t\tThis is ${0:$TM_FILENAME}",
+			"\t\t\t{$BLOCK_COMMENT_START This is $TM_FILENAME} $BLOCK_COMMENT_END}",
 			"\t\t</>",
 			"\t);",
 			"}\n",
 			"export default ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/};\n"
 		],
-		"description": "Log output to console"
+		"description": "Create a function component"
 	}
 }
