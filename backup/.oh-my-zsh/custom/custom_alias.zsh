@@ -2,7 +2,7 @@
 # Application alias
 # -------------------------------- #
 # https://stackoverflow.com/a/19663203/11302760
-# alias st='open -a SourceTree .'
+alias st='open -a SourceTree .'
 alias f="open_fork"
 
 # -------------------------------- #
