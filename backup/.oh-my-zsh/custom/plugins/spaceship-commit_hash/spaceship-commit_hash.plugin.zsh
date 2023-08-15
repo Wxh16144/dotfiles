@@ -1,3 +1,4 @@
+# PR: https://github.com/spaceship-prompt/spaceship-prompt/pull/741
 # Custom information of your choice: https://spaceship-prompt.sh/advanced/creating-section/
 # ref: https://github.com/spaceship-prompt/spaceship-section/blob/055939cb13de632c8294637c2576bdc9be46bc5f/spaceship-section.plugin.zsh
 
