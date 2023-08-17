@@ -58,8 +58,9 @@ alias rmnm="remove_node_modules"
 # nvm install
 alias nvmi="nvm_install"
 
-alias rmc="remove_all_files"
+alias del="remove_all_files"
 alias dir="create_and_cd"
+alias dirt="create_tmp_dir"
 
 # network
 alias ip="get_ip"

@@ -41,3 +41,4 @@ auto-install-pnpm() {
 }
 
 add-zsh-hook chpwd auto-install-pnpm
+auto-install-pnpm

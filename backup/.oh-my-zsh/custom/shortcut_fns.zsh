@@ -121,18 +121,30 @@ function remove_node_modules() {
 
 # 删除当前目录所有文件(危险操作)
 function remove_all_files() {
-  local currentDir=$(pwd)
+  local currentDir=${1:-$(pwd)}
+  local parentDir=$(dirname $currentDir)
+  local files=()
+
+  # 如果当前项目是软链接，则删除源文件
+  if [[ -L $currentDir ]]; then
+    echo -e "\033[31;1m$currentDir\033[0m is a symbolic link, will remove the source file."
+    # 将软连接本身添加到待删除列表
+    files+=($currentDir)
+    currentDir=$(readlink $currentDir)
+  fi
+
+  files+=($currentDir)
 
   echo -n -e "Are you sure to remove all files in \033[31;1m$currentDir\033[0m? [y/n] "
   read agreeRemove
   if [ $agreeRemove = "y" ]; then
-    rm -rf $currentDir
+    echo ${files[@]} | xargs -n 1 rm -rf
     echo "All files have been removed."
     # 判断上一条记录地址是否存在，如果存在则进入，否则进入 ../
     if [[ -d $OLDPWD ]]; then
       cd $OLDPWD
     else
-      cd ..
+      cd $parentDir
     fi
   fi
 }
@@ -493,4 +505,45 @@ function push_ignored_directory() {
   rm -rf $tmp_dir
 
   echo -e "\033[32;1m$igored_dir\033[0m pushed to \033[32;1m$remote_url\033[0m => \033[32;1m$branch\033[0m"
+}
+
+# 查找并删除无效软连接
+function find_and_remove_broken_links() {
+    local dir=${1:-.}
+    for link in $(find -L $dir -maxdepth 1 -type l); do
+        if [ ! -e "$link" ]; then
+            rm "$link"
+        fi
+    done
+}
+
+# 生成的四位 hashid
+function generate_short_hash() {
+    length=4
+    hash=$(openssl rand -hex $((length / 2)))
+    hashid=$(echo $hash | cut -c1-$length)
+    echo $hashid
+}
+
+# 创建一个临时文件夹，然后软连接到 $PLAY 目录， 可以输入一个参数作为目录名
+function create_tmp_dir() {
+  find_and_remove_broken_links
+  local fallbacl_dir="$(whoami)-$(generate_short_hash)"
+  local dirname=${1:-$fallbacl_dir}
+  local tmp_dir="$TMPDIR$dirname"
+
+  # 如果不是自定义目录，且存在则重新生成
+  if [[ $dirname == $fallbacl_dir && -d $tmp_dir ]]; then
+    create_tmp_dir
+    return
+  fi
+  
+  mkdir -p $tmp_dir
+
+  # 软连接地址
+  local link_dir="$PLAY/$dirname"
+
+  # 建立软连接到 $PLAY 目录
+  ln -s $tmp_dir $link_dir
+  cd $link_dir
 }
