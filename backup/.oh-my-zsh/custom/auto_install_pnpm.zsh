@@ -11,12 +11,12 @@ autoload -Uz add-zsh-hook
 auto-install-pnpm() {
   # 加入 jq 和 npm 命令是否存在的判断
   if ! command -v jq &> /dev/null; then
-    echo "jq command not found. Please install jq first."
+    # echo "jq command not found. Please install jq first."
     return
   fi
 
   if ! command -v npm &> /dev/null; then
-    echo "npm command not found. Please install npm first."
+    # echo "npm command not found. Please install npm first."
     return
   fi
 
