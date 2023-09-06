@@ -1,3 +1,15 @@
+# !!! rm 像魔鬼一样刺激我的多巴胺, 尽管它能带给我快感, 但我还是要抵制它 !!!
+# alias rm="echo Use 'rmm', or the full path i.e. '/bin/rm'"
+function rm() {
+  echo -e '\033[31mUse "rmm", or the full path i.e. "/bin/rm"\033[0m'
+  if ! command -v trash &> /dev/null; then
+    echo -e '\033[31mtrash command not found. Please install trash first.\033[0m'
+    return
+  fi
+  trash "$@"
+}
+alias rmm="trash" # brew install trash
+
 # -------------------------------- #
 # Application alias
 # -------------------------------- #

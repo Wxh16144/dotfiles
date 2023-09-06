@@ -109,13 +109,14 @@ function list_node_modules() {
 # 删除当前目录下的所有 node_modules
 # useage: remove_node_modules [-a]
 # 输入 y 确认删除, 默认不删除, 可以使用 -a 不需要确认并删除所有
+# 这里的删除使用的是 /bin/rm, 而不是 trash, 因为 trash 会将文件移动到回收站, 但是 node_modules 通常会很大, 会占用很多空间
 function remove_node_modules() {
   local nm=$(list_node_modules)
   if [[ $1 == "-a" ]]; then
-    echo $nm | xargs -n 1 rm -rf
+    echo $nm | xargs -n 1 /bin/rm -rf
     echo "All node_modules have been removed."
   else
-    echo $nm | xargs -n 1 -p rm -rf
+    echo $nm | xargs -n 1 -p /bin/rm -rf
   fi
 }
 
@@ -138,7 +139,7 @@ function remove_all_files() {
   echo -n -e "Are you sure to remove all files in \033[31;1m$currentDir\033[0m? [y/n] "
   read agreeRemove
   if [ $agreeRemove = "y" ]; then
-    echo ${files[@]} | xargs -n 1 rm -rf
+    echo ${files[@]} | xargs -n 1 trash -rf # brew install trash
     echo "All files have been removed."
     # 判断上一条记录地址是否存在，如果存在则进入，否则进入 ../
     if [[ -d $OLDPWD ]]; then
@@ -502,7 +503,8 @@ function push_ignored_directory() {
   fi
 
   cd $current_dir
-  rm -rf $tmp_dir
+  # rm -rf $tmp_dir
+  /bin/rm -rf $tmp_dir
 
   echo -e "\033[32;1m$igored_dir\033[0m pushed to \033[32;1m$remote_url\033[0m => \033[32;1m$branch\033[0m"
 }
@@ -512,7 +514,8 @@ function find_and_remove_broken_links() {
     local dir=${1:-.}
     for link in $(find -L $dir -maxdepth 1 -type l); do
         if [ ! -e "$link" ]; then
-            rm "$link"
+            # rm "$link"
+            /bin/rm "$link" # 软连接在我看来可以直接使用 /bin/rm
         fi
     done
 }
