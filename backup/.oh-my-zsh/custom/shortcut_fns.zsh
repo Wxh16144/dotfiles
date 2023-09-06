@@ -139,7 +139,14 @@ function remove_all_files() {
   echo -n -e "Are you sure to remove all files in \033[31;1m$currentDir\033[0m? [y/n] "
   read agreeRemove
   if [ $agreeRemove = "y" ]; then
-    echo ${files[@]} | xargs -n 1 trash -rf # brew install trash
+    for file in ${files[@]}; do
+      # 如果文件是在临时目录中或者是软连接，则直接删除，否则移动到回收站
+      if [[ $file =~ $TMPDIR || -L $file ]]; then
+        /bin/rm -rf $file
+      else
+        trash $file
+      fi
+    done
     echo "All files have been removed."
     # 判断上一条记录地址是否存在，如果存在则进入，否则进入 ../
     if [[ -d $OLDPWD ]]; then
