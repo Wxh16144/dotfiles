@@ -4,7 +4,8 @@
   "scripts": {
     "start": "npm run sync",
     "sync": "node ./scripts/sync.js -df",
-    "restore": "node ./scripts/sync.js -dr"
+    "restore": "node ./scripts/sync.js -dr",
+    ".": "node ./scripts/sync.js"
   },
   "devDependencies": {
     "@wuxh/backup-cli": "1.x"

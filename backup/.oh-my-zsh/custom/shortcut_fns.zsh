@@ -557,3 +557,11 @@ function create_tmp_dir() {
   ln -s $tmp_dir $link_dir
   cd $link_dir
 }
+
+# 打印链接 see: https://link.wxhboy.cn/3Pja
+function print_terminal_link() {
+  local url=${1:-$(pwd)}
+  local title=${2:-$url}
+  echo -e "\033]8;;$url\a$title\033]8;;\a"
+}
+
