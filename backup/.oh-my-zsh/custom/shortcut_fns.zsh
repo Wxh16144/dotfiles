@@ -565,3 +565,11 @@ function print_terminal_link() {
   echo -e "\033]8;;$url\a$title\033]8;;\a"
 }
 
+# 重新安装依赖
+# 前置依赖 remove_node_modules, npm_registry_manage, auto-install-pnpm, ni
+function re-install-fe-deps() {
+  remove_node_modules -a
+  npm_registry_manage taobao
+  auto-install-pnpm
+  ni
+}

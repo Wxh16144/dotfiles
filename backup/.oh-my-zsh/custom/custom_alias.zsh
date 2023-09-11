@@ -33,6 +33,7 @@ alias play="cd $PLAY"
 # dependent on https://github.com/wxh16144/ni
 # -------------------------------- #
 alias i="ni"
+alias rei="re-install-fe-deps"
 
 # alias s="nr start"
 alias s="start_fe_project"
