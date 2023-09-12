@@ -32,4 +32,20 @@
 		],
 		"description": "IIFE"
 	},
+	"DOM Performance Test": {
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"prefix": "perf",
+		"body": [
+			"$LINE_COMMENT #region Performance T${TM_LINE_NUMBER}",
+			"const t${TM_LINE_NUMBER}_s = performance.now();",
+			"$LINE_COMMENT ------------------------",
+			"${0:$TM_SELECTED_TEXT}",
+			"$LINE_COMMENT ------------------------",
+			"const t${TM_LINE_NUMBER}_e = performance.now();",
+			"globalThis.console.log(`t${TM_LINE_NUMBER}: ${t${TM_LINE_NUMBER}_s - t${TM_LINE_NUMBER}_e}ms`);",
+			"$LINE_COMMENT #endregion",
+			"\t",
+		],
+		"description": "DOM Performance Test"
+	}
 }
