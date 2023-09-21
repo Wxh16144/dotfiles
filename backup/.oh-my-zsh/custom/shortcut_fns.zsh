@@ -1,8 +1,10 @@
 # 在当前目录中打开 fork 应用程序
 # https://git-fork.com/
 function open_fork() {
-  if [[ -d .git ]]; then
-    open -a Fork .
+  if is_git_repository; then
+    # 得到当前 git 仓库的根目录
+    local rootDir=$(git rev-parse --show-toplevel)
+    open -a Fork $rootDir
   else
     echo "Not a git repository."
   fi
@@ -307,8 +309,12 @@ function git_fixup_commit() {
 
 # 使用一个分支备份当前 git 修改
 # 如果工作区是干净的，你还可以进行 commit message 重写
+# 输入 -r 可以备份到远端
 function git_create_branch_backup(){
   local new_branch="$(whoami)/backup/$(date +%Y-%m-%d-%H_%M_%S)"
+
+  # 写入环境变量
+  export MY_LATEST_BACKUP_BRANCH=$new_branch
 
   # 工作区是干净的
   if [[ -z $(git status --porcelain) ]]; then
@@ -317,7 +323,7 @@ function git_create_branch_backup(){
 
     git branch $new_branch
 
-    if [[ -n $1 ]]; then
+    if [[ -n $1 && $1 != "-r" ]]; then
       git checkout $new_branch
       git commit --amend -m "$1" --no-verify --no-gpg-sign
       git checkout -
@@ -343,6 +349,61 @@ function git_create_branch_backup(){
 
   if [[ -n $staged ]]; then
     git add $staged
+  fi
+
+  # -r 参数表示推送到远端
+  if [[ $1 == "-r" ]]; then
+    push_backup_to_remote $new_branch
+  fi
+}
+
+function is_git_repository() {
+  [[ -n $(git rev-parse --is-inside-work-tree &>/dev/null) ]]
+}
+
+# 推送备份分支到远端
+# 前置依赖 BACKUP_REMOTE_NAME 环境变量
+function push_backup_to_remote(){
+  # 判断当前仓库是否存在
+  if ! is_git_repository; then
+    echo "not a git repository, skip push"
+    return
+  fi
+
+  local backup_branch=${1:-$MY_LATEST_BACKUP_BRANCH}
+  if [[ -z $backup_branch || -z $BACKUP_REMOTE_NAME ]]; then
+    echo "backup_branch or BACKUP_REMOTE_NAME not found, skip push"
+    return
+  fi
+
+  # 判断要备份的分支是否存在
+  if [[ -z $(git branch -a | grep $backup_branch) ]]; then
+    echo "branch > $backup_branch < not found, skip push"
+    return
+  fi
+  
+  # 判断当前仓库是否存在 $BACKUP_REMOTE_NAME remote
+  if [[ -z $(git remote | grep $BACKUP_REMOTE_NAME) ]]; then
+    echo "remote > $BACKUP_REMOTE_NAME < not found, skip push"
+    return
+  fi
+
+  # 检查远程仓库的连接状态
+  local remote_url=$(git remote get-url $BACKUP_REMOTE_NAME);
+  if [[ -z $(git ls-remote --exit-code $remote_url) ]]; then
+    echo "remote > $BACKUP_REMOTE_NAME < is not available, skip push"
+    return
+  fi
+
+  # 推送到 backup, 默认强制推送, 并且不执行任何 hook
+  git push $BACKUP_REMOTE_NAME $backup_branch --force --no-verify
+  
+  if [[ $? -eq 0 ]]; then
+    echo -e "\033[32;1mpush $backup_branch to remote > $remote_url < success\033[0m"
+    # 删除环境变量
+    unset MY_LATEST_BACKUP_BRANCH
+  else
+    echo -e "\033[31;1mpush $backup_branch to remote > $remote_url < failed\033[0m"
   fi
 }
 
