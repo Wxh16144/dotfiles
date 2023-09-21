@@ -36,7 +36,7 @@ function start_fe_project() {
 }
 
 # 设置 npm、yarn 的 registry
-set_registry(){
+function set_registry() {
   local registry=$1
   npm config set registry $registry
   yarn config set registry $registry
@@ -358,7 +358,9 @@ function git_create_branch_backup(){
 }
 
 function is_git_repository() {
-  [[ -n $(git rev-parse --is-inside-work-tree &>/dev/null) ]]
+  if [[ -z $(git rev-parse --is-inside-work-tree 2>/dev/null) ]]; then
+    return 1
+  fi
 }
 
 # 推送备份分支到远端
