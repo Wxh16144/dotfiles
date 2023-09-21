@@ -1,3 +1,17 @@
+local RED="\033[31;1m"
+local GREEN="\033[32;1m"
+local YELLOW="\033[33;1m"
+local RESET="\033[0m"
+
+print_red() {
+  echo -e "${RED}$*${RESET}"
+}
+print_green() {
+  echo -e "${GREEN}$*${RESET}"
+}
+
+# ==================== Functions ====================
+
 # 在当前目录中打开 fork 应用程序
 # https://git-fork.com/
 function open_fork() {
@@ -6,7 +20,7 @@ function open_fork() {
     local rootDir=$(git rev-parse --show-toplevel)
     open -a Fork $rootDir
   else
-    echo "Not a git repository."
+    print_red "Not a git repository."
   fi
 }
 
@@ -21,7 +35,7 @@ function has_script() {
 function start_fe_project() {
 
   function run_script() {
-    echo "\033[32mCurrent project start method: \033[31;1m$*\033[0m"
+    echo -e "${GREEN}Current project start method: ${YELLOW}$*${RESET}"
     # execute the input command
     eval $*
   }
@@ -31,7 +45,7 @@ function start_fe_project() {
   elif has_script dev; then
     run_script $(nr dev "?")
   else
-    echo "No dev or start script found."
+    print_red "No dev or start script found."
   fi
 }
 
@@ -40,7 +54,7 @@ function set_registry() {
   local registry=$1
   npm config set registry $registry
   yarn config set registry $registry
-  echo "Set registry to $registry"
+  print_green "Set registry to $registry"
 }
 
 # 管理 npm registry
@@ -72,13 +86,12 @@ function npm_registry_manage() {
 
   # 如果没有参数, 则表示查看当前 registry，并且询问是否要重置为默认 registry [npm]
   if [ $# -eq 0 ]; then
-    echo "Current registry: $(na config get registry)"
+    print_green "Current registry: $(npm config get registry)"
 
-    echo -n -e "Reset to default registry[npm]? [y/n] "
+    echo -n -e "${YELLOW}Reset to default registry[npm]? [y/n] ${RESET}"
     read agreeReset
     if [ $agreeReset = "y" ]; then
       set_registry ${registrys[npm]}
-      echo "Reset to default registry: ${registrys[npm]}"
     fi
     return
   fi
@@ -86,16 +99,15 @@ function npm_registry_manage() {
   # 判断输入的 registry 是否存在
   if [ -z ${registrys[$input_registry]} ]; then
     if [[ $input_registry != "h" && $input_registry != "help" && $input_registry != "ls" ]]; then
-      # echo "Registry $input_registry not found."
-      echo "\033[31;1mRegistry $input_registry not found.\033[0m"
+      print_red "Registry $input_registry not found."
     fi
 
-    echo "\033[32;1mAvailable registrys:"
+    print_green "Available registrys:"
 
     for key in ${(@k)registrys}; do
-      # echo "  $key: ${registrys[$key]}"
-      echo "\033[31;1m$key\033[0m: \033[32;1m${registrys[$key]}\033[0m"
+      echo -e " ${RED}$key: ${YELLOW}${registrys[$key]}${RESET}";
     done
+
     return
   fi
 
@@ -116,7 +128,7 @@ function remove_node_modules() {
   local nm=$(list_node_modules)
   if [[ $1 == "-a" ]]; then
     echo $nm | xargs -n 1 /bin/rm -rf
-    echo "All node_modules have been removed."
+    print_green "All node_modules have been removed."
   else
     echo $nm | xargs -n 1 -p /bin/rm -rf
   fi
@@ -130,7 +142,7 @@ function remove_all_files() {
 
   # 如果当前项目是软链接，则删除源文件
   if [[ -L $currentDir ]]; then
-    echo -e "\033[31;1m$currentDir\033[0m is a symbolic link, will remove the source file."
+    print_red "$currentDir is a symbolic link, will remove the source file."
     # 将软连接本身添加到待删除列表
     files+=($currentDir)
     currentDir=$(readlink $currentDir)
@@ -138,7 +150,7 @@ function remove_all_files() {
 
   files+=($currentDir)
 
-  echo -n -e "Are you sure to remove all files in \033[31;1m$currentDir\033[0m? [y/n] "
+  echo -n -e "${YELLOW}Are you sure to remove all files in ${RED}$currentDir${RESET}? [y/n] "
   read agreeRemove
   if [ $agreeRemove = "y" ]; then
     for file in ${files[@]}; do
@@ -329,7 +341,7 @@ function git_create_branch_backup(){
       git checkout -
     fi
 
-    echo "The current workspace is clean, and a new branch:${new_branch} is created"
+    print_green "The current workspace is clean, and a new branch:${new_branch} is created"
     return 1
   fi
 
@@ -378,34 +390,33 @@ function is_git_repository() {
 # 推送备份分支到远端
 # 前置依赖 BACKUP_REMOTE_NAME 环境变量
 function push_backup_to_remote(){
-  # 判断当前仓库是否存在
   if ! is_git_repository; then
-    echo "not a git repository, skip push"
+    print_red "not a git repository, skip push"
     return
   fi
 
   local backup_branch=${1:-$MY_LATEST_BACKUP_BRANCH}
   if [[ -z $backup_branch || -z $BACKUP_REMOTE_NAME ]]; then
-    echo "backup_branch or BACKUP_REMOTE_NAME not found, skip push"
+    print_red "backup_branch or BACKUP_REMOTE_NAME not found, skip push"
     return
   fi
 
   # 判断要备份的分支是否存在
   if [[ -z $(git branch -a | grep $backup_branch) ]]; then
-    echo "branch > $backup_branch < not found, skip push"
+    print_red "branch > $backup_branch < not found, skip push"
     return
   fi
   
   # 判断当前仓库是否存在 $BACKUP_REMOTE_NAME remote
   if [[ -z $(git remote | grep $BACKUP_REMOTE_NAME) ]]; then
-    echo "remote > $BACKUP_REMOTE_NAME < not found, skip push"
+    print_red "remote > $BACKUP_REMOTE_NAME < not found, skip push"
     return
   fi
 
   # 检查远程仓库的连接状态
   local remote_url=$(git remote get-url $BACKUP_REMOTE_NAME);
   if [[ -z $(git ls-remote --exit-code $remote_url) ]]; then
-    echo "remote > $BACKUP_REMOTE_NAME < is not available, skip push"
+    print_red "remote > $BACKUP_REMOTE_NAME:$remote_url < is not available, skip push"
     return
   fi
 
@@ -413,11 +424,11 @@ function push_backup_to_remote(){
   git push $BACKUP_REMOTE_NAME $backup_branch --force --no-verify
   
   if [[ $? -eq 0 ]]; then
-    echo -e "\033[32;1mpush $backup_branch to remote > $remote_url < success\033[0m"
+    print_green "push $backup_branch success"
     # 删除环境变量
     unset MY_LATEST_BACKUP_BRANCH
   else
-    echo -e "\033[31;1mpush $backup_branch to remote > $remote_url < failed\033[0m"
+    print_red "push $backup_branch failed"
   fi
 }
 
@@ -438,7 +449,7 @@ function git_add_remote() {
   local userName=$(echo $url | awk -F ':' '{print $2}' | awk -F '/' '{print $1}')
 
   if [[ -z $userName ]]; then
-    echo "invalid url"
+    print_red "invalid url"
     return 1
   fi
 
@@ -450,15 +461,15 @@ function git_add_remote() {
   local isExist=$(git remote | grep $userName)
 
   if [[ -n $isExist ]]; then
-    echo "remote $userName already exists"
+    print_red "remote $userName already exists"
     return 1
   fi
 
   git remote add $userName $url
 
-  echo -e "remote \033[32;1m$userName\033[0m added"
+  echo -e "remote ${GREEN}$userName${RESET} added"
 
-  echo -n -e "Do you want to fetch remote? [y/N]"
+  echo -n -e "${YELLOW}Do you want to fetch remote? [y/N]${RESET}"
   read isFetch
   if [[ $isFetch == "y" ]]; then
     git fetch $userName
@@ -483,9 +494,9 @@ function get_ip() {
   for service in ${services[@]}; do
     local ip=$(curl -s $service)
     if [[ -z $ip ]]; then
-      echo -e "\033[31;1m$service\033[0m: \033[31;1mfailed\033[0m"
+      echo -e "${RED}$service${RESET}: ${RED}failed${RESET}"
     else
-      echo -e "\033[32;1m$service\033[0m: $ip"
+      echo -e "${GREEN}$service${RESET}: $ip"
     fi
   done
 }
@@ -514,13 +525,13 @@ function start_server() {
   local local_ip=$(get_ip_local | head -n 1)
 
   if [[ -n $public_ip ]]; then
-    echo -e "\033[32;1mpublic ip\033[0m: $public_ip"
+    echo -e "${GREEN}public ip${RESET}: $public_ip"
     qrcode "http://$public_ip:$port"
     echo "https://qrcode.show/http://$public_ip:$port" && echo
   fi
 
   if [[ -n $local_ip ]]; then
-    echo -e "\033[32;1mlocal ip\033[0m: $local_ip"
+    echo -e "${GREEN}local ip${RESET}: $local_ip"
     qrcode "http://$local_ip:$port"
     echo "https://qrcode.show/http://$local_ip:$port" && echo
   fi
@@ -549,21 +560,21 @@ function push_ignored_directory() {
 
   # ----------------- check remote start -----------------
   if [[ -z $remote_url ]]; then
-    echo -e "\033[31;1m$remote_name\033[0m is not a remote name"
+    echo -e "${RED}$remote_name${RESET} is not a remote name"
     return 1
   fi
 
   # ----------------- check dir start ----------------- 
   if [[ ! -d $igored_dir ]]; then
-    echo -e "\033[31;1m$igored_dir\033[0m is not a directory"
+    echo -e "${RED}$igored_dir${RESET} is not a directory"
     return 1
   fi
   if [[ -z $(ls -A $igored_dir) ]]; then
-    echo -e "\033[31;1m$igored_dir\033[0m is empty"
+    echo -e "${RED}$igored_dir${RESET} is empty"
     return 1
   fi
   if [[ -d $igored_dir/.git ]]; then
-    echo -e "\033[31;1m$igored_dir\033[0m is a git repository"
+    echo -e "${RED}$igored_dir${RESET} is a git repository"
     return 1
   fi
   
@@ -588,7 +599,7 @@ function push_ignored_directory() {
   # rm -rf $tmp_dir
   /bin/rm -rf $tmp_dir
 
-  echo -e "\033[32;1m$igored_dir\033[0m pushed to \033[32;1m$remote_url\033[0m => \033[32;1m$branch\033[0m"
+  echo -e "${GREEN}$igored_dir${RESET} pushed to ${GREEN}$remote_url${RESET} => ${GREEN}$branch${RESET}"
 }
 
 # 查找并删除无效软连接
@@ -643,7 +654,7 @@ function print_terminal_link() {
 # 重新安装依赖
 # 前置依赖 remove_node_modules, npm_registry_manage, auto-install-pnpm, ni
 function re-install-fe-deps() {
-  echo "Please wait patiently..."
+  echo "${YELLOW}Please wait patiently...${RESET}"
   remove_node_modules -a
   npm_registry_manage taobao
   auto-install-pnpm
