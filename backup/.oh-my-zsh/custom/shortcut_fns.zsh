@@ -334,13 +334,25 @@ function git_create_branch_backup(){
   fi
 
   local branch=$(git rev-parse --abbrev-ref HEAD)
-  local hash=$(git rev-parse --short HEAD)
+  local short_hash=$(git rev-parse --short HEAD)
 
   local staged=$(git diff --cached --name-only)
   # local unstaged=$(git diff --name-only)
 
   git add -A
-  git commit --no-verify --no-gpg-sign -m "backup: WIP ${branch}[${hash}] (--skip-ci)"
+  git commit --no-verify --no-gpg-sign -m "$(cat <<EOF
+WIP chore: backup on ${branch}(${short_hash}) [skip-ci]
+
+- branch: ${branch}
+- date: $(date +%Y-%m-%d\ %H:%M:%S)
+- hash: $(git rev-parse HEAD)
+
+---------- original commit message ----------
+
+$(git log -1 --pretty=%B)
+
+EOF
+)"
 
   git checkout -b $new_branch
 
