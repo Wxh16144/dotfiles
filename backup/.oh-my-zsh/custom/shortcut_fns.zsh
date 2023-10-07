@@ -312,7 +312,7 @@ function git_fixup_commit() {
     hash=$(git log -1 --pretty=%H)
   fi
 
-  git commit --fixup $hash
+  git commit --fixup $hash --no-verify
 
   # --autosquash 模式不支持非交互式 reabse, 需要通过环境变量控制
   # https://stackoverflow.com/questions/29094595/git-interactive-rebase-without-opening-the-editor#answer-29094904
@@ -341,7 +341,7 @@ function git_create_branch_backup(){
       git checkout -
     fi
 
-    print_green "The current workspace is clean, and a new branch:${new_branch} is created"
+    echo -e "The current workspace is clean, and a new branch:${GREEN}${new_branch}${RESET} is created"
     return 1
   fi
 
@@ -357,7 +357,7 @@ WIP chore: backup on ${branch}(${short_hash}) [skip-ci]
 
 - branch: ${branch}
 - date: $(date +%Y-%m-%d\ %H:%M:%S)
-- hash: $(git rev-parse HEAD)
+- commit: $(git rev-parse HEAD)
 
 ---------- original commit message ----------
 
