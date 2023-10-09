@@ -79,8 +79,8 @@ alias dirt="create_tmp_dir"
 # network
 alias ip="get_ip"
 alias ipl="get_ip_local"
-alias ser="start_server"
-
+alias ser="quick_server"
+alias pser="private_server"
 
 # zsh
 alias zshrc='code --disable-extensions "${ZDOTDIR:-$HOME}"/.zshrc'

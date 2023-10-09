@@ -513,32 +513,75 @@ function qrcode() {
   curl -d "$input" https://qrcode.show
 }
 
-# 启动一个 http 服务，并生成二维码
-# usage: start_server [dir] [port]
-# 依赖
-#   http-server: https://www.npmjs.com/package/http-server
-function start_server() {
+# 快速创建一个 server
+# 前置条件：
+# 1. 安装了 nodejs 和 http-server， see：https://www.npmjs.com/package/http-server
+# 2. 本地已经安装了 ngrok, 并且已经完成配置 see：https://ngrok.com/download
+# 3. 本地安装了 jq, see: https://jqlang.github.io/jq/
+# 4. 一些我的前置函数 qrcode、get_ip_local
+# example:
+# quick_server # 默认当前目录 端口 8888
+# quick_server coverage
+function quick_server() {
+  local port=${PORT:-$2}
   local dir=${1:-.}
-  local port=${2:-8000}
 
-  local public_ip=$(get_ip 1 | grep -Eo "([0-9]{1,3}[\.]){3}[0-9]{1,3}" | head -n 1)
-  local local_ip=$(get_ip_local | head -n 1)
-
-  if [[ -n $public_ip ]]; then
-    echo -e "${GREEN}public ip${RESET}: $public_ip"
-    qrcode "http://$public_ip:$port"
-    echo "https://qrcode.show/http://$public_ip:$port" && echo
+  # Fallback to default port
+  if [[ -z $port ]]; then
+    port=8888
   fi
 
+  # Check for port availability
+  if [[ -n $(lsof -i :$port) ]]; then
+    echo -e "${RED}Port $port is occupied.${RESET}"
+    return 1
+  fi
+
+  local local_ip=$(get_ip_local | head -n 1)
   if [[ -n $local_ip ]]; then
-    echo -e "${GREEN}local ip${RESET}: $local_ip"
+    echo -e "${GREEN}Local URL${RESET}: http://$local_ip:$port"
     qrcode "http://$local_ip:$port"
     echo "https://qrcode.show/http://$local_ip:$port" && echo
   fi
 
-  # start server: https://www.npmjs.com/package/http-server
-  http-server $dir -p $port
+  # 杀死所有的 ngrok 进程(不在乎误杀)
+  killall_ngrok() {
+    killall ngrok
+  }
+  trap killall_ngrok EXIT # 在退出时也杀死
 
+  if [[ -z $NGROK_DISABLED && -x $(command -v ngrok) ]]; then
+    killall_ngrok
+    # Start ngrok
+    ngrok http $port >/dev/null 2>&1 &
+    # Wait for ngrok to start
+    sleep 3
+    # Get ngrok URL
+    local ngrok_url=$(curl -s http://127.0.0.1:4041/api/tunnels | jq -r '.tunnels[0].public_url')
+    echo -e "${GREEN}Ngrok URL${RESET}: $ngrok_url"
+    qrcode $ngrok_url
+    # Echo inspect URL
+    echo -e "${YELLOW}Inspect URL${RESET}: http://localhost:4041"
+    echo "https://qrcode.show/$ngrok_url" && echo
+  fi
+
+  # Start server using http-server
+  http-server $dir -p $port
+}
+
+# 基于 quick_server 的一个快速创建一个 private server (不使用 ngrok)
+function private_server() {
+  # Define a trap to clean up environment variables on function termination
+  cleanup() {
+    unset NGROK_DISABLED
+  }
+  trap cleanup EXIT
+
+  # Set environment variables
+  export NGROK_DISABLED=true
+
+  # Start server
+  quick_server $@
 }
 
 # 统计指定目录下的当个文件行数并排序[降序]（默认忽略 node_modules, .git, dist 目录）
