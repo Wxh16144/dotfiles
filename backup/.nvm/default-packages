@@ -11,7 +11,7 @@ fanyi@8.x
 lambda-view@latest
 
 # ---- mySelf Packages ----
-@wuxh/ni@0.20.0-fork.0
+@wuxh/ni@latest
 console-figlet@latest
 # @wuxh/backup-cli@latest
 wxh16144@latest
