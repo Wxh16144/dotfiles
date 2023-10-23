@@ -584,11 +584,11 @@ function private_server() {
   quick_server $@
 }
 
-# 统计指定目录下的当个文件行数并排序[降序]（默认忽略 node_modules, .git, dist 目录）
+# 统计指定目录下的当个文件行数并排序[降序](Top 300)（默认忽略 node_modules, .git, dist 目录）
 # usage: count_lines [dir]
 function count_lines(){
   # https://stackoverflow.com/a/316613/11302760
-  find ${1:-.} -type f -not -path "*/node_modules/*" -not -path "*/.git/*" -not -path "*/dist/*" -print0 | xargs -0 wc -l | sort -nr
+  find ${1:-.} -type f -not -path "*/node_modules/*" -not -path "*/.git/*" -not -path "*/dist/*" -print0 | xargs -0 wc -l | sort -rn | head -n 300
 }
 
 # 将指定目录推送到远程仓库
