@@ -17,6 +17,7 @@ alias rmm="trash" # brew install trash
 # https://stackoverflow.com/a/19663203/11302760
 alias st='open -a SourceTree .'
 alias f="open_fork"
+alias fk="caffeinate -u -t 3600" # prevent mac from sleeping
 
 # -------------------------------- #
 # Directory alias

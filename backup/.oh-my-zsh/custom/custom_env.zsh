@@ -1,7 +1,9 @@
 export GITHUB_NAME="Wxh16144"
 # export GITHUB_TOKEN="" # private
 
-export APP=/Users/wuxh/Library/Application\ Support
+# /Users/{username} => ~
+export APP=~/Library/Application\ Support
+export ICLOUD=~/Library/Mobile\ Documents/com~apple~CloudDocs
 
 # Increase Bash history size. Allow 32³ entries; the default is 1000.
 export HISTSIZE='32768';
