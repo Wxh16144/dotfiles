@@ -533,7 +533,7 @@ function quick_server() {
 
   # Check for port availability
   if [[ -n $(lsof -i :$port) ]]; then
-    echo -e "${RED}Port $port is occupied.${RESET}"
+    echo -e "${RED}Port $port is occupied.${RESET}, check ${GREEN}lsof -i tcp:$port${RESET}"
     return 1
   fi
 
