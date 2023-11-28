@@ -4,10 +4,13 @@
   "scripts": {
     "start": "npm run sync",
     "sync": "node ./scripts/sync.js -df",
-    "restore": "node ./scripts/sync.js -dr",
+    "restore": "npm run safe-restore",
+    "safe-restore": "node ./scripts/safe-restore.js",
+    "unsafe_restore": "node ./scripts/sync.js -drf",
     ".": "node ./scripts/sync.js"
   },
   "devDependencies": {
-    "@wuxh/backup-cli": "1.x"
+    "@wuxh/backup-cli": "^1.x",
+    "simple-git": "3.21.0"
   }
 }
