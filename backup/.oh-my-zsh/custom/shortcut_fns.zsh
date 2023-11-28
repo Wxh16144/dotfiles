@@ -703,3 +703,12 @@ function re-install-fe-deps() {
   auto-install-pnpm
   ni
 }
+
+# 将项目 clone 到临时目录，并且建立软连接到 $PLAY 目录
+# 前置依赖 create_tmp_dir
+function clone_to_tmp_dir() {
+  local repo=$1
+  local dirname=$(basename $repo .git)
+  create_tmp_dir $dirname
+  clone_and_cd $repo .
+}

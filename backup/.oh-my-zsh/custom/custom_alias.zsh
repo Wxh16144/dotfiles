@@ -92,6 +92,7 @@ alias custom="code --disable-extensions $ZSH_CUSTOM"
 # Git shortcut
 # -------------------------------- #
 alias clone="clone_and_cd"
+alias clonet="clone_to_tmp_dir"
 alias clonemy="clone_my_project"
 alias cloneoss="clone_oss_project"
 
