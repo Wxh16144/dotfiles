@@ -29,23 +29,35 @@ function has_script() {
   [[ $(npm run | grep "^  $1$" | wc -l) -eq 1 ]]
 }
 
+function _fe_run_script() {
+  echo -e "${GREEN}Current project start method: ${YELLOW}$*${RESET}"
+  # execute the input command
+  eval $*
+}
+
 # 判断并启动前端工程化项目
 # 依赖
 #   - nr: https://github.com/wxh16144/ni
 function start_fe_project() {
-
-  function run_script() {
-    echo -e "${GREEN}Current project start method: ${YELLOW}$*${RESET}"
-    # execute the input command
-    eval $*
-  }
-
   if has_script start; then
-    run_script $(nr start "?")
+    _fe_run_script $(nr start "?")
   elif has_script dev; then
-    run_script $(nr dev "?")
+    _fe_run_script $(nr dev "?")
   else
     print_red "No dev or start script found."
+  fi
+}
+
+# 判断并且编译前端工程化项目
+# 依赖
+#   - nr: https://github.com/wxh16144/ni
+function compile_fe_peoject() {
+  if has_script build; then
+    _fe_run_script $(nr build "?")
+  elif has_script compile; then
+    _fe_run_script $(nr compile "?")
+  else
+    print_red "No build or compile script found."
   fi
 }
 

@@ -39,7 +39,8 @@ alias rei="re-install-fe-deps"
 # alias s="nr start"
 alias s="start_fe_project"
 
-alias b="nr build"
+# alias b="nr build"
+alias b="compile_fe_peoject"
 alias t="nr test"
 alias lint="nr lint"
 alias lintf="nr lint --fix"
@@ -48,6 +49,7 @@ alias nrr="npm_registry_manage" # npm registry manage
 # -------------------------------- #
 # Command Line Tools
 # -------------------------------- #
+alias o="open ."
 alias p="pwd"
 alias e="exit"
 alias h='history'
