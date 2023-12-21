@@ -221,7 +221,7 @@ function clone_my_project() {
 # 克隆开源项目
 # 依赖
 #   - OSS 环境变量(开源项目目录)
-#   - GITHUB_NAME 环境变量(自己的 github 用户名)
+#   - GITHUB_NAME 环境变量(自己的 github 用户名) + -forks (用于存放 fork 的项目)
 function clone_oss_project() {
   local repo=$1
   local project_path=$OSS/$(basename $repo .git)
@@ -237,7 +237,8 @@ function clone_oss_project() {
     local repoName=$(basename "$repo" .git)
     # setting upstream
     git remote add upstream $repo
-    git remote set-url origin "git@github.com:$GITHUB_NAME/$repoName.git"
+    # https://twitter.com/Wxh16144/status/1737664681786093885
+    git remote set-url origin "git@github.com:$GITHUB_NAME-forks/$repoName.git"
 
     # Get the unique branch name after cloning
     local branchName=$(git branch -a | grep remotes/origin/HEAD | sed 's/.*\///')
@@ -340,6 +341,14 @@ function git_create_branch_backup(){
   # 写入环境变量
   export MY_LATEST_BACKUP_BRANCH=$new_branch
 
+  function try_push_backup_to_remote(){
+    # -r 参数表示推送到远端(如果在公司项目则默认推送到远端)
+    if [[ $1 == "-r" || $(pwd) =~ $COMPANY ]]; then
+      echo -e "${YELLOW}Will try to push to backup...${RESET}"
+      push_backup_to_remote $new_branch
+    fi
+  }
+
   # 工作区是干净的
   if [[ -z $(git status --porcelain) ]]; then
     # 获取当前 commit message
@@ -354,6 +363,7 @@ function git_create_branch_backup(){
     fi
 
     echo -e "The current workspace is clean, and a new branch:${GREEN}${new_branch}${RESET} is created"
+    try_push_backup_to_remote $1
     return 1
   fi
 
@@ -387,10 +397,7 @@ EOF
     git add $staged
   fi
 
-  # -r 参数表示推送到远端
-  if [[ $1 == "-r" ]]; then
-    push_backup_to_remote $new_branch
-  fi
+  try_push_backup_to_remote $1
 }
 
 function is_git_repository() {
