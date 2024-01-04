@@ -140,7 +140,7 @@ export LC_ALL=en_US.UTF-8
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # load custom alias
-[[ -e "$ZSH_CUSTOM/custom_alias.zsh" ]] && source "$ZSH_CUSTOM/custom_alias.zsh"
+[[ -s "$ZSH_CUSTOM/custom_alias.zsh" ]] && source "$ZSH_CUSTOM/custom_alias.zsh"
 
 source ~/.config/broot/launcher/bash/br
 source ~/.gvm/scripts/gvm
@@ -151,12 +151,12 @@ export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
 # .cargo
-[[ -e "$HOME/.cargo/env"]] && source "$HOME/.cargo/env"
+[[ -s "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+[[ -s "${HOME}/.iterm2_shell_integration.zsh" ]] && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # bun completions
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+[[ -s "$HOME/.bun/_bun" ]] && source "$HOME/.bun/_bun"
 
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"

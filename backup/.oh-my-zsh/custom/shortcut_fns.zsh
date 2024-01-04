@@ -686,12 +686,12 @@ function generate_short_hash() {
 # 创建一个临时文件夹，然后软连接到 $PLAY 目录， 可以输入一个参数作为目录名
 function create_tmp_dir() {
   find_and_remove_broken_links
-  local fallbacl_dir="$(whoami)-$(generate_short_hash)"
-  local dirname=${1:-$fallbacl_dir}
+  local fallback_dir="$(whoami)-$(generate_short_hash)"
+  local dirname=${1:-$fallback_dir}
   local tmp_dir="$TMPDIR$dirname"
 
   # 如果不是自定义目录，且存在则重新生成
-  if [[ $dirname == $fallbacl_dir && -d $tmp_dir ]]; then
+  if [[ $dirname == $fallback_dir && -d $tmp_dir ]]; then
     create_tmp_dir
     return
   fi
@@ -729,5 +729,5 @@ function clone_to_tmp_dir() {
   local repo=$1
   local dirname=$(basename $repo .git)
   create_tmp_dir $dirname
-  clone_and_cd $repo .
+  clone_and_cd $repo $(pwd)
 }
