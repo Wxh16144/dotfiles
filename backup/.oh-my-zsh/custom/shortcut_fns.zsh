@@ -576,11 +576,11 @@ function quick_server() {
     # Wait for ngrok to start
     sleep 3
     # Get ngrok URL
-    local ngrok_url=$(curl -s http://127.0.0.1:4041/api/tunnels | jq -r '.tunnels[0].public_url')
+    local ngrok_url=$(curl -s http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[0].public_url')
     echo -e "${GREEN}Ngrok URL${RESET}: $ngrok_url"
     qrcode $ngrok_url
     # Echo inspect URL
-    echo -e "${YELLOW}Inspect URL${RESET}: http://localhost:4041"
+    echo -e "${YELLOW}Inspect URL${RESET}: http://localhost:4040"
     echo "https://qrcode.show/$ngrok_url" && echo
   fi
 
@@ -723,11 +723,11 @@ function re-install-fe-deps() {
   ni
 }
 
-# 将项目 clone 到临时目录，并且建立软连接到 $PLAY 目录
+# 将项目 clone 到临时目录(不克隆提交历史），并且建立软连接到 $PLAY 目录
 # 前置依赖 create_tmp_dir
 function clone_to_tmp_dir() {
   local repo=$1
   local dirname=$(basename $repo .git)
   create_tmp_dir $dirname
-  clone_and_cd $repo $(pwd)
+  clone_and_cd $repo $(pwd) --depth=1 # 既然是临时的，默认不克隆提交历史
 }

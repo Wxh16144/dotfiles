@@ -71,5 +71,9 @@
     // extension: AngeloPerera.vscode-open-in-fork
     "key": "ctrl+cmd+s",
     "command": "openInFork.open"
+  },
+  {
+    "key": "ctrl+shift+cmd+r",
+    "command": "workbench.action.restartExtensionHost"
   }
 ]
