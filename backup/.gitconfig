@@ -63,7 +63,8 @@
 [commit]
 	gpgsign = true
 
-[includeIf "gitdir:~/Code/CompanyProject/"]
+[includeIf "gitdir:~/Code/company/"]
   path = ~/.gitconfig_work
+
 [init]
 	defaultBranch = master

@@ -473,7 +473,7 @@ function git_add_remote() {
   fi
 
   # myself
-  if [[ $userName == $GITHUB_NAME ]]; then
+  if [[ $userName == $GITHUB_NAME* ]]; then
     userName="origin"
   fi
 
