@@ -142,8 +142,8 @@ export LC_ALL=en_US.UTF-8
 # load custom alias
 [[ -s "$ZSH_CUSTOM/custom_alias.zsh" ]] && source "$ZSH_CUSTOM/custom_alias.zsh"
 
-source ~/.config/broot/launcher/bash/br
-source ~/.gvm/scripts/gvm
+[[ -s "$HOME/.config/broot/launcher/bash/br" ]] && source "$HOME/.config/broot/launcher/bash/br"
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
