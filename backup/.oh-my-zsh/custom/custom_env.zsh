@@ -23,9 +23,3 @@ export MY_NPM_REGISTRY="http://nas.wxhboy.cn:98/"
 
 # git backup
 export BACKUP_REMOTE_NAME="backup"
-
-# Fixing "The chromium binary is not available for arm64"
-# see: https://www.broddin.be/fixing-the-chromium-binary-is-not-available-for-arm64/
-# node -e 'console.log(process.arch)' // arm64
-export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-export PUPPETEER_EXECUTABLE_PATH=`which chromium`

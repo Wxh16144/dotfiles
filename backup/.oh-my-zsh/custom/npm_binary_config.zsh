@@ -23,3 +23,9 @@ export CYPRESS_DOWNLOAD_PATH_TEMPLATE='https://cdn.npmmirror.com/binaries/cypres
 export PUPPETEER_DOWNLOAD_HOST="https://cdn.npmmirror.com/binaries"
 # puppeteer>20.1+
 export PUPPETEER_DOWNLOAD_BASE_URL="https://cdn.npmmirror.com/binaries/chrome-for-testing"
+
+# Fixing "The chromium binary is not available for arm64"
+# see: https://www.broddin.be/fixing-the-chromium-binary-is-not-available-for-arm64/
+# node -e 'console.log(process.arch)' // arm64
+export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+export PUPPETEER_EXECUTABLE_PATH=`which chromium`
