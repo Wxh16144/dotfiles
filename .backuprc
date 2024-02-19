@@ -8,6 +8,9 @@ bash
 gh
 rust
 snipaste
+npm
+pnpm
+yarn
 
 # -------- override --------
 zsh
