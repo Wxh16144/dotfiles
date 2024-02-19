@@ -4,7 +4,6 @@
   "scripts": {
     "start": "npm run sync",
     "sync": "node ./scripts/sync.js -df",
-    "postsync": "node ./scripts/desensitize.js",
     "restore": "npm run safe-restore",
     "safe-restore": "node ./scripts/safe-restore.js",
     "unsafe_restore": "node ./scripts/sync.js -drf",
@@ -12,8 +11,6 @@
   },
   "devDependencies": {
     "@wuxh/backup-cli": "^1.x",
-    "fast-glob": "^3.3.2",
-    "fs-extra": "^11.2.0",
     "simple-git": "3.21.0"
   }
 }
