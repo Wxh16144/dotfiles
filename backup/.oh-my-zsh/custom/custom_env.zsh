@@ -1,3 +1,7 @@
+# https://stackoverflow.com/a/65142525
+export VISUAL=$ZSH_CUSTOM/shells/code-wait.sh
+export EDITOR=$ZSH_CUSTOM/shells/code-wait.sh
+
 export GITHUB_NAME="Wxh16144"
 # export GITHUB_TOKEN="" # private
 
