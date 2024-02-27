@@ -686,7 +686,7 @@ function generate_short_hash() {
 # 创建一个临时文件夹，然后软连接到 $PLAY 目录， 可以输入一个参数作为目录名
 function create_tmp_dir() {
   find_and_remove_broken_links
-  local fallback_dir="$(whoami)-$(generate_short_hash)"
+  local fallback_dir="$(whoami)_tmp_$(generate_short_hash)"
   local dirname=${1:-$fallback_dir}
   local tmp_dir="$TMPDIR$dirname"
 
@@ -728,6 +728,6 @@ function re-install-fe-deps() {
 function clone_to_tmp_dir() {
   local repo=$1
   local dirname=$(basename $repo .git)
-  create_tmp_dir $dirname
+  create_tmp_dir "$(whoami)_clone_$dirname"
   clone_and_cd $repo $(pwd) --depth=1 # 既然是临时的，默认不克隆提交历史
 }

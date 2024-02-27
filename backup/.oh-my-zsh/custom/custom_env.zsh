@@ -3,7 +3,6 @@ export VISUAL=$ZSH_CUSTOM/shells/code-wait.sh
 export EDITOR=$ZSH_CUSTOM/shells/code-wait.sh
 
 export GITHUB_NAME="Wxh16144"
-# export GITHUB_TOKEN="" # private
 
 # /Users/{username} => ~
 export APP=~/Library/Application\ Support
@@ -14,6 +13,7 @@ export HISTSIZE='32768';
 export HISTFILESIZE="${HISTSIZE}";
 
 # my projects directory
+export USER_CONFIG="$HOME/Config"
 export WORKSPACE="$HOME/Code"
 export COMPANY=$WORKSPACE/company
 export OSS=$WORKSPACE/oss
@@ -27,3 +27,8 @@ export MY_NPM_REGISTRY="http://nas.wxhboy.cn:98/"
 
 # git backup
 export BACKUP_REMOTE_NAME="backup"
+
+# temp
+# https://apple.stackexchange.com/a/22716
+# https://iboysoft.com/wiki/tmp-folder-mac.html
+# export OSX_TMPDIR=$TMPDIR
