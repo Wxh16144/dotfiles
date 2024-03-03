@@ -54,6 +54,7 @@ function start_fe_project() {
 function compile_fe_peoject() {
   if has_script build; then
     _fe_run_script $(nr build "?")
+    good_job
   elif has_script compile; then
     _fe_run_script $(nr compile "?")
   else
@@ -398,6 +399,8 @@ EOF
   fi
 
   try_push_backup_to_remote $1
+
+  good_job
 }
 
 function is_git_repository() {
@@ -721,6 +724,7 @@ function re-install-fe-deps() {
   npm_registry_manage taobao
   auto-install-pnpm
   ni
+  good_job
 }
 
 # 将项目 clone 到临时目录(不克隆提交历史），并且建立软连接到 $PLAY 目录
@@ -730,4 +734,13 @@ function clone_to_tmp_dir() {
   local dirname=$(basename $repo .git)
   create_tmp_dir "$(whoami)_clone_$dirname"
   clone_and_cd $repo $(pwd) --depth=1 # 既然是临时的，默认不克隆提交历史
+}
+
+# good job
+# 前置：raycastapp
+# https://www.raycast.com/changelog/1-35-0, https://manual.raycast.com/deeplinks
+function good_job() {
+  if [[ $? -eq 0 ]]; then
+    open "raycast://confetti"
+  fi
 }
