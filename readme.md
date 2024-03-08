@@ -30,10 +30,16 @@ rm -rf ./backup
 npm install && npm run start
 ```
 
-## 直接使用方式(不推荐的)
+<!-- https://github.com/orgs/community/discussions/16925 -->
 
-> [!WARNING]
-> 正常来说，你不需要全部采用我的配置，这很危险！！！它会覆盖你原有的配置，建议你阅读 [backup](./backup/) 这个目录，摘选可能适合你的配置。
+> [!CAUTION]
+> 数据脱敏，个人建议将敏感数据单独放一个文件，我的约定是 `$ZSH_CUSTOM/private_env.zsh`，可以结合自己实际情况参考～
+> 我的脱敏操作：`desensitize_env $ZSH_CUSTOM/private_env.zsh ./backup/.oh-my-zsh/custom/private_env.desensitized.zsh`
+
+## 直接使用方式
+
+> [!NOTE]
+> 通常来说，你不需要全部采用我的配置，这很危险！！！它会覆盖你原有的配置，建议你阅读 [backup](./backup/) 这个目录，摘选可能适合你的配置。
 
 ### 1. 克隆仓库
 
