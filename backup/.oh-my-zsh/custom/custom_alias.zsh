@@ -63,10 +63,12 @@ alias c="clear && printf '\e[3J'"
 alias treem="tree -I 'node_modules|cache|test_*' -L 3"
 
 # hide a directory or file
-alias hidedir="chflags hidden"
+alias hide="chflags hidden"
+alias show="chflags nohidden"
 
-# unhide a directory or file
-alias unhidedir="chflags nohidden"
+# https://stackoverflow.com/a/71716482
+alias hideicon="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showicon="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
 # front-end-node_modules
 alias lsnm="list_node_modules"
