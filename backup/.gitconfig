@@ -15,10 +15,6 @@
 [difftool "default-difftool"]
   cmd = code --disable-extensions --wait --diff $LOCAL $REMOTE
 
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-
 [mergetool "vscode"]
   cmd = code --wait $MERGED
 
