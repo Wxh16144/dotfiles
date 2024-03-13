@@ -28,6 +28,8 @@ alias com="cd $COMPANY"
 alias oss="cd $OSS"
 alias my="cd $MY"
 alias play="cd $PLAY"
+alias con="cd $CONFIG"
+alias scr="cd $SCRIPTS"
 
 # -------------------------------- #
 # Node Package Manager
