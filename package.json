@@ -7,6 +7,7 @@
     "restore": "npm run safe-restore",
     "safe-restore": "node ./scripts/safe-restore.js",
     "unsafe_restore": "node ./scripts/sync.js -drf",
+    "fuck": "echo \"你最好知道你在做什么!!!\" && BACKUP_FORCE_RESTORE='true' npm run unsafe_restore",
     ".": "node ./scripts/sync.js"
   },
   "devDependencies": {
