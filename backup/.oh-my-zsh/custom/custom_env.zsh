@@ -8,6 +8,9 @@ export GITHUB_NAME="Wxh16144"
 export APP=~/Library/Application\ Support
 export ICLOUD=~/Library/Mobile\ Documents/com~apple~CloudDocs
 
+# local_packages
+export PKG=$ICLOUD/local_packages
+
 # Increase Bash history size. Allow 32³ entries; the default is 1000.
 export HISTSIZE='32768';
 export HISTFILESIZE="${HISTSIZE}";
@@ -46,6 +49,8 @@ function __internal_ensure_dir() {
     $OSS
     $MY
     $PLAY
+    # other
+    $PKG
   )
 
   for dir in ${dirs[@]}; do

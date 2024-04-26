@@ -58,6 +58,7 @@
 
 [commit]
 	gpgsign = true
+	# template = /Users/wuxh/.stCommitMsg
 
 [includeIf "gitdir:~/Code/company/"]
   path = ~/.gitconfig_work

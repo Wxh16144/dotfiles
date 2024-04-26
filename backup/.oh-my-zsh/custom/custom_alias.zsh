@@ -59,6 +59,10 @@ alias cpwd="pwd | pbcopy && echo successfully"
 alias big='du -s ./* | sort -nr | awk '\''{print $2}'\'' | xargs du -sh'
 alias cl='count_lines'
 
+# https://ollama.com/
+alias ai="ollama"
+# alias killai="pgrep -f ollama | xargs kill -9"
+
 # https://askubuntu.com/a/473770
 alias c="clear && printf '\e[3J'"
 

@@ -198,11 +198,11 @@ function create_and_cd() {
 # clonse git 仓库并进入
 # useage: clone_and_cd [repo] [dir/path]
 function clone_and_cd() {
-  if [[ -z $2 ]] then
-    git clone --recurse-submodules "$@" && cd "$(basename "$1" .git)"
-  else
-    git clone --recurse-submodules "$@" && cd "$2"
-  fi
+  local cloneDir=${2:-$(basename $1 .git)}
+
+  [[ -d $cloneDir/.git ]] || git clone --recurse-submodules "$@"
+  
+  cd $cloneDir
 }
 
 # 克隆自己的项目
