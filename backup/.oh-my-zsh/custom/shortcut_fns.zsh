@@ -147,6 +147,24 @@ function remove_node_modules() {
   fi
 }
 
+# 删除前端包管理工具的锁文件
+function remove_lock_files(){
+  local lockFiles=(
+    "package-lock.json"
+    "yarn.lock"
+    "pnpm-lock.yaml"
+    "bun.lockb"
+  )
+
+  for lockFile in ${lockFiles[@]}; do
+    if [[ -f $lockFile ]]; then
+      /bin/rm $lockFile
+    fi
+  done
+
+  print_green "All lock files have been removed."
+}
+
 # 删除当前目录所有文件(危险操作)
 function remove_all_files() {
   local currentDir=${1:-$(pwd)}
@@ -717,10 +735,15 @@ function print_terminal_link() {
 }
 
 # 重新安装依赖
-# 前置依赖 remove_node_modules, npm_registry_manage, auto-install-pnpm, ni
+# useage: re-install-fe-deps [-l]
+# -l: 表示顺便删除 lock 文件
+# 前置依赖 remove_node_modules, remove_lock_files, npm_registry_manage, auto-install-pnpm, ni
 function re-install-fe-deps() {
   echo "${YELLOW}Please wait patiently...${RESET}"
   remove_node_modules -a
+  if [[ $1 == "-l" ]]; then
+    remove_lock_files
+  fi
   npm_registry_manage taobao
   auto-install-pnpm
   ni
