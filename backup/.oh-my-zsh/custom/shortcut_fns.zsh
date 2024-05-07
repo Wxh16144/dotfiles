@@ -9,6 +9,9 @@ print_red() {
 print_green() {
   echo -e "${GREEN}$*${RESET}"
 }
+print_yellow() {
+  echo -e "${YELLOW}$*${RESET}"
+}
 
 # ==================== Functions ====================
 
@@ -766,4 +769,19 @@ function good_job() {
   if [[ $? -eq 0 ]]; then
     open "raycast://confetti"
   fi
+}
+
+# 逐行读取文件并删除每一行代表的文件
+function remove_files_by_line() {
+  local file=$1
+  
+  if [[ -z $file || ! -f $file ]]; then
+    print_yellow "File not found."
+    return 1
+  fi
+
+  while IFS= read -r line; do
+    /bin/rm $line
+    print_green "Removed: $line"
+  done < $file
 }

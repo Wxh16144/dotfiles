@@ -30,3 +30,6 @@ lobehub__always_latest() {
 
 add-zsh-hook chpwd lobehub__always_latest
 lobehub__always_latest
+
+# 公司产品原型
+export COM_AXURE=$COMPANY/axure 
