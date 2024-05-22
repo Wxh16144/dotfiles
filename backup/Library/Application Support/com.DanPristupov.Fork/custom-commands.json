@@ -1,0 +1,26 @@
+[
+  {
+    "__": "https://gist.github.com/oktomus/e284923a7fce837615bb756a1060e5dc?permalink_comment_id=3753279#gistcomment-3753279",
+    "name": "Which branches contain this commit",
+    "target": "revision",
+    "action": {
+      "type": "process",
+      "path": "$git",
+      "args": "branch -a -r --contains $SHA",
+      "showOutput": true,
+      "waitForExit": true
+    }
+  },
+  {
+    "__": "https://github.com/fork-dev/TrackerWin/issues/961#issuecomment-720633996",
+    "name": "Fixup! staged changes for '$sha'",
+    "target": "revision",
+    "action": {
+      "type": "process",
+      "path": "$git",
+      "args": "commit --fixup $SHA --no-verify",
+      "showOutput": false,
+      "waitForExit": false
+    }
+  }
+]
