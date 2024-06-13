@@ -103,10 +103,11 @@ plugins=(
   # brew install autojump
   autojump
 
-  # git clone https://github.com/spaceship-prompt/spaceship-react.git $ZSH_CUSTOM/plugins/spaceship-react
+  # git clone https://github.com/spaceship-prompt/spaceship-react.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/spaceship-react
   spaceship-react
 
   # custom spaceship plugin
+  # source: https://github.com/Wxh16144/dotfiles/blob/master/backup/.oh-my-zsh/custom/plugins/spaceship-commit_hash/spaceship-commit_hash.plugin.zsh
   spaceship-commit_hash
 )
 
