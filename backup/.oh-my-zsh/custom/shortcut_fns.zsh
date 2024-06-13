@@ -397,7 +397,7 @@ function git_create_branch_backup(){
 
   git add -A
   git commit --no-verify --no-gpg-sign -m "$(cat <<EOF
-WIP chore: backup on ${branch}(${short_hash}) [skip-ci]
+WIP/Draft chore: backup on ${branch}(${short_hash}) [skip-ci]
 
 - branch: ${branch}
 - date: $(date +%Y-%m-%d\ %H:%M:%S)
@@ -408,7 +408,7 @@ WIP chore: backup on ${branch}(${short_hash}) [skip-ci]
 $(git log -1 --pretty=%B)
 
 EOF
-)"
+)" --author="$(whoami) <$(whoami)@$(hostname)>"
 
   git checkout -b $new_branch
 
