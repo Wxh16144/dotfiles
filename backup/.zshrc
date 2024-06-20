@@ -16,6 +16,10 @@ export ZSH="$HOME/.oh-my-zsh"
 # ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 ZSH_THEME="spaceship"
 
+# https://github.com/spaceship-prompt/spaceship-prompt/pull/1438
+export SPACESHIP_GIT_COMMIT_SHOW=true
+
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
