@@ -78,7 +78,7 @@ function set_registry() {
 # 依赖
 #   - na: https://github.com/wxh16144/ni
 #   - COMPANY_NPM_REGISTRY 环境变量
-#   - MY_NPM_REGISTRY 环境变量
+#   - SELF_NPM_REGISTRY 环境变量
 function npm_registry_manage() {
   local input_registry=$1
   # 预设的 registry
@@ -96,8 +96,8 @@ function npm_registry_manage() {
     registrys[company]=$COMPANY_NPM_REGISTRY
   fi
 
-  if [[ -n $MY_NPM_REGISTRY ]]; then
-    registrys[self]=$MY_NPM_REGISTRY
+  if [[ -n $SELF_NPM_REGISTRY ]]; then
+    registrys[self]=$SELF_NPM_REGISTRY
   fi
 
   # 如果没有参数, 则表示查看当前 registry，并且询问是否要重置为默认 registry [npm]

@@ -10,6 +10,7 @@ export GITHUB_COPILOT_PLUGIN_KEY=ghu_xxxxxx
 
 # npm package token
 export NPM_TOKEN=npm_xxxxxx
+export SELF_NPM_TOKEN=xxxxxx
 export COMPANY_NPM_TOKEN=xxxxxx
 
 # https://aihubmix.com/about
@@ -21,6 +22,6 @@ export GOOGLE_GEMINI_API_KEY=xxxxxx
 
 # lobe-chat_env https://github.com/lobehub/lobe-chat
 # export LOBE_CLIENT_HTTP_PROXY=http://127.0.0.1:7890
-export LOBE_CHAT_OPENAI_TOKEN=${AIHUBMIX_TOKEN}
-export LOBE_CHAT_OPENAI_PROXY_URL=${AIHUBMIX_PROXY_URL}
+export LOBE_CHAT_OPENAI_TOKEN=${OFFICIAL_OPENAI_TOKEN}
+export LOBE_CHAT_OPENAI_PROXY_URL=${OFFICIAL_OPENAI_PROXY_URL}
 export LOBE_CHAT_ACCESS_CODE=xxxxxx
