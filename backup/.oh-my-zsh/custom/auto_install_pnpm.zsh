@@ -28,6 +28,12 @@ auto-install-pnpm() {
       local expected_pnpm_version=$(echo $package_manager | cut -d "@" -f 2)
       local local_current_pnpm_version=$(pnpm --version)
 
+      # 判断 expected_pnpm_version 是否为空并且是否为 x.x.x 格式
+      if [[ -z $expected_pnpm_version ]] || [[ ! $expected_pnpm_version =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+        echo "Invalid packageManager field in package.json. Please check the packageManager field."
+        return
+      fi
+
       # 如果本地 pnpm 版本和 packageManager 中的版本不一致，自动安装
       if [[ $local_current_pnpm_version != $expected_pnpm_version ]]; then
         echo "Local pnpm version ($local_current_pnpm_version) does not match expected version ($expected_pnpm_version). Installing npm packages..."

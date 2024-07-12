@@ -728,6 +728,7 @@ function create_tmp_dir() {
   # 建立软连接到 $PLAY 目录
   ln -s $tmp_dir $link_dir
   cd $link_dir
+  find_and_remove_broken_links
 }
 
 # 打印链接 see: https://link.wxhboy.cn/3Pja
@@ -784,4 +785,13 @@ function remove_files_by_line() {
     /bin/rm $line
     print_green "Removed: $line"
   done < $file
+}
+
+# 前置依赖 cowsay
+# brew install cowsay
+function randomsay() {
+  # ref: https://gist.github.com/jackinloadup/732325
+  # https://github.com/soberstadt/dotfiles/commit/b5a781b6d686c8efbdaf3c5c8c584cbc5a5fe9b7
+  cow=$(cowsay -l | tail -n +2 | tr ' ' '\n' | sort -R | head -n 1)
+  cowsay -f $cow $*
 }

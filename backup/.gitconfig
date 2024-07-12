@@ -30,8 +30,26 @@
   aa = add -A .
   unstage = reset --soft HEAD^
   cm = commit -m
+  # random cow: export COW=$(cowsay -l | tail -n +2 | tr ' ' '\n' | sort -R | head -n 1);\
+  # cm = "!f() {\
+  #   export MSG=$(echo $1 | cowsay -f small);\
+  #   export TITLE=$(echo $1);\
+  #   git commit -m \"$TITLE\" -m \"$MSG\" -m \"$COW\";\
+  # }; f"
   cmt = commit --template=/Users/wuxh/.stCommitMsg
   amend = commit --amend --no-edit # 个人需求调整
+  # 一鸣惊人(ZWSP): https://codepoints.net/U+200B, https://git-scm.com/docs/git-commit#_commit_information
+  amaze = "!f() {\
+    export EMPTY=$(printf \"\\xE2\\x80\\x8B\");\
+    export GIT_AUTHOR_NAME=$EMPTY;\
+    export GIT_AUTHOR_EMAIL=$EMPTY;\
+    export GIT_AUTHOR_DATE='2049-10-1T12:00:00+0800';\
+    export GIT_COMMITTER_NAME=$GIT_AUTHOR_NAME;\
+    export GIT_COMMITTER_EMAIL=$GIT_AUTHOR_EMAIL;\
+    export GIT_COMMITTER_DATE=$GIT_AUTHOR_DATE;\
+    git commit -m $EMPTY --allow-empty --no-verify --no-gpg-sign --no-edit;\
+  }; f"
+  empty = amaze
   fix = commit --fixup
   undo = reset HEAD~1
   rv = revert
@@ -55,6 +73,7 @@
   count = rev-list --all --count
   # open vscode
   code = !code --disable-extensions
+
 
 [commit]
 	gpgsign = true
