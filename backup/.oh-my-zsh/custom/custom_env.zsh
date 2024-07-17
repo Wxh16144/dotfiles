@@ -5,8 +5,10 @@ export EDITOR=$ZSH_CUSTOM/shells/code-wait.sh
 export GITHUB_NAME="Wxh16144"
 
 # /Users/{username} => ~
-export APP=~/Library/Application\ Support
-export ICLOUD=~/Library/Mobile\ Documents/com~apple~CloudDocs
+export APP=$HOME/Library/Application\ Support
+# chrome://apps  PWA
+export CHROME_APP=$HOME/Applications/Chrome\ Apps.localized
+export ICLOUD=$HOME/Library/Mobile\ Documents/com~apple~CloudDocs
 
 # local_packages
 export PKG=$ICLOUD/local_packages
