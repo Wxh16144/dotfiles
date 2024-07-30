@@ -1,5 +1,6 @@
 # === NPM BINARY CHINA ===
 # https://github.com/cnpm/binary-mirror-config/blob/master/package.json#L53
+export COREPACK_NPM_REGISTRY="https://registry.npmmirror.com"
 export NODEJS_ORG_MIRROR="https://cdn.npmmirror.com/binaries/node"
 # export NVM_NODEJS_ORG_MIRROR="https://cdn.npmmirror.com/binaries/node"
 export PHANTOMJS_CDNURL="https://cdn.npmmirror.com/binaries/phantomjs"
@@ -24,6 +25,13 @@ export CYPRESS_DOWNLOAD_PATH_TEMPLATE='https://cdn.npmmirror.com/binaries/cypres
 export PUPPETEER_DOWNLOAD_HOST="https://cdn.npmmirror.com/binaries"
 # puppeteer>20.1+
 export PUPPETEER_DOWNLOAD_BASE_URL="https://cdn.npmmirror.com/binaries/chrome-for-testing"
+
+# https://midwayjs.org/docs/hooks/prisma
+# https://www.prisma.io/docs/orm/reference/environment-variables-reference#downloading-engines
+export PRISMA_ENGINES_MIRROR="https://cdn.npmmirror.com/binaries/prisma"
+
+# https://github.com/cnpm/cnpmcore/issues/594#issuecomment-2105511083
+export EDGEDRIVER_CDNURL="https://npmmirror.com/mirrors/edgedriver"
 
 # Fixing "The chromium binary is not available for arm64"
 # see: https://www.broddin.be/fixing-the-chromium-binary-is-not-available-for-arm64/

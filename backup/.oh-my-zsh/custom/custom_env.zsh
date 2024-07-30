@@ -38,7 +38,8 @@ export BACKUP_REMOTE_NAME="backup"
 # temp
 # https://apple.stackexchange.com/a/22716
 # https://iboysoft.com/wiki/tmp-folder-mac.html
-# export OSX_TMPDIR=$TMPDIR
+export OSX_TMPDIR=$TMPDIR
+export TMP=/var/tmp
 
 
 # ====== footer ====== #
