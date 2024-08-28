@@ -55,3 +55,7 @@ alias com5="cd $COMPANY/editor-se"
 # 基础库
 alias comcore="cd $COMPANY/common-editor"
 
+# 基础库的 package 太复杂了，拆开
+alias csd="npx turbo dev --no-cache --continue --filter=\"./packages/components*\" --filter=\"./packages/core\""
+alias csb="npx turbo build --no-cache --continue --filter=\"./packages/components*\" --filter=\"./packages/core\""
+

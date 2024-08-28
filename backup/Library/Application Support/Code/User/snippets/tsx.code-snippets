@@ -25,5 +25,24 @@
 			"export default ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/};\n"
 		],
 		"description": "Create a function component"
+	},
+	"Simple Function Component": {
+		"scope": "typescriptreact",
+		"prefix": "msfc",
+		"body": [
+			"import React from \"react\";\n",
+
+			"const App = () => {",
+			"\tconst slogan = `魔法师正在进行最后的仪式，为您带来一项惊艳功能`;\n",
+			"\treturn (",
+			"\t\t<>",
+			"\t\t\t<h3>{slogan}</h3>",
+			"\t\t\t<code hidden>${0:$RELATIVE_FILEPATH}</code>",
+			"\t\t</>",
+			"\t);",
+			"}\n",
+			"export default App;\n"
+		],
+		"description": "Create Simple function component"
 	}
 }
