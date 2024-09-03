@@ -18,6 +18,7 @@ zsh
 git
 
 # -------- custom --------
+husky
 wuxh_ni
 nvm
 spaceship_prompt

@@ -24,7 +24,8 @@ load-nvmrc() {
 
   # fix husky hook
   # ref: https://github.com/typicode/husky/issues/390#issuecomment-762213421
-  echo "export PATH=\"$(dirname $(which node)):\$PATH\"" > ~/.huskyrc
+  # echo "export PATH=\"$(dirname $(which node)):\$PATH\"" > ~/.huskyrc 
+  # 上面这个只适用于 husky < v9 ref: https://github.com/typicode/husky/issues/1364#issuecomment-1914199327
 }
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc

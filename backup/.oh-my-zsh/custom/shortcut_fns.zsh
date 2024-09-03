@@ -728,7 +728,7 @@ function create_tmp_dir() {
   # 建立软连接到 $PLAY 目录
   ln -s $tmp_dir $link_dir
   cd $link_dir
-  find_and_remove_broken_links
+  find_and_remove_broken_links $PLAY
 }
 
 # 打印链接 see: https://link.wxhboy.cn/3Pja
