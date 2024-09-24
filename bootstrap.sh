@@ -15,6 +15,8 @@ function assert_node_version() {
 }
 
 function main() {
+  local logpath="${TMPDIR:-/tmp}/wxh16144_dotfile.log"
+
   cd "$(dirname "${BASH_SOURCE}")";
 
   git pull origin master;
@@ -25,7 +27,7 @@ function main() {
   npm install;
 
   # restore
-  npm run fuck;
+  npm run fuck >> "$logpath" 2>&1;
 }
 
 main;
