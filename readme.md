@@ -1,5 +1,11 @@
 # Wxh16144's Dotfiles
 
+[![backup-cli-img]][backup-cli-ul]
+
+<!-- URL -->
+[backup-cli-img]: https://img.shields.io/badge/using-backup--cli-blue?style=flat-square
+[backup-cli-ul]: https://github.com/Wxh16144/backup-cli
+
 - [.zshrc](./backup/.zshrc)
 - [alias](./backup/.oh-my-zsh/custom/custom_alias.zsh) _([shortcut_fns](./backup/.oh-my-zsh/custom/shortcut_fns.zsh))_
 
@@ -58,3 +64,8 @@ npm install
 ```bash
 npm run restore
 ```
+
+## 更多
+
+- [backup-cli][backup-cli-ul]
+- [GitHub does dotfiles](https://dotfiles.github.io/)
