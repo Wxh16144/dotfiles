@@ -5,12 +5,19 @@
 <!-- URL -->
 [backup-cli-img]: https://img.shields.io/badge/using-backup--cli-blue?style=flat-square
 [backup-cli-ul]: https://github.com/Wxh16144/backup-cli
+[vscode-setting]: ./backup/Library/Application%20Support/Code/User/settings.json
+[vscode-snippets]: ./backup/Library/Application%20Support/Code/User/snippets
+[zshrc]: ./backup/.zshrc
+[alias]: ./backup/.oh-my-zsh/custom/custom_alias.zsh
+[shortcut_fns]: ./backup/.oh-my-zsh/custom/shortcut_fns.zsh
+[env_vars]: ./backup/.oh-my-zsh/custom/custom_env.zsh
+[git-config]: ./backup/.gitconfig
+[npm_binary_config]: ./backup/.oh-my-zsh/custom/npm_binary_config.zsh
 
-- [.zshrc](./backup/.zshrc)
-- [alias](./backup/.oh-my-zsh/custom/custom_alias.zsh) _([shortcut_fns](./backup/.oh-my-zsh/custom/shortcut_fns.zsh))_
-
-- [VSCode setting](./backup/Library/Application%20Support/Code/User/settings.json)
-- [VSCode snippets](./backup/Library/Application%20Support/Code/User/snippets)
+- [.zshrc][zshrc]
+- [alias][alias]  _([shortcut_fns][shortcut_fns]_, _[env_vars][env_vars])_
+- [VSCode setting][vscode-setting], [snippets][vscode-snippets]
+- [git config][git-config], [npm binary config][npm_binary_config]
 
 [简体中文](./readme.md) | English
 
