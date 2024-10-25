@@ -631,7 +631,14 @@ function private_server() {
 # usage: count_lines [dir]
 function count_lines(){
   # https://stackoverflow.com/a/316613/11302760
-  find ${1:-.} -type f -not -path "*/node_modules/*" -not -path "*/.git/*" -not -path "*/dist/*" -print0 | xargs -0 wc -l | sort -rn | head -n 300
+  find ${1:-.} -type f \
+    -not -path "*/node_modules/*" \
+    -not -path "*/.git/*" \
+    -not -path "*/dist/*" \
+    -not -path "*/es/*" \
+    -not -path "*/lib/*" \
+    -not -path "*/__snapshots__/*" \
+    -print0 | xargs -0 wc -l | sort -rn | head -n 300
 }
 
 # 将指定目录推送到远程仓库
@@ -794,4 +801,30 @@ function randomsay() {
   # https://github.com/soberstadt/dotfiles/commit/b5a781b6d686c8efbdaf3c5c8c584cbc5a5fe9b7
   cow=$(cowsay -l | tail -n +2 | tr ' ' '\n' | sort -R | head -n 1)
   cowsay -f $cow $*
+}
+
+# antd 的依赖大部分都是在 rc-* 中，所以可以通过这个函数来覆盖 antd 的依赖
+# useage: override-antd-deps node_modules/rc-picker
+function override-antd-deps() {
+  local deppath=$1
+  if [[ -z $deppath ]]; then
+    print_red "Please input the dependency path."
+    return 1
+  fi
+
+  local packageName=$(basename $deppath | sed 's/^rc-//')
+
+  local sourcePath="$OSS/react-component/$packageName"
+  if [[ ! -d $sourcePath ]]; then
+    print_red "Source path not found: $sourcePath"
+    return 1
+  fi
+
+  # 清空 deppath 的内容 (不删除 node_modules)
+  /bin/rm -rf $deppath/{es,lib}
+
+  # 复制 react-component/{packageName}{es,lib} 到 deppath
+  cp -Rv $sourcePath/{es,lib} $deppath
+
+  print_green "Override antd dependency success."
 }

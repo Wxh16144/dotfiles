@@ -41,6 +41,8 @@ export BACKUP_REMOTE_NAME="backup"
 export OSX_TMPDIR=$TMPDIR
 export TMP=/var/tmp
 
+# 临时日志文件, crontab 任务等
+export LOGS=$TMP/$(whoami)-tmp-logs
 
 # ====== footer ====== #
 function __internal_ensure_dir() {
@@ -54,6 +56,7 @@ function __internal_ensure_dir() {
     $PLAY
     # other
     $PKG
+    $LOGS
   )
 
   for dir in ${dirs[@]}; do

@@ -114,6 +114,8 @@ alias cloneoss="clone_oss_project"
 alias cloneossrc="clone_oss_org_project react-component"
 # clone https://github.com/umijs/xxx.git
 alias cloneossumijs="clone_oss_org_project umijs"
+# clonse https://github.com/ant-design/xxx.git
+alias cloneossant="clone_oss_org_project ant-design"
 
 # 切换到指定分支(默认主分支)拉取更新后，再切回来
 alias gbsw="git_branch_pull_switch"
@@ -132,3 +134,6 @@ alias gae="git_add_remote"
 
 # 将指定目录推送到远程仓库
 alias pudir="push_ignored_directory"
+
+# 覆盖 antd 依赖，仅支持 rc-xxx 依赖
+alias oad="override-antd-deps"
