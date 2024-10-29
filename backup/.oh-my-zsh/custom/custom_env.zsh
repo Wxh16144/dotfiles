@@ -66,4 +66,38 @@ function __internal_ensure_dir() {
   done
 }
 
+function __internal_ensure_symlink() {
+
+  # 定义二维数组 [实际目标, 软连接]
+  declare -A symlinks
+  
+  symlinks=(
+    [$TMPDIR]="${ICLOUD}/Temporary"
+    [$TMP]="${ICLOUD}/Private_var_tmp"
+    [$HOME/Desktop]="${ICLOUD}/Desktop"
+    [$HOME/Documents]="${ICLOUD}/Documents"
+    [$LOGS]="${ICLOUD}/$(whoami)-logs"
+  )
+
+  for target in ${(@k)symlinks}; do
+    link=${symlinks[$target]}
+
+    # 如果 link 存在，但是无效，则删除 link
+    if [ -L $link ] && [ ! -e $link ]; then
+      # print_yellow "Removing broken symlink: $link" 
+
+      /bin/rm $link
+    fi
+
+    # 如果 target 存在, 但 link 不存在, 则创建 link
+    if [ -d $target ] && [ ! -L $link ]; then
+      # print_yellow "Creating symlink: $link -> $target" # 可作为调试用
+
+      ln -s $target $link
+    fi
+
+  done
+}
+
 __internal_ensure_dir
+__internal_ensure_symlink

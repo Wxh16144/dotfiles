@@ -721,9 +721,10 @@ function create_tmp_dir() {
   local dirname=${1:-$fallback_dir}
   local tmp_dir="$TMPDIR$dirname"
 
-  # 如果不是自定义目录，且存在则重新生成
-  if [[ $dirname == $fallback_dir && -d $tmp_dir ]]; then
-    create_tmp_dir
+  # 如果存在则 继续使用 dirname + hashid
+  if [[ -d $tmp_dir ]]; then
+    print_yellow "Directory already exists, try to create another one."
+    create_tmp_dir "${dirname}__$(generate_short_hash)" 
     return
   fi
   
