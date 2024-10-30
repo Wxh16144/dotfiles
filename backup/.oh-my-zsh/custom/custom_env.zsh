@@ -14,8 +14,8 @@ export ICLOUD=$HOME/Library/Mobile\ Documents/com~apple~CloudDocs
 export PKG=$ICLOUD/local_packages
 
 # Increase Bash history size. Allow 32³ entries; the default is 1000.
-export HISTSIZE='32768';
-export HISTFILESIZE="${HISTSIZE}";
+export HISTSIZE='32768'
+export HISTFILESIZE="${HISTSIZE}"
 
 # my projects directory
 export CONFIG="$HOME/Config"
