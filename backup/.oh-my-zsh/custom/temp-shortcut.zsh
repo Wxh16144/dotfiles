@@ -3,7 +3,7 @@
 # 公司产品原型
 export COM_AXURE=$COMPANY/axure 
 # export COM_ARTIFACTS=$COMPANY/artifacts
-export COM_ARTIFACTS=$TMPDIR/COMPANY/artifacts
+export COM_ARTIFACTS=$TMPDIR/$(whoami)-COMPANY/artifacts
 
 function __internal_ensure__com_dir() {
   local dirs=(
@@ -40,7 +40,7 @@ function com_download() {
 }
 
 alias com0="http-server $COM_AXURE -p 10086 -c-1 -o"
-alias com0a="open $COM_ARTIFACTS"
+alias como="open $COM_ARTIFACTS"
 
 # Savery 编辑器
 alias com1="cd $COMPANY/savery-editor" 

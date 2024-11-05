@@ -17,22 +17,34 @@ export PKG=$ICLOUD/local_packages
 export HISTSIZE='32768'
 export HISTFILESIZE="${HISTSIZE}"
 
-# my projects directory
+# 配置文件, 本地 Docker 配置、Dotfiles 仓库
 export CONFIG="$HOME/Config"
+# 个人脚本，crontab、raycast 等 
 export SCRIPTS="$HOME/Scripts"
+# 和代码有关
 export WORKSPACE="$HOME/Code"
-# code directory
+
+# 纯粹的公司项目
 export COMPANY=$WORKSPACE/company
+# 公司项目归档，仅归属于自己的项目（请不要放合同之内的项目，避免纠纷）
+export COMPANY_ARCHIVE=$WORKSPACE/company_archive
+# 开源项目
 export OSS=$WORKSPACE/oss
+# 纯粹的自己的项目
 export MY=$WORKSPACE/self
+# 演练项目
 export PLAY=$WORKSPACE/playground
+# 比如 VSCode 的 workspace
+export IDE_WORKSPACE=$WORKSPACE/workspace
+# 本地数据文件夹, 一定得记得定期备份（不放 ICloud 是因为太大了）
+export ARCHIVE=$HOME/Archive
 
 # registry
 # export COMPANY_NPM_REGISTRY="https://packages.aliyun.com/616ff38165b9775dd591fcc9/npm/npm-registry/"
-export SELF_NPM_REGISTRY="http://localhost:10017/"
+export SELF_NPM_REGISTRY="http://localhost:10188/"
 # export COMPANY_DOCKER_REGISTRY="https://example.com"
 
-# git backup
+# git 备份上游 remote
 export BACKUP_REMOTE_NAME="backup"
 
 # temp
@@ -41,7 +53,7 @@ export BACKUP_REMOTE_NAME="backup"
 export OSX_TMPDIR=$TMPDIR
 export TMP=/var/tmp
 
-# 临时日志文件, crontab 任务等
+# 临时日志文件, crontab 任务产生的日志
 export LOGS=$TMP/$(whoami)-tmp-logs
 
 # ====== footer ====== #
@@ -50,11 +62,14 @@ function __internal_ensure_dir() {
     $CONFIG
     $SCRIPTS
     $WORKSPACE
+    $IDE_WORKSPACE
     $COMPANY
+    $COMPANY_ARCHIVE
     $OSS
     $MY
     $PLAY
     # other
+    $ARCHIVE
     $PKG
     $LOGS
   )
@@ -64,6 +79,19 @@ function __internal_ensure_dir() {
       mkdir -p $dir
     fi
   done
+
+  local hidden_dirs=(
+    $CONFIG
+    $SCRIPTS
+    $WORKSPACE
+    $IDE_WORKSPACE
+    $ARCHIVE
+  )
+
+  for dir in ${hidden_dirs[@]}; do
+    chflags hidden $dir
+  done
+
 }
 
 function __internal_ensure_symlink() {
