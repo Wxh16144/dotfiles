@@ -112,6 +112,8 @@ alias cloneoss="clone_oss_project"
 
 # clone https://github.com/react-component/xxx.git
 alias cloneossrc="clone_oss_org_project react-component"
+alias rc="cd $OSS/react-component"
+
 # clone https://github.com/umijs/xxx.git
 alias cloneossumijs="clone_oss_org_project umijs"
 # clonse https://github.com/ant-design/xxx.git
@@ -128,6 +130,9 @@ alias gbp="git_create_branch_backup"
 
 # 批量删除分支, 支持 grep 参数，输入 y 确定删除
 alias gbdel="git_batch_delete_branch"
+
+# 列举本地常见的分支的 hash
+alias gblhash="list_local_branch_hash"
 
 # 解析 url 并添加 git remote
 alias gae="git_add_remote"

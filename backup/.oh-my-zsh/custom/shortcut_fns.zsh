@@ -479,7 +479,7 @@ function push_backup_to_remote(){
 # usage: git_batch_delete_branch [grep]
 function git_batch_delete_branch() {
   local branches=$(git branch --all | awk '{print $1}')
-  local ignore_branches=$(echo "$branches" | grep -v -E '^(master|main|dev|test)$|^dev-|^release-|^remotes|\*')
+  local ignore_branches=$(echo "$branches" | grep -v -E '^(master|main|feature|dev|test)$|^dev-|^release-|^remotes|\*')
   echo "$ignore_branches" | grep ${1-.} | xargs -n 1 -p git branch -D
 }
 
@@ -829,4 +829,36 @@ function override-antd-deps() {
   cp -Rv $sourcePath/{es,lib} $deppath
 
   print_green "Override antd dependency success."
+}
+
+# 列举本地常见的分支的 hash
+function list_local_branch_hash() {
+  echo
+  # 常见的分支前缀
+  local branchPrefixes=(
+    # "feature"
+    "release"
+    "dev"
+    "develop"
+    "test"
+    "main"
+    "master",
+  )
+
+  # local pattern=$(IFS='|'; echo "${branchPrefixes[*]}")
+  local pattern="^($(IFS='|'; echo "${branchPrefixes[*]}"))"
+
+  # git branch -v | awk '{print $1, $2}' | grep -E $pattern | sort
+  
+  git branch -v | awk '{print $1, $2}' | grep -E "$pattern" | sort | while read -r line; do
+    branch=$(echo "$line" | awk '{print $1}')
+    hash=$(echo "$line" | awk '{print $2}')
+    
+    # 使用 ANSI 转义序列设置颜色
+    echo -e "🌿 ${GREEN}$branch${RESET} ${YELLOW}$hash${RESET}"
+  done
+
+  local currentBranch=$(git rev-parse --abbrev-ref HEAD)
+  local currentHash=$(git rev-parse --short HEAD)
+  echo -e "⛳️ ${GREEN}$currentBranch${RESET} ${YELLOW}$currentHash${RESET}"
 }
