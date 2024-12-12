@@ -775,6 +775,7 @@ function clone_to_tmp_dir() {
 # good job
 # 前置：raycastapp
 # https://www.raycast.com/changelog/1-35-0, https://manual.raycast.com/deeplinks
+# or https://www.reddit.com/r/linux/comments/1pooe6/zsh_tip_notify_after_long_processes/
 function good_job() {
   if [[ $? -eq 0 ]]; then
     open "raycast://confetti"
@@ -861,4 +862,56 @@ function list_local_branch_hash() {
   local currentBranch=$(git rev-parse --abbrev-ref HEAD)
   local currentHash=$(git rev-parse --short HEAD)
   echo -e "⛳️ ${GREEN}$currentBranch${RESET} ${YELLOW}$currentHash${RESET}"
+}
+
+# 快速创建一个临时的 vite react-ts 项目 项目名称
+function quick_start_project(){
+  local projectName=${1:-"vite-react-ts_$(generate_short_hash)"}
+
+  create_tmp_dir $projectName
+
+  npm create vite@latest . -- --template react-ts
+
+  pnpm install --prefer-offline
+
+  code . & start_fe_project
+}
+
+# 列举一些常用的端口占用
+function list_common_ports(){
+  local ports=(
+    # ract, nextjs
+    $(seq 3000 3009),
+    # vite
+    $(seq 5173 5179),
+    # webpack
+    $(seq 8080 8089),
+    # self
+    $(seq 10010 10100),
+  )
+
+  for port in ${ports[@]}; do
+    if [[ -n $(lsof -i :$port) ]]; then
+      echo -e "${YELLOW}Port${RESET} ${RED}$port${RESET} ${YELLOW}is occupied.${RESET}"
+      lsof -i :$port
+    fi
+  done
+}
+
+# 杀死指定端口的进程
+function kill_port(){
+  local port=$1
+  if [[ -z $port ]]; then
+    print_red "Please input the port."
+    return 1
+  fi
+
+  local pid=$(lsof -ti :$port)
+  if [[ -z $pid ]]; then
+    print_red "No process found on port $port."
+    return 1
+  fi
+
+  kill -9 $pid
+  print_green "Process $pid on port $port has been killed."
 }

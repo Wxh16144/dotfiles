@@ -62,6 +62,7 @@ alias h='history'
 alias cpwd="pwd | pbcopy && echo successfully"
 alias big='du -s ./* | sort -nr | awk '\''{print $2}'\'' | xargs du -sh'
 alias cl='count_lines'
+alias project='quick_start_project'
 
 # https://ollama.com/
 alias ai="ollama"
@@ -70,7 +71,8 @@ alias ai="ollama"
 # https://askubuntu.com/a/473770
 alias c="clear && printf '\e[3J'"
 
-alias treem="tree -I 'node_modules|cache|test_*' -L 3"
+# where tree
+alias tree="/opt/homebrew/bin/tree -I 'node_modules|cache|test_*' -L 3"
 
 # hide a directory or file
 alias hide="chflags hidden"
@@ -96,6 +98,8 @@ alias ip="get_ip"
 alias ipl="get_ip_local"
 alias ser="quick_server"
 alias pser="private_server"
+alias port="list_common_ports" # 列举一些常用的端口占用情况
+alias portkill="kill_port" # 杀掉指定端口的进程
 
 # zsh
 alias zshrc='code --disable-extensions "${ZDOTDIR:-$HOME}"/.zshrc'
