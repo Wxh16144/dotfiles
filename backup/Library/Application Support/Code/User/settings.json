@@ -278,9 +278,9 @@
   "window.restoreWindows": "none",
   "window.title": "【${rootNameShort}】${folderName}${separator}${activeEditorShort}",
   "workbench.iconTheme": "eq-material-theme-icons-light",
-  "workbench.layoutControl.enabled": false,
   "workbench.preferredLightColorTheme": "Solarized Light",
   "workbench.productIconTheme": "icons-carbon",
   "workbench.settings.editor": "ui", // json or ui
-  "workbench.startupEditor": "welcomePage"
+  "workbench.startupEditor": "welcomePage",
+  "window.customTitleBarVisibility": "never"
 }

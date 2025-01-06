@@ -41,7 +41,10 @@ export ARCHIVE=$HOME/Archive
 
 # registry
 # export COMPANY_NPM_REGISTRY="https://packages.aliyun.com/616ff38165b9775dd591fcc9/npm/npm-registry/"
-export SELF_NPM_REGISTRY="http://localhost:10188/"
+
+# docker run -it --rm --name verdaccio -p ${SELF_NPM_PORT:-4873}:4873 verdaccio/verdaccio
+export SELF_NPM_PORT="10188" 
+export SELF_NPM_REGISTRY="http://localhost:${SELF_NPM_PORT}/"
 # export COMPANY_DOCKER_REGISTRY="https://example.com"
 
 # git 备份上游 remote

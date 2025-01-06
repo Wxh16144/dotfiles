@@ -887,7 +887,7 @@ function list_common_ports(){
     # webpack
     $(seq 8080 8089),
     # self
-    $(seq 10010 10100),
+    $(seq 10100 10200),
   )
 
   for port in ${ports[@]}; do
