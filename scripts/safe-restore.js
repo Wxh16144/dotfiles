@@ -1,5 +1,6 @@
 const simpleGit = require('simple-git');
-const { execSync } = require('child_process');
+// https://stackoverflow.com/a/48698373/11302760
+const { /** execSync, */ spawnSync } = require('child_process');
 const path = require('path');
 
 const script = path.resolve(__dirname, './sync.js');
@@ -21,7 +22,7 @@ async function run() {
   }
 
   // backup
-  execSync(`node ${script} -f`, { stdio: 'inherit' });
+  spawnSync(`node ${script} -f`, { stdio: 'inherit' });
 
   // stash
   if (!(await git.status()).isClean()) {
@@ -32,7 +33,7 @@ async function run() {
 
   // safe restore
   process.env.BACKUP_FORCE_RESTORE = 'true';
-  execSync(`node ${script} -rf`, { stdio: 'inherit' });
+  spawnSync(`node ${script} -rf`, { stdio: 'inherit' });
 }
 
 run();
