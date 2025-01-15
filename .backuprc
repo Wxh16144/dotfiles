@@ -1,5 +1,5 @@
 [storage]
-directory = backup
+directory=backup
 
 [applications_to_sync]
 vscode
