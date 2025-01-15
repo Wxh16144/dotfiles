@@ -10,7 +10,7 @@ mask_sensitive_values() {
     if [[ $var_value == *{* ]]; then
       echo "$line"
     else
-      local masked_part="xxxxxx"
+      local masked_part=${MARK:-"xxxxxxxx"}
       local preserved_part=""
 
       local delim_pos="${var_value#*[-_]}"
