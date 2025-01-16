@@ -21,26 +21,22 @@
 
 简体中文 | [English](./readme.en.md) | [Bilibili#BV1Jg4y1H7gA](https://bilibili.com/video/BV1Jg4y1H7gA)
 
-## 建立自己的 dotfiles
+## 建立属于自己的 dotfiles
 
 > [备份并分享你的MacOS 配置文件-知乎](https://zhuanlan.zhihu.com/p/650104902)
 
-### clone 或者 fork 或者 use this template
+### Clone 或者 [Fork](https://github.com/Wxh16144/dotfiles/fork) 或者 [Use this template](https://github.com/new?template_name=dotfiles&template_owner=Wxh16144)
+
+1. **Clone**
 
 ```bash
-git clone --branch master --depth 1 git@github.com:Wxh16144/dotfiles.git
+git clone --branch template --depth 1 git@github.com:Wxh16144/dotfiles.git
 ```
 
-### 删除 `./backup` 目录
+2. **安装依赖 & 建立备份**
 
 ```bash
-rm -rf ./backup
-```
-
-### 安装依赖 & 建立备份
-
-```bash
-npm install && npm run start
+npm install && npm run backup
 ```
 
 <!-- https://github.com/orgs/community/discussions/16925 -->
@@ -54,6 +50,9 @@ npm install && npm run start
 > [!NOTE]
 > 通常来说，你不需要全部采用我的配置，这很危险！它会覆盖/污染你原有的配置，建议你阅读 [backup](./backup/) 这个目录，摘选可能适合你的配置。
 
+<details>
+  <summary>我知道其中的工作原理，点击查看详细步骤</summary>
+  
 ### 1. 克隆仓库
 
 ```bash
@@ -71,8 +70,10 @@ npm install
 ```bash
 npm run restore
 ```
+  
+</details>
 
-## 更多
+## 阅读更多
 
 - [backup-cli][backup-cli-ul]
 - [GitHub does dotfiles](https://dotfiles.github.io/)
