@@ -1,0 +1,9 @@
+[storage]
+directory=backup
+logs=logs
+
+# 决定那些应用程序需要同步(为空则同步所有)
+# 可以通过 `backup-cli --list` 查看所有支持的应用程序
+[applications_to_sync]
+# zsh
+# git

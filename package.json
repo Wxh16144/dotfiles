@@ -1,0 +1,17 @@
+{
+  "name": "dotfiles",
+  "private": true,
+  "scripts": {
+    "start": "npm run backup",
+    "backup": "npm run . -- -df",
+    "restore": "npm run safe-restore",
+    "safe-restore": "node ./scripts/safe-restore.js",
+    "unsafe-restore": "node ./scripts/sync.js -drf",
+    "force-restore": "echo \"You'd better know what you're doing.!!!\" && BACKUP_FORCE_RESTORE='true' npm run unsafe-restore",
+    ".": "node ./scripts/sync.js"
+  },
+  "devDependencies": {
+    "@wuxh/backup-cli": "^2.0.0",
+    "simple-git": "3.21.0"
+  }
+}
