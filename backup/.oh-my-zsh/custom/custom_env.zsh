@@ -17,6 +17,9 @@ export PKG=$ICLOUD/local_packages
 export HISTSIZE='32768'
 export HISTFILESIZE="${HISTSIZE}"
 
+# https://stackoverflow.com/a/52755693/11302760
+export HIST_STAMPS="%Y-%m-%d %H:%M:%S"
+
 # 配置文件, 本地 Docker 配置、Dotfiles 仓库
 export CONFIG="$HOME/Config"
 # 个人脚本，crontab、raycast 等 
