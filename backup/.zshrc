@@ -162,5 +162,13 @@ export BUN_INSTALL="$HOME/.bun"
 [[ -s "$BUN_INSTALL/_bun" ]] && source "$BUN_INSTALL/_bun" # bun completions
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+# Added by OrbStack: command-line tools and integration
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+
+# Created by `pipx` on 2025-02-12 06:14:32
+export PATH="$PATH:$HOME/.local/bin"
+
+[[ -d "/opt/homebrew/bin" ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"

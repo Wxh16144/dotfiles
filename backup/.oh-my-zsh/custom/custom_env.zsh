@@ -53,6 +53,10 @@ export SELF_NPM_REGISTRY="http://localhost:${SELF_NPM_PORT}/"
 # git 备份上游 remote
 export BACKUP_REMOTE_NAME="backup"
 
+# ollama
+# https://github.com/ollama/ollama/issues/2335
+export OLLAMA_ORIGINS=*
+
 # temp
 # https://apple.stackexchange.com/a/22716
 # https://iboysoft.com/wiki/tmp-folder-mac.html
