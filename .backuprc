@@ -12,6 +12,8 @@ npm
 pnpm
 yarn
 fork
+homebrew
+homebrew_file
 
 # -------- override --------
 zsh

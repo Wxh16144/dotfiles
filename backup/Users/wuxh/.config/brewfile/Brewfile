@@ -1,0 +1,117 @@
+
+# tap repositories and their packages
+
+tap homebrew/core
+brew aom
+brew autojump
+brew brotli
+brew ca-certificates
+brew cairo
+brew cowsay
+brew fontconfig
+brew freetype
+brew fribidi
+brew gdk-pixbuf
+brew gettext
+brew gh
+brew ghostscript
+brew giflib
+brew git
+brew git-lfs
+brew glib
+brew graphite2
+brew harfbuzz
+brew highway
+brew icu4c@76
+brew icu4c@77
+brew imagemagick
+brew imath
+brew jasper
+brew jbig2dec
+brew jpeg
+brew jpeg-turbo
+brew jpeg-xl
+brew jq
+brew leptonica
+brew libarchive
+brew libb2
+brew libde265
+brew libdeflate
+brew libheif
+brew libidn
+brew liblqr
+brew libomp
+brew libpng
+brew libraw
+brew librsvg
+brew libtiff
+brew libtool
+brew libunistring
+brew libvmaf
+brew libx11
+brew libxau
+brew libxcb
+brew libxdmcp
+brew libxext
+brew libxrender
+brew little-cms2
+brew lz4
+brew lzo
+brew m4
+brew mpdecimal
+brew oniguruma
+brew openexr
+brew openjpeg
+brew openssl@3
+brew pango
+brew pcre2
+brew pipx
+brew pixman
+brew pkgconf
+brew python-packaging
+brew python-setuptools
+brew python@3.12
+brew python@3.13
+brew readline
+brew shared-mime-info
+brew sqlite
+brew tesseract
+brew trash
+brew tree
+brew webp
+brew x265
+brew xorgproto
+brew xz
+brew zbar
+brew zstd
+
+tap homebrew/cask
+cask chromium
+cask ngrok
+cask shortcutdetective
+
+tap homebrew/bundle
+
+tap homebrew/services
+
+tap ngrok/ngrok
+
+tap rcmdnk/file
+brew brew-file
+
+# App Store applications
+appstore 1586435171 Actions (3.4.0)
+appstore 1552555103 AutoSwitchInput Lite (1.5.1)
+appstore 1630034110 Bob (1.14.0)
+appstore 1565629813 FastZip (1.1.4)
+appstore 1533074588 MyZip (1.2.5)
+appstore 451108668 QQ (6.9.56)
+appstore 595615424 QQMusic (9.4.1)
+appstore 1555600758 ScriptWidget (6.7)
+appstore 1091675654 Shapr3D (5.770.0)
+appstore 946399090 Telegram Lite (5.5.5)
+appstore 1529999940 VideoFusion-macOS (6.1.0)
+appstore 836500024 WeChat (3.8.8)
+appstore 497799835 Xcode (16.0)
+appstore 1247341465 同花顺 (4.2.2)
+appstore 461703208 高德地图 (0.6.2)
