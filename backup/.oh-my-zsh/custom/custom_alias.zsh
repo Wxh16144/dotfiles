@@ -52,6 +52,9 @@ alias lintf="nr lint --fix"
 alias release="npx release-it"
 alias nrr="npm_registry_manage" # npm registry manage
 
+# listing packages from workspace (https://github.com/pnpm/pnpm/issues/1519)
+alias lsw="pnpm m ls --json --depth=-1 | jq '.[] | .path' | sed 's?'$PWD/'??'"
+
 # -------------------------------- #
 # Command Line Tools
 # -------------------------------- #

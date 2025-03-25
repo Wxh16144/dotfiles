@@ -65,6 +65,8 @@ export TMP=/var/tmp
 
 # 临时日志文件, crontab 任务产生的日志
 export LOGS=$TMP/$(whoami)-tmp-logs
+export TMPPLAY=$TMP/$(whoami)-tmp-playground
+
 
 # ====== footer ====== #
 function __internal_ensure_dir() {
@@ -82,6 +84,7 @@ function __internal_ensure_dir() {
     $ARCHIVE
     $PKG
     $LOGS
+    $TMPPLAY
   )
 
   for dir in ${dirs[@]}; do
