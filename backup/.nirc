@@ -15,6 +15,7 @@ globalAgent=npm
 {COMPANY}=pnpm
 {OSS}/ant-design=yarn
 {OSS}/ant-design/antd-next=bun
+{OSS}/ant-design/x=bun
 {OSS}/ant-design/style=pnpm
 {OSS}/ant-design/pro-editor=pnpm
 {OSS}/react-component=yarn

@@ -170,8 +170,8 @@ export PATH="$PATH:$HOME/.local/bin"
 
 [[ -d "/opt/homebrew/bin" ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+# https://github.com/rcmdnk/homebrew-file
+[[ -f $(brew --prefix)/etc/brew-wrap ]] && source $(brew --prefix)/etc/brew-wrap
 
 # display all paths
 # https://stackoverflow.com/a/44524309/11302760
@@ -182,3 +182,8 @@ function paths() {
   done <<< "$PATH:"
 }
 alias path=paths
+
+autoload -Uz compinit && compinit
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
