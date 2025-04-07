@@ -95,6 +95,7 @@ alias nvmi="nvm_install"
 alias del="remove_all_files"
 alias dir="create_and_cd"
 alias dirt="create_tmp_dir"
+alias dirp="create_tmp_play_dir"
 
 # network
 alias ip="get_ip"

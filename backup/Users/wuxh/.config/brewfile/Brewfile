@@ -3,7 +3,6 @@
 
 tap homebrew/core
 brew aom
-brew autojump
 brew brotli
 brew ca-certificates
 brew cairo
@@ -55,6 +54,7 @@ brew libxdmcp
 brew libxext
 brew libxrender
 brew little-cms2
+brew lua
 brew lz4
 brew lzo
 brew m4
@@ -110,7 +110,7 @@ appstore 1555600758 ScriptWidget (6.7)
 appstore 1091675654 Shapr3D (5.822.0)
 appstore 946399090 Telegram Lite (5.5.5)
 appstore 1529999940 VideoFusion-macOS (6.1.0)
-appstore 836500024 WeChat (3.8.8)
+appstore 836500024 WeChat (3.8.10)
 appstore 497799835 Xcode (16.0)
-appstore 1247341465 同花顺 (4.2.2)
+appstore 1247341465 同花顺 (4.6.0)
 appstore 461703208 高德地图 (0.6.2)

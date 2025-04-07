@@ -740,6 +740,23 @@ function create_tmp_dir() {
   cd $link_dir
 }
 
+# 不同于 create_tmp_dir, 这个函数不会创建软连接
+# $TMPPLAY 并不会伴随着系统的重启而消失
+function create_tmp_play_dir() {
+  local fallback_dir="play_$(generate_short_hash)"
+  local dirname=${1:-$fallback_dir}
+  local tmp_dir="$TMPPLAY/$dirname"
+
+  if [[ -d $tmp_dir ]]; then
+    print_yellow "Directory already exists, try to create another one."
+    create_tmp_play_dir "${dirname}__$(generate_short_hash)" 
+    return
+  fi
+
+  mkdir -p $tmp_dir
+  cd $tmp_dir
+}
+
 # 打印链接 see: https://link.wxhboy.cn/3Pja
 function print_terminal_link() {
   local url=${1:-$(pwd)}

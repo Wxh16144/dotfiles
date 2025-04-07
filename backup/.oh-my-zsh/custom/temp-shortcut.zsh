@@ -5,6 +5,16 @@ export COM_AXURE=$COMPANY/axure
 # export COM_ARTIFACTS=$COMPANY/artifacts
 export COM_ARTIFACTS=$TMPDIR/$(whoami)-COMPANY/artifacts
 
+# 递归删除目录下的 .DS_Store 文件
+function __internal_remove__ds_store() {
+  if [[ $PWD != $COMPANY* ]]; then
+    echo "You are not in the company directory"
+    return 1
+  fi
+
+  find . -name ".DS_Store" -exec /bin/rm -f {} \;
+}
+alias rmds="__internal_remove__ds_store"
 function __internal_ensure__com_dir() {
   local dirs=(
     $COM_AXURE

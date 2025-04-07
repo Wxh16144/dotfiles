@@ -270,6 +270,18 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   // 自动跟随系统
   "window.autoDetectColorScheme": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.productIconTheme": "icons-carbon",
+  "workbench.preferredDarkColorTheme": "Default Dark Modern",
+  "workbench.preferredLightColorTheme": "Default Light Modern",
+  "workbench.settings.applyToAllProfiles": [
+    "window.autoDetectColorScheme",
+    "workbench.colorTheme",
+    "workbench.iconTheme",
+    "workbench.productIconTheme",
+    "workbench.preferredDarkColorTheme",
+    "workbench.preferredLightColorTheme",
+  ],
   "window.commandCenter": true,
   "window.nativeTabs": true,
   "window.openFilesInNewWindow": "on",
@@ -277,10 +289,4 @@
   "window.restoreFullscreen": true,
   "window.restoreWindows": "none",
   "window.title": "【${rootNameShort}】${folderName}${separator}${activeEditorShort}",
-  "workbench.iconTheme": "eq-material-theme-icons-light",
-  "workbench.preferredLightColorTheme": "Solarized Light",
-  "workbench.productIconTheme": "icons-carbon",
-  "workbench.settings.editor": "ui", // json or ui
-  "workbench.startupEditor": "welcomePage",
-  "window.customTitleBarVisibility": "never"
 }
