@@ -67,6 +67,10 @@ export TMP=/var/tmp
 export LOGS=$TMP/$(whoami)-tmp-logs
 export TMPPLAY=$TMP/$(whoami)-tmp-playground
 
+# https://github.com/skywind3000/z.lua/blob/master/README.cn.md#options
+export _ZL_NO_ALIASES=1
+export _ZL_CMD="j"
+
 
 # ====== footer ====== #
 function __internal_ensure_dir() {

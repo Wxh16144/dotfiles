@@ -31,6 +31,10 @@ alias play="cd $PLAY"
 alias con="cd $CONFIG"
 alias scr="cd $SCRIPTS"
 
+# https://link.wxhboy.cn/08e37fd
+alias jj="j -i"
+alias jb="j -b"
+
 # -------------------------------- #
 # Node Package Manager
 # dependent on https://github.com/wxh16144/ni
