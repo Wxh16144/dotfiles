@@ -891,6 +891,22 @@ function quick_start_project(){
 
   pnpm install --prefer-offline
 
+  # 通常是快速创建 react 的项目，快速安装一些常用的依赖
+  typeset -A deps
+  deps=(
+    [antd]="antd @ant-design/icons antd-style"
+    [mui]="@mui/material @emotion/react @emotion/styled"
+  )
+
+  # 遍历依赖并安装
+  for key in ${(k)deps}; do
+    if [[ $projectName == *"$key"* ]]; then
+      dep_array=(${(s: :)deps[$key]})
+      echo -e "${YELLOW}Installing dependencies: ${GREEN}${dep_array[@]}${RESET}"
+      pnpm add ${dep_array[@]}
+    fi
+  done
+
   code . & start_fe_project
 }
 
