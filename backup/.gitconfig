@@ -69,6 +69,9 @@
 
   # beautify log
   lg = log --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  my = !git --no-pager log --author="wuxiaohong" --pretty=format:'%ad %C(bold blue)%s%Creset' --date=short
+  # 最近活跃分支
+  active = for-each-ref --sort=-committerdate --count=10 --format='%(color:green)%(refname:short)%(color:reset) %(committerdate:relative)' refs/heads
   # commit total count
   count = rev-list --all --count
   # open vscode
