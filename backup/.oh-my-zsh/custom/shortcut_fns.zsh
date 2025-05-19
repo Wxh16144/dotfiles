@@ -894,8 +894,10 @@ function quick_start_project(){
   # 通常是快速创建 react 的项目，快速安装一些常用的依赖
   typeset -A deps
   deps=(
+    [antdm]="antd-mobile"
     [antd]="antd @ant-design/icons antd-style"
-    [mui]="@mui/material @emotion/react @emotion/styled"
+    [mui]="@mui/material @mui/icons-material @emotion/react @emotion/styled"
+    [lobe-ui]="@lobehub/ui"
   )
 
   # 遍历依赖并安装

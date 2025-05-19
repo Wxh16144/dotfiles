@@ -40,7 +40,11 @@ alias jb="j -b"
 # dependent on https://github.com/wxh16144/ni
 # -------------------------------- #
 alias i="ni"
+alias .i="pnpm install --node-linker=hoisted"
+
 alias io="ni --prefer-offline"
+alias nio="ni --prefer-offline"
+
 alias rei="re-install-fe-deps"
 
 # alias s="nr start"
