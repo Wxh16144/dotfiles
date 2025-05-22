@@ -132,8 +132,14 @@ alias rc="cd $OSS/react-component"
 
 # clone https://github.com/umijs/xxx.git
 alias cloneossumijs="clone_oss_org_project umijs"
+alias umi="cd $OSS/umijs"
+
 # clonse https://github.com/ant-design/xxx.git
 alias cloneossant="clone_oss_org_project ant-design"
+alias antd="cd $OSS/ant-design"
+
+# http://github.com/lobehub/xxx.git
+alias lobehub="cd $OSS/lobehub"
 
 # 切换到指定分支(默认主分支)拉取更新后，再切回来
 alias gbsw="git_branch_pull_switch"

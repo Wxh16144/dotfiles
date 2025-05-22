@@ -210,6 +210,7 @@ function remove_all_files() {
 function create_and_cd() {
   local dir=$1
   if [[ -d $dir ]]; then
+    print_green "Directory $dir already exists."
     cd $dir
     return
   fi
