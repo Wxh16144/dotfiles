@@ -28,10 +28,12 @@
 	},
 	"Simple Function Component": {
 		"scope": "typescriptreact",
-		"prefix": "msfc",
+		"prefix": [
+			"msfc",
+			"fc",
+		],
 		"body": [
 			"import React from \"react\";\n",
-
 			"const App = () => {",
 			"\tconst slogan = `魔法师正在进行最后的仪式，为您带来一项惊艳功能`;\n",
 			"\treturn (",
@@ -44,5 +46,15 @@
 			"export default App;\n"
 		],
 		"description": "Create Simple function component"
-	}
+	},
+	"React line": {
+		"scope": "typescriptreact",
+		// https://stackoverflow.com/a/55555073
+		"prefix": [
+			"react-line",
+			"rl",
+			"mbr"
+		],
+		"body": "<>{Array.from({ length: Number('$CURRENT_SECOND') }, (_, idx) => <br key={idx} />)}</>\n$0",
+	},
 }
