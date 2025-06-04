@@ -13,7 +13,7 @@ globalAgent=npm
 [projectAgent]
 {WORKSPACE}/Spotec=yarn
 {COMPANY}=pnpm
-{OSS}/ant-design=yarn
+{OSS}/ant-design=bun
 {OSS}/ant-design/antd-next=bun
 {OSS}/ant-design/x=bun
 {OSS}/ant-design/style=pnpm

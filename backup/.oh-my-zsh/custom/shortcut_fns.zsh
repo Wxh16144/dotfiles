@@ -896,6 +896,7 @@ function quick_start_project(){
   typeset -A deps
   deps=(
     [antdm]="antd-mobile"
+    [antdpro]="antd @ant-design/pro-components"
     [antd]="antd @ant-design/icons antd-style"
     [mui]="@mui/material @mui/icons-material @emotion/react @emotion/styled"
     [lobe-ui]="@lobehub/ui"
@@ -907,6 +908,7 @@ function quick_start_project(){
       dep_array=(${(s: :)deps[$key]})
       echo -e "${YELLOW}Installing dependencies: ${GREEN}${dep_array[@]}${RESET}"
       pnpm add ${dep_array[@]}
+      break # 只安装第一个匹配的依赖
     fi
   done
 
