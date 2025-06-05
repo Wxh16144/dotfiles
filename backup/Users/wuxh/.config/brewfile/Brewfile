@@ -88,12 +88,16 @@ tap homebrew/cask
 cask chromium
 cask jordanbaird-ice
 cask keycastr
+cask localsend
 cask ngrok
 cask shortcutdetective
 
 tap homebrew/bundle
 
 tap homebrew/services
+
+tap dotenvx/brew
+brew dotenvx
 
 tap ngrok/ngrok
 
@@ -103,11 +107,11 @@ brew brew-file
 # App Store applications
 appstore 1586435171 Actions (3.4.0)
 appstore 1552555103 AutoSwitchInput Lite (1.5.1)
-appstore 1630034110 Bob (1.14.0)
+appstore 1630034110 Bob (1.15.0)
 appstore 1565629813 FastZip (1.1.4)
 appstore 1533074588 MyZip (1.2.5)
 appstore 451108668 QQ (6.9.56)
-appstore 595615424 QQMusic (10.2.0)
+appstore 595615424 QQMusic (10.4.0)
 appstore 1555600758 ScriptWidget (6.7)
 appstore 1091675654 Shapr3D (5.822.0)
 appstore 946399090 Telegram Lite (5.5.5)

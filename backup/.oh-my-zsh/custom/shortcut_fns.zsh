@@ -899,7 +899,7 @@ function quick_start_project(){
     [antdpro]="antd @ant-design/pro-components"
     [antd]="antd @ant-design/icons antd-style"
     [mui]="@mui/material @mui/icons-material @emotion/react @emotion/styled"
-    [lobe-ui]="@lobehub/ui"
+    [lobe-ui]="antd @lobehub/ui"
   )
 
   # 遍历依赖并安装

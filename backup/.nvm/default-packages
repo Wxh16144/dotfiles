@@ -7,7 +7,7 @@ yarn@latest
 vite@latest
 http-server@latest
 release-it@15.x
-fanyi@8.x
+# fanyi@8.x
 lambda-view@latest
 
 # ---- mySelf Packages ----
@@ -28,3 +28,6 @@ wxh16144@latest
 
 # https://github.com/Wxh16144/hard-load
 hard-load@latest
+
+# https://github.com/lobehub/lobe-cli-toolbox/tree/master/packages/lobe-commit
+@lobehub/commit-cli@latest

@@ -77,7 +77,10 @@ alias project='quick_start_project'
 
 # https://ollama.com/
 alias ai="ollama"
-# alias killai="pgrep -f ollama | xargs kill -9"
+alias killai="pgrep -f ollama | xargs kill -9"
+
+# https://github.com/dotenvx/dotenvx
+alias envx="dotenvx"
 
 # https://askubuntu.com/a/473770
 alias c="clear && printf '\e[3J'"
