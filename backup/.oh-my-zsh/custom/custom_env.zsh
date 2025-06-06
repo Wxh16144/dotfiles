@@ -33,6 +33,8 @@ export COMPANY=$WORKSPACE/company
 export COMPANY_ARCHIVE=$WORKSPACE/company_archive
 # 开源项目
 export OSS=$WORKSPACE/oss
+# 大语言模型
+export LLM=$WORKSPACE/llm
 # 纯粹的自己的项目
 export MY=$WORKSPACE/self
 # 演练项目
@@ -83,6 +85,7 @@ function __internal_ensure_dir() {
     $COMPANY_ARCHIVE
     $OSS
     $MY
+    $LLM
     $PLAY
     # other
     $ARCHIVE

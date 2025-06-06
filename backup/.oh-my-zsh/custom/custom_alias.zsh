@@ -28,6 +28,7 @@ alias com="cd $COMPANY"
 alias oss="cd $OSS"
 alias my="cd $MY"
 alias play="cd $PLAY"
+alias llm="cd $LLM"
 alias con="cd $CONFIG"
 alias scr="cd $SCRIPTS"
 
