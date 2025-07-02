@@ -897,7 +897,9 @@ function quick_start_project(){
   deps=(
     [antdm]="antd-mobile"
     [antdpro]="antd @ant-design/pro-components"
-    [antd]="antd @ant-design/icons antd-style"
+    [antd4]="antd@4 @ant-design/icons@5"
+    [antd5]="antd@5 @ant-design/icons@5 antd-style"
+    [antd]="antd@latest @ant-design/icons@latest antd-style"
     [mui]="@mui/material @mui/icons-material @emotion/react @emotion/styled"
     [lobe-ui]="antd @lobehub/ui"
   )
