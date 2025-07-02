@@ -1,26 +1,58 @@
 [
   {
-    "__": "https://gist.github.com/oktomus/e284923a7fce837615bb756a1060e5dc?permalink_comment_id=3753279#gistcomment-3753279",
-    "name": "Which branches contain this commit",
-    "target": "revision",
-    "action": {
-      "type": "process",
-      "path": "$git",
-      "args": "branch -a -r --contains $SHA",
-      "showOutput": true,
-      "waitForExit": true
-    }
+    "version" : 2
   },
   {
-    "__": "https://github.com/fork-dev/TrackerWin/issues/961#issuecomment-720633996",
-    "name": "Fixup! staged changes for '$sha'",
-    "target": "revision",
-    "action": {
-      "type": "process",
-      "path": "$git",
-      "args": "commit --fixup $SHA --no-verify",
-      "showOutput": false,
-      "waitForExit": false
-    }
+    "action" : {
+      "args" : "commit --amend --no-edit",
+      "path" : "${git}",
+      "showOutput" : false,
+      "type" : "process",
+      "waitForExit" : true
+    },
+    "name" : "Amend",
+    "target" : "repository"
+  },
+  {
+    "action" : {
+      "script" : "open ${repo:path}",
+      "showOutput" : false,
+      "type" : "sh",
+      "waitForExit" : true
+    },
+    "name" : "Open in Finder",
+    "target" : "repository"
+  },
+  {
+    "action" : {
+      "script" : "open -a SourceTree ${repo:path}",
+      "showOutput" : false,
+      "type" : "sh",
+      "waitForExit" : true
+    },
+    "name" : "Open in Sourcetree",
+    "target" : "repository"
+  },
+  {
+    "action" : {
+      "args" : "${repo:path} --disable-extensions",
+      "path" : "\/usr\/local\/bin\/code",
+      "showOutput" : false,
+      "type" : "process",
+      "waitForExit" : true
+    },
+    "name" : "Open in VSCode (Disable Eextensions)",
+    "target" : "repository"
+  },
+  {
+    "action" : {
+      "args" : "branch -a -r --contains $SHA",
+      "path" : "${git}",
+      "showOutput" : true,
+      "type" : "process",
+      "waitForExit" : true
+    },
+    "name" : "Which branches contain this commit",
+    "target" : "revision"
   }
 ]
