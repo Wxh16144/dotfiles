@@ -4,13 +4,13 @@
   },
   {
     "action" : {
-      "args" : "commit --amend --no-edit",
+      "args" : "commit --amend --no-edit --no-verify",
       "path" : "${git}",
       "showOutput" : false,
       "type" : "process",
       "waitForExit" : true
     },
-    "name" : "Amend",
+    "name" : "?Amend",
     "target" : "repository"
   },
   {
@@ -20,7 +20,7 @@
       "type" : "sh",
       "waitForExit" : true
     },
-    "name" : "Open in Finder",
+    "name" : "?Open in Finder",
     "target" : "repository"
   },
   {
@@ -30,7 +30,7 @@
       "type" : "sh",
       "waitForExit" : true
     },
-    "name" : "Open in Sourcetree",
+    "name" : "?Open in Sourcetree",
     "target" : "repository"
   },
   {
@@ -41,7 +41,18 @@
       "type" : "process",
       "waitForExit" : true
     },
-    "name" : "Open in VSCode (Disable Eextensions)",
+    "name" : "?Open in VSCode (Disable Eextensions)",
+    "target" : "repository"
+  },
+  {
+    "action" : {
+      "args" : "checkout @{-1}",
+      "path" : "${git}",
+      "showOutput" : false,
+      "type" : "process",
+      "waitForExit" : true
+    },
+    "name" : "?Switch Previous Branch",
     "target" : "repository"
   },
   {
@@ -52,7 +63,7 @@
       "type" : "process",
       "waitForExit" : true
     },
-    "name" : "Which branches contain this commit",
+    "name" : "?Which branches contain this commit",
     "target" : "revision"
   }
 ]
