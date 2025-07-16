@@ -1,0 +1,24 @@
+{
+	"Self Todo Comment": {
+		"prefix": [
+			"todo",
+			"td"
+		],
+		"body": [
+			"$LINE_COMMENT TODO: $1 (Assign @Wuxh<wxh1220@gmail.com>)",
+			"$0"
+		],
+		"description": "Add a todo assigned to yourself"
+	},
+	"Self Fixme Comment": {
+		"prefix": [
+			"fixme",
+			"fx"
+		],
+		"body": [
+			"$LINE_COMMENT FIXME: $1 (Assign @Wuxh<wxh1220@gmail.com>)",
+			"$0"
+		],
+		"description": "Add a fixme assigned to yourself"
+	},
+}
