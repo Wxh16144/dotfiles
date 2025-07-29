@@ -9,3 +9,6 @@ export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/bott
 # node-canvas、node-gyp
 # ref: https://github.com/Automattic/node-canvas?tab=readme-ov-file#compiling
 # brew install pkg-config cairo pango libpng jpeg giflib librsvg pixman
+
+# https://stackoverflow.com/a/58449841
+export HOMEBREW_NO_AUTO_UPDATE=true

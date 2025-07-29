@@ -49,7 +49,8 @@ export ARCHIVE=$HOME/Archive
 
 # docker run -it --rm --name verdaccio -p ${SELF_NPM_PORT:-4873}:4873 verdaccio/verdaccio
 export SELF_NPM_PORT="10188" 
-export SELF_NPM_REGISTRY="http://localhost:${SELF_NPM_PORT}/"
+export SELF_NPM_REGISTRY="http://x.wxhboy.cn:${SELF_NPM_PORT}/"
+export LOCAL_NPM_REGISTRY="http://npm.localhost"
 # export COMPANY_DOCKER_REGISTRY="https://example.com"
 
 # git 备份上游 remote

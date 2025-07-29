@@ -73,12 +73,32 @@ function set_registry() {
   print_green "Set registry to $registry"
 }
 
+# 私有方法：解析环境变量中的 npm registry
+# 读取所有以 _NPM_REGISTRY 结尾的环境变量，并将 _ 之前的内容作为 key（小写）
+function _parse_npm_registry_env() {
+  local -A env_registrys
+  
+  # 遍历所有环境变量，找到以 _NPM_REGISTRY 结尾的
+  for var in $(env | grep '_NPM_REGISTRY=' | cut -d'=' -f1); do
+    local value=$(printenv $var)
+    if [[ -n $value ]]; then
+      # 提取 _ 之前的部分作为 key，并转换为小写
+      local key=$(echo $var | sed 's/_NPM_REGISTRY$//' | tr '[:upper:]' '[:lower:]')
+      env_registrys[$key]=$value
+    fi
+  done
+  
+  # 输出结果供调用者使用
+  for key in ${(k)env_registrys}; do
+    echo "$key:${env_registrys[$key]}"
+  done
+}
+
 # 管理 npm registry
 # useage: npm_registry_manage [registry]
 # 依赖
 #   - na: https://github.com/wxh16144/ni
-#   - COMPANY_NPM_REGISTRY 环境变量
-#   - SELF_NPM_REGISTRY 环境变量
+#   - 任何以 {name}_NPM_REGISTRY 结尾的环境变量
 function npm_registry_manage() {
   local input_registry=$1
   # 预设的 registry
@@ -92,13 +112,12 @@ function npm_registry_manage() {
     [npmMirror]="https://skimdb.npmjs.com/registry/"
   )
 
-  if [[ -n $COMPANY_NPM_REGISTRY ]]; then
-    registrys[company]=$COMPANY_NPM_REGISTRY
-  fi
-
-  if [[ -n $SELF_NPM_REGISTRY ]]; then
-    registrys[self]=$SELF_NPM_REGISTRY
-  fi
+  # 解析环境变量中的 npm registry
+  for line in $(_parse_npm_registry_env); do
+    local key=$(echo $line | cut -d':' -f1)
+    local value=$(echo $line | cut -d':' -f2-)
+    registrys[$key]=$value
+  done
 
   # 如果没有参数, 则表示查看当前 registry，并且询问是否要重置为默认 registry [npm]
   if [ $# -eq 0 ]; then
@@ -524,6 +543,7 @@ function git_add_remote() {
 # usage: get_ip [count]
 function get_ip() {
   local services=(
+    "http://api.ipaddress.com/myip"
     "https://api.ipify.org" # https://www.ipify.org/
     "https://api64.ipify.org"
     "https://ipinfo.io/ip" # https://ipinfo.io/
