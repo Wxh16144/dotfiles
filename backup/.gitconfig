@@ -55,6 +55,7 @@
   rv = revert
   cp = cherry-pick
   pu = !git push origin `git branch --show-current`
+  pufk = !git remote | grep -q '^fork$' && git push fork `git branch --show-current` || echo 'fork remote not found'
   fush = push -f
   mg = merge --no-ff
   rb = rebase

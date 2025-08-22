@@ -279,8 +279,11 @@ function clone_oss_project() {
     local repoName=$(basename "$repo" .git)
     # setting upstream
     git remote add upstream $repo
-    # https://twitter.com/Wxh16144/status/1737664681786093885
-    git remote set-url origin "git@github.com:$GITHUB_NAME-forks/$repoName.git"
+    # https://x.com/Wxh16144/status/1737664681786093885
+    git remote set-url fork "git@github.com:$GITHUB_NAME-forks/$repoName.git"
+
+    # https://x.com/Wxh16144/status/1950842202688819401 
+    git remote set-url origin "git@github.com:$GITHUB_NAME/$repoName.git"
 
     # Get the unique branch name after cloning
     local branchName=$(git branch -a | grep remotes/origin/HEAD | sed 's/.*\///')
