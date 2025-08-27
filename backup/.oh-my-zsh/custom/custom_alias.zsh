@@ -36,9 +36,13 @@ alias scr="cd $SCRIPTS"
 alias jj="j -i"
 alias jb="j -b"
 
+# https://link.wxhboy.cn/dd17741
+alias me="wxh16144 -h"
+alias wxh="wxh16144 -h"
+
 # -------------------------------- #
 # Node Package Manager
-# dependent on https://github.com/wxh16144/ni
+# dependent on https://github.com/wxh16144/ni or @antfu/ni
 # -------------------------------- #
 alias i="ni"
 alias .i="pnpm install --node-linker=hoisted"
