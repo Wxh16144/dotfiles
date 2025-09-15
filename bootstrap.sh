@@ -27,7 +27,7 @@ function main() {
   npm install;
 
   # restore
-  npm run fuck >> "$logpath" 2>&1;
+  npm run force-restore >> "$logpath" 2>&1;
 }
 
 main;
