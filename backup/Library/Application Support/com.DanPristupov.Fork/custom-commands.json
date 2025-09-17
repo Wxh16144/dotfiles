@@ -46,7 +46,7 @@
   },
   {
     "action" : {
-      "script" : "${git} for-each-ref \\\n\t--sort=-committerdate \\\n\t--count=10 \\\n\t--format='%(color:green)%(refname:short)%(color:reset) %(committerdate:relative) %(authorname)' \\\n\trefs\/heads;\n\n",
+      "script" : "SEPARATOR=$'\\t'\n${git} for-each-ref \\\n  --sort=-committerdate \\\n  --count=10 \\\n  --format=\"%(refname:short)${SEPARATOR}%(committerdate:relative)${SEPARATOR}%(authorname)\" \\\n  refs\/heads | \\\n  awk -F '\\t' '{printf \"%-40s %-20s %-20s\\n\", $1, $2, $3}'",
       "showOutput" : true,
       "type" : "sh",
       "waitForExit" : true
