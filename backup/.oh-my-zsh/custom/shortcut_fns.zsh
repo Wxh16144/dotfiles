@@ -498,6 +498,20 @@ function push_backup_to_remote(){
   fi
 }
 
+# 最近活跃分支（过滤掉 git_create_branch_backup 创建的备份分支）
+# https://gemini.google.com/share/a4d4434dfb15
+function git_active_branches() {
+  local prefix="$(whoami)/backup"
+  local separator=$'\t'
+  git for-each-ref \
+    --sort=-committerdate \
+    --format="%(refname:short)${separator}%(committerdate:relative)${separator}%(authorname)" \
+    refs/heads | \
+  grep -Ev "^$prefix(/|$)" | \
+  head -n ${1:-10} | \
+  awk -F "\t" -v green="$GREEN" -v reset="$RESET" '{printf "%s%-40s%s %-20s %-20s\n", green, $1, reset, $2, $3}'
+}
+
 # 批量删除分支, 支持 grep 参数，输入 y 确定删除
 # usage: git_batch_delete_branch [grep]
 function git_batch_delete_branch() {

@@ -46,6 +46,16 @@
   },
   {
     "action" : {
+      "script" : "${git} for-each-ref \\\n\t--sort=-committerdate \\\n\t--count=10 \\\n\t--format='%(color:green)%(refname:short)%(color:reset) %(committerdate:relative) %(authorname)' \\\n\trefs\/heads;\n\n",
+      "showOutput" : true,
+      "type" : "sh",
+      "waitForExit" : true
+    },
+    "name" : "?Recent-Branches （10 items",
+    "target" : "repository"
+  },
+  {
+    "action" : {
       "args" : "checkout @{-1}",
       "path" : "${git}",
       "showOutput" : false,

@@ -133,6 +133,7 @@ alias clone="clone_and_cd"
 alias clonet="clone_to_tmp_dir"
 alias clonemy="clone_my_project"
 alias cloneoss="clone_oss_project"
+alias gitav="git_active_branches"
 
 # clone https://github.com/react-component/xxx.git
 alias cloneossrc="clone_oss_org_project react-component"
