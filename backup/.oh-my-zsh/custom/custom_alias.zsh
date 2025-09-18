@@ -156,6 +156,9 @@ alias gbsw="git_branch_pull_switch"
 # 快速修复某一条记录(默认上一条)，并进行 rebase squash 操作
 alias gfix="git_fixup_commit"
 
+# 归档指定 hash 的代码快照到 archive 目录
+alias garc="git_archive_by_hash"
+
 # 使用一个分支备份当前 git 修改
 alias gbp="git_create_branch_backup"
 

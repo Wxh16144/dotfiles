@@ -992,3 +992,46 @@ function kill_port(){
   kill -9 $pid
   print_green "Process $pid on port $port has been killed."
 }
+
+# 归档指定 hash 的代码快照到 archive 目录
+# usage: git_archive_by_hash <hash>
+function git_archive_by_hash() {
+  if ! is_git_repository; then
+    print_red "Not a git repository."
+    return 1
+  fi
+
+  local hash=$1
+  if [[ -z $hash ]]; then
+    print_red "Please input the commit hash."
+    return 1
+  fi
+
+  if ! git cat-file -e "$hash" 2>/dev/null; then
+    print_red "Commit hash $hash not found."
+    return 1
+  fi
+
+  local repo_path=$(git rev-parse --show-toplevel)
+  local repo_name=$(basename "$repo_path")
+  local archive_dir="$repo_path/archive"
+
+  if [ ! -d "$archive_dir" ]; then
+    mkdir "$archive_dir"
+  fi
+
+  local archive_file="$archive_dir/${repo_name}_${hash}.tar.gz"
+  git archive --format=tar.gz --output="$archive_file" "$hash"
+
+  echo -n "$archive_file" | pbcopy
+
+  local relative_path="${archive_file#$PWD/}"
+  echo -e "Archive created: ${GREEN}$relative_path${RESET} (path copied)"
+
+  local relative_dir="${archive_dir#$PWD/}"
+  echo -n -e "${YELLOW}Do you want to open the archive directory: ${GREEN}$relative_dir${YELLOW}? [y/N] ${RESET}"
+  read agreeOpen
+  if [[ $agreeOpen == "y" ]]; then
+    open "$archive_dir"
+  fi
+}
