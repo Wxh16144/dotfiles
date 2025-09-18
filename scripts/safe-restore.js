@@ -10,7 +10,7 @@ const git = simpleGit({
 });
 
 async function run() {
-  if (!git.checkIsRepo()) {
+  if (!await git.checkIsRepo()) {
     return console.log('Not a git repository');
   }
 
@@ -22,7 +22,7 @@ async function run() {
   }
 
   // backup
-  spawnSync(`node ${script} -f`, { stdio: 'inherit' });
+  spawnSync('node', [script, '-f'], { stdio: 'inherit' });
 
   // stash
   if (!(await git.status()).isClean()) {
@@ -33,7 +33,7 @@ async function run() {
 
   // safe restore
   process.env.BACKUP_FORCE_RESTORE = 'true';
-  spawnSync(`node ${script} -rf`, { stdio: 'inherit' });
+  spawnSync('node', [script, '-r', '-f'], { stdio: 'inherit' });
 }
 
-run();
+run().catch(console.error);
