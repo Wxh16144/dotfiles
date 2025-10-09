@@ -133,7 +133,6 @@ alias clone="clone_and_cd"
 alias clonet="clone_to_tmp_dir"
 alias clonemy="clone_my_project"
 alias cloneoss="clone_oss_project"
-alias gitav="git_active_branches"
 
 # clone https://github.com/react-component/xxx.git
 alias cloneossrc="clone_oss_org_project react-component"
@@ -152,6 +151,9 @@ alias lobehub="cd $OSS/lobehub"
 
 # 切换到指定分支(默认主分支)拉取更新后，再切回来
 alias gbsw="git_branch_pull_switch"
+
+# 列举当前仓库的活跃分支
+alias gitav="git_active_branches"
 
 # 快速修复某一条记录(默认上一条)，并进行 rebase squash 操作
 alias gfix="git_fixup_commit"

@@ -822,9 +822,16 @@ function re-install-fe-deps() {
 # 前置依赖 create_tmp_dir
 function clone_to_tmp_dir() {
   local repo=$1
+  local branch=$2
   local dirname=$(basename $repo .git)
   create_tmp_dir "$(whoami)_clone_$dirname"
-  clone_and_cd $repo $(pwd) --depth=1 # 既然是临时的，默认不克隆提交历史
+  local args=(--depth=1) # 既然是临时的，默认不克隆提交历史
+  # 克隆指定分支
+  if [[ -n $branch ]]; then
+    args+=(-b $branch)
+    print_green "Cloning branch: $branch"
+  fi
+  clone_and_cd $repo $(pwd) "${args[@]}"
 }
 
 # good job

@@ -4,7 +4,7 @@
   },
   {
     "action" : {
-      "script" : "# https:\/\/superuser.com\/questions\/288320\/whats-like-osxs-pbcopy-for-linux\n# MacOS\n${git} branch --show-current | pbcopy\n",
+      "script" : "# https:\/\/superuser.com\/questions\/288320\/whats-like-osxs-pbcopy-for-linux\n# MacOS\n${git} branch --show-current | pbcopy\n\n# https:\/\/manual.raycast.com\/deeplinks\nopen \"raycast:\/\/confetti\"\n\n",
       "showOutput" : false,
       "type" : "sh",
       "waitForExit" : true
@@ -14,7 +14,7 @@
   },
   {
     "action" : {
-      "script" : "archive_dir=\"${repo:path}\/archive\"\n\nif [ ! -d \"$archive_dir\" ]; then\n  mkdir \"$archive_dir\"\nfi\n\narchive_file=\"$archive_dir\/${repo:name}_${sha:abbr}.tar.gz\"\n\ngit archive --format=tar.gz --output=\"$archive_file\" ${sha:abbr}\n\nopen \"$archive_dir\"\n\necho \"$archive_file\" | pbcopy",
+      "script" : "archive_dir=\"${repo:path}\/archive\"\n\nif [ ! -d \"$archive_dir\" ]; then\n  mkdir \"$archive_dir\"\nfi\n\narchive_file=\"$archive_dir\/${repo:name}_${sha:abbr}.tar.gz\"\n\ngit archive --format=tar.gz --output=\"$archive_file\" ${sha:abbr}\n\n# https:\/\/manual.raycast.com\/deeplinks\nif [[ $? -eq 0 ]]; then\n    open \"raycast:\/\/confetti\"\nfi\n\nopen \"$archive_dir\"\n\necho \"$archive_file\" | pbcopy",
       "showOutput" : false,
       "type" : "sh",
       "waitForExit" : true
@@ -30,7 +30,7 @@
       "type" : "process",
       "waitForExit" : true
     },
-    "name" : "?Commit amend",
+    "name" : "?Commit Amend",
     "target" : "repository"
   },
   {
@@ -71,7 +71,7 @@
       "type" : "sh",
       "waitForExit" : true
     },
-    "name" : "?Recent-Branches （10 items",
+    "name" : "?Recent Branches （10 items",
     "target" : "repository"
   },
   {
