@@ -10,6 +10,9 @@ release-it@15.x
 # fanyi@8.x
 lambda-view@latest
 
+# https://github.com/linhf123/psview#readme
+psview@latest
+
 # ---- mySelf Packages ----
 # https://github.com/Wxh16144/ni
 @wuxh/ni@latest

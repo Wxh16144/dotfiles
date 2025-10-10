@@ -932,7 +932,7 @@ function quick_start_project(){
 
   create_tmp_dir $projectName
 
-  npm create vite@latest . -- --template react-ts
+  npm create vite@latest . -- --template react-ts --no-interactive
 
   pnpm install --prefer-offline
 
