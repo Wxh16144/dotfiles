@@ -35,6 +35,16 @@
   },
   {
     "action" : {
+      "script" : "git format-patch -1 ${sha}",
+      "showOutput" : false,
+      "type" : "sh",
+      "waitForExit" : true
+    },
+    "name" : "?Generate PatchFile",
+    "target" : "revision"
+  },
+  {
+    "action" : {
       "script" : "open ${repo:path}",
       "showOutput" : false,
       "type" : "sh",

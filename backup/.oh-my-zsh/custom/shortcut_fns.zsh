@@ -754,9 +754,6 @@ function generate_short_hash() {
 
 # 创建一个临时文件夹，然后软连接到 $PLAY 目录， 可以输入一个参数作为目录名
 function create_tmp_dir() {
-  find_and_remove_broken_links
-  find_and_remove_broken_links $PLAY
-  
   local fallback_dir="$(whoami)_tmp_$(generate_short_hash)"
   local dirname=${1:-$fallback_dir}
   local tmp_dir="$TMPDIR$dirname"
@@ -1042,3 +1039,11 @@ function git_archive_by_hash() {
     open "$archive_dir"
   fi
 }
+
+# WIP, https://gist.github.com/jeremy-code/50117d5b4f29e04fcbbb1f55e301b893
+function export_raycast_preferences() {
+  open "raycast://extensions/raycast/raycast/export-settings-data"
+} 
+
+# =================== Auto run ===================
+find_and_remove_broken_links $PLAY
