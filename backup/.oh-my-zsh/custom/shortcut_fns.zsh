@@ -381,6 +381,10 @@ function git_fixup_commit() {
 # 如果工作区是干净的，你还可以进行 commit message 重写
 # 输入 -r 可以备份到远端
 function git_create_branch_backup(){
+  if ! is_git_repository; then
+    print_red "not a git repository"
+    return 1
+  fi
   local new_branch="$(whoami)/backup/$(date +%Y-%m-%d-%H_%M_%S)"
 
   # 写入环境变量

@@ -53,7 +53,7 @@
 		"prefix": [
 			"react-line",
 			"rl",
-			"mbr"
+			"br"
 		],
 		"body": "<>{Array.from({ length: Number('$CURRENT_SECOND') }, (_, idx) => <br key={idx} />)}</>\n$0",
 	},
