@@ -1,9 +1,0 @@
-# 使用帮助文档：https://mirrors.ustc.edu.cn/help/crates.io-index.html#id2
-# cargo 1.68 版本开始支持稀疏索引：不再需要完整克隆 crates.io-index 仓库，可以加快获取包的速度
-# registry = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/" 
-
-[source.crates-io]
-replace-with = 'ustc'
-
-[source.ustc]
-registry = "git://mirrors.ustc.edu.cn/crates.io-index"

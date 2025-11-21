@@ -1,9 +1,17 @@
+# 使用帮助文档：https://mirrors.ustc.edu.cn/help/crates.io-index.html#id2
+# cargo 1.68 版本开始支持稀疏索引：不再需要完整克隆 crates.io-index 仓库，可以加快获取包的速度
+# registry = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/" 
+
+# 使用 rsproxy 镜像：https://rsproxy.cn/
+
 [source.crates-io]
 replace-with = 'rsproxy-sparse'
 [source.rsproxy]
 registry = "https://rsproxy.cn/crates.io-index"
 [source.rsproxy-sparse]
 registry = "sparse+https://rsproxy.cn/index/"
+[source.ustc]
+registry = "git://mirrors.ustc.edu.cn/crates.io-index"
 [registries.rsproxy]
 index = "https://rsproxy.cn/crates.io-index"
 [net]
