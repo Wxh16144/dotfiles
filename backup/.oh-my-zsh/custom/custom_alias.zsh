@@ -79,6 +79,7 @@ alias cpwd="pwd | pbcopy && echo successfully"
 alias big='du -s ./* | sort -nr | awk '\''{print $2}'\'' | xargs du -sh'
 alias cl='count_lines'
 alias project='quick_start_project'
+alias project-vue='quick_start_vue_project'
 
 # https://ollama.com/
 alias ai="ollama"

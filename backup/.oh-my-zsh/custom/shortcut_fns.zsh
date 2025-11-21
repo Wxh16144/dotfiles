@@ -927,19 +927,31 @@ function list_local_branch_hash() {
   echo -e "⛳️ ${GREEN}$currentBranch${RESET} ${YELLOW}$currentHash${RESET}"
 }
 
+# 根据项目名包含字段自动安装依赖
+function auto_install_deps_by_project_name() {
+  local projectName=$1
+  typeset -A deps
+  deps=("${(@P)2}") # 传入的依赖映射
+
+  for key in ${(k)deps}; do
+    if [[ $projectName == *"$key"* ]]; then
+      dep_array=(${(s: :)deps[$key]})
+      echo -e "${YELLOW}Installing dependencies: ${GREEN}${dep_array[@]}${RESET}"
+      pnpm add ${dep_array[@]}
+      break
+    fi
+  done
+}
+
 # 快速创建一个临时的 vite react-ts 项目 项目名称
 function quick_start_project(){
   local projectName=${1:-"vite-react-ts_$(generate_short_hash)"}
 
   create_tmp_dir $projectName
-
   npm create vite@latest . -- --template react-ts --no-interactive
-
   pnpm install --prefer-offline
 
-  # 通常是快速创建 react 的项目，快速安装一些常用的依赖
-  typeset -A deps
-  deps=(
+  local -A deps_map=(
     [antdm]="antd-mobile"
     [antdpro]="antd @ant-design/pro-components"
     [antd4]="antd@4 @ant-design/icons@5"
@@ -949,15 +961,23 @@ function quick_start_project(){
     [lobe-ui]="antd @lobehub/ui"
   )
 
-  # 遍历依赖并安装
-  for key in ${(k)deps}; do
-    if [[ $projectName == *"$key"* ]]; then
-      dep_array=(${(s: :)deps[$key]})
-      echo -e "${YELLOW}Installing dependencies: ${GREEN}${dep_array[@]}${RESET}"
-      pnpm add ${dep_array[@]}
-      break # 只安装第一个匹配的依赖
-    fi
-  done
+  auto_install_deps_by_project_name $projectName deps_map
+
+  code . & start_fe_project
+}
+
+# 快速创建一个临时的 vite vue-ts 项目 项目名称
+function quick_start_vue_project(){
+  local projectName=${1:-"vite-vue-ts_$(generate_short_hash)"}
+
+  create_tmp_dir $projectName
+  npm create vite@latest . -- --template vue-ts --no-interactive
+  pnpm install --prefer-offline
+
+  local -A deps_map=(
+    [element]="element-plus"
+  )
+  auto_install_deps_by_project_name $projectName deps_map
 
   code . & start_fe_project
 }
