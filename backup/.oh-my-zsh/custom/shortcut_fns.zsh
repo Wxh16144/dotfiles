@@ -758,6 +758,9 @@ function generate_short_hash() {
 
 # 创建一个临时文件夹，然后软连接到 $PLAY 目录， 可以输入一个参数作为目录名
 function create_tmp_dir() {
+  find_and_remove_broken_links
+  find_and_remove_broken_links $PLAY
+  
   local fallback_dir="$(whoami)_tmp_$(generate_short_hash)"
   local dirname=${1:-$fallback_dir}
   local tmp_dir="$TMPDIR$dirname"
@@ -931,7 +934,7 @@ function list_local_branch_hash() {
 function auto_install_deps_by_project_name() {
   local projectName=$1
   typeset -A deps
-  deps=("${(@P)2}") # 传入的依赖映射
+  deps=("${(@kvP)2}") # 传入的依赖映射
 
   for key in ${(k)deps}; do
     if [[ $projectName == *"$key"* ]]; then
@@ -956,7 +959,7 @@ function quick_start_project(){
     [antdpro]="antd @ant-design/pro-components"
     [antd4]="antd@4 @ant-design/icons@5"
     [antd5]="antd@5 @ant-design/icons@5 antd-style"
-    [antd]="antd@latest @ant-design/icons@latest antd-style"
+    [antd]="antd@6 @ant-design/icons@6 antd-style"
     [mui]="@mui/material @mui/icons-material @emotion/react @emotion/styled"
     [lobe-ui]="antd @lobehub/ui"
   )
