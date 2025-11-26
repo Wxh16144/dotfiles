@@ -12,13 +12,13 @@
 [shortcut_fns]: ./backup/.oh-my-zsh/custom/shortcut_fns.zsh
 [env_vars]: ./backup/.oh-my-zsh/custom/custom_env.zsh
 [git-config]: ./backup/.gitconfig
-[npm_binary_config]: ./backup/.oh-my-zsh/custom/npm_binary_config.zsh
+[registry_proxy]: ./backup/.oh-my-zsh/custom/registry_proxy.zsh
 [desensitize-script]: ./backup/.oh-my-zsh/custom/desensitize_env.zsh
 
 - [.zshrc][zshrc]
 - [alias][alias]  _([shortcut_fns][shortcut_fns]_, _[env_vars][env_vars])_
 - [VSCode setting][vscode-setting], [snippets][vscode-snippets]
-- [git config][git-config], [npm binary config][npm_binary_config]
+- [git config][git-config], [registry proxy][registry_proxy]
 
 简体中文 | [English](./readme.en.md) | [Bilibili#BV1Jg4y1H7gA](https://bilibili.com/video/BV1Jg4y1H7gA)
 
