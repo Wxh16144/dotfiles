@@ -1024,24 +1024,24 @@ function kill_port(){
   print_green "Process $pid on port $port has been killed."
 }
 
-# 归档指定 hash 的代码快照到 archive 目录
-# usage: git_archive_by_hash <hash>
-function git_archive_by_hash() {
+# 归档指定 hash/tag/branch 的代码快照到 archive 目录
+# usage: git_archive_by_ref [ref]
+function git_archive_by_ref() {
   if ! is_git_repository; then
     print_red "Not a git repository."
     return 1
   fi
 
-  local hash=$1
-  if [[ -z $hash ]]; then
-    print_red "Please input the commit hash."
+  local ref=${1:-HEAD} # 支持 hash, tag, branch, 默认为 HEAD
+
+  if ! git cat-file -e "$ref" 2>/dev/null; then
+    print_red "Reference '$ref' not found."
     return 1
   fi
 
-  if ! git cat-file -e "$hash" 2>/dev/null; then
-    print_red "Commit hash $hash not found."
-    return 1
-  fi
+  # 解析短 hash 用于文件名
+  # 如果是 tag，git rev-parse 默认返回 tag object hash，这里我们需要 commit hash
+  local short_hash=$(git rev-parse --short "$ref^{commit}" 2>/dev/null || git rev-parse --short "$ref")
 
   local repo_path=$(git rev-parse --show-toplevel)
   local repo_name=$(basename "$repo_path")
@@ -1051,8 +1051,14 @@ function git_archive_by_hash() {
     mkdir "$archive_dir"
   fi
 
-  local archive_file="$archive_dir/${repo_name}_${hash}.tar.gz"
-  git archive --format=tar.gz --output="$archive_file" "$hash"
+  # 确定文件名后缀：如果有输入参数则使用参数（替换 / 为 -），否则使用 hash
+  local filename_suffix=$short_hash
+  if [[ -n $1 ]]; then
+    filename_suffix=$(echo "$1" | sed 's/\//-/g')
+  fi
+
+  local archive_file="$archive_dir/${repo_name}_${filename_suffix}.tar.gz"
+  git archive --format=tar.gz --output="$archive_file" "$ref"
 
   echo -n "$archive_file" | pbcopy
 
