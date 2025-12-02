@@ -141,7 +141,7 @@ alias rc="cd $OSS/react-component"
 
 # clone https://github.com/umijs/xxx.git
 alias cloneossumijs="clone_oss_org_project umijs"
-alias umi="cd $OSS/umijs"
+alias umijs="cd $OSS/umijs"
 
 # clonse https://github.com/ant-design/xxx.git
 alias cloneossant="clone_oss_org_project ant-design"
