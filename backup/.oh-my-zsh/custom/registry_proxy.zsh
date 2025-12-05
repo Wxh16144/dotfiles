@@ -46,6 +46,7 @@ export EDGEDRIVER_CDNURL="https://npmmirror.com/mirrors/edgedriver"
 
 # Fixing "The chromium binary is not available for arm64"
 # see: https://www.broddin.be/fixing-the-chromium-binary-is-not-available-for-arm64/
+# Chromium 已损坏，无法打开? `brew install chromium --no-quarantine` 或 `xattr -cr /Applications/Chromium.app`
 # node -e 'console.log(process.arch)' // arm64
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 export PUPPETEER_EXECUTABLE_PATH=`which chromium`

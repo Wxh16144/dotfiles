@@ -19,6 +19,7 @@ brew git
 brew git-lfs
 brew glib
 brew graphite2
+brew gum
 brew harfbuzz
 brew highway
 brew icu4c@76
@@ -38,6 +39,7 @@ brew libde265
 brew libdeflate
 brew libheif
 brew libidn
+brew libidn2
 brew liblqr
 brew libomp
 brew libpng
@@ -73,11 +75,13 @@ brew python-setuptools
 brew python@3.13
 brew readline
 brew shared-mime-info
+brew socat
 brew sqlite
 brew tesseract
 brew trash
 brew tree
 brew webp
+brew wget
 brew x265
 brew xorgproto
 brew xz
@@ -96,6 +100,9 @@ tap homebrew/bundle
 
 tap homebrew/services
 
+tap ayangweb/bongocat
+cask bongo-cat
+
 tap dotenvx/brew
 brew dotenvx
 
@@ -105,18 +112,18 @@ tap rcmdnk/file
 brew brew-file
 
 # App Store applications
-appstore 1586435171 Actions (3.4.0)
+appstore 1586435171 Actions (3.8.0)
 appstore 1552555103 AutoSwitchInput Lite (1.5.1)
-appstore 1630034110 Bob (1.15.0)
-appstore 1565629813 FastZip (1.1.4)
+appstore 1630034110 Bob (1.18.0)
+appstore 1565629813 FastZip (2.0.7)
 appstore 1533074588 MyZip (1.2.5)
-appstore 451108668 QQ (6.9.56)
-appstore 595615424 QQMusic (10.4.0)
+appstore 451108668 QQ (6.9.78)
+appstore 595615424 QQMusic (10.9.5)
 appstore 1555600758 ScriptWidget (6.7)
-appstore 1091675654 Shapr3D (5.822.0)
-appstore 946399090 Telegram Lite (5.5.5)
-appstore 1529999940 VideoFusion-macOS (6.1.0)
-appstore 836500024 WeChat (3.8.10)
+appstore 1091675654 Shapr3D (5.991.0)
+appstore 946399090 Telegram Lite (6.0.2)
+appstore 1529999940 VideoFusion-macOS (8.7.0)
+appstore 836500024 WeChat (4.1.4)
 appstore 497799835 Xcode (16.0)
 appstore 1247341465 同花顺 (4.6.0)
 appstore 461703208 高德地图 (0.6.2)
