@@ -10,6 +10,9 @@ export APP=$HOME/Library/Application\ Support
 export CHROME_APP=$HOME/Applications/Chrome\ Apps.localized
 export ICLOUD=$HOME/Library/Mobile\ Documents/com~apple~CloudDocs
 
+# https://support.apple.com/zh-cn/108809
+export APPLE_BACKUP=$APP/MobileSync/Backup
+
 # local_packages
 export PKG=$ICLOUD/local_packages
 
