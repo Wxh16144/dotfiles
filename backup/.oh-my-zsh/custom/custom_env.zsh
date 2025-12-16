@@ -15,6 +15,8 @@ export APPLE_BACKUP=$APP/MobileSync/Backup
 
 # local_packages
 export PKG=$ICLOUD/local_packages
+export LOCAL_BACKUP=$HOME/Backup_local
+export CLOUD_BACKUP=$ICLOUD/Backup
 
 # Increase Bash history size. Allow 32³ entries; the default is 1000.
 export HISTSIZE='32768'
@@ -94,6 +96,7 @@ function __internal_ensure_dir() {
     # other
     $ARCHIVE
     $PKG
+    $LOCAL_BACKUP
     $LOGS
     $TMPPLAY
   )
@@ -110,6 +113,7 @@ function __internal_ensure_dir() {
     $WORKSPACE
     $IDE_WORKSPACE
     $ARCHIVE
+    $LOCAL_BACKUP
   )
 
   for dir in ${hidden_dirs[@]}; do
