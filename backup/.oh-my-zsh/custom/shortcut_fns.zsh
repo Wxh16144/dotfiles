@@ -175,6 +175,7 @@ function remove_lock_files(){
     "package-lock.json"
     "yarn.lock"
     "pnpm-lock.yaml"
+    "bun.lock"
     "bun.lockb"
   )
 
@@ -375,6 +376,62 @@ function git_fixup_commit() {
   # --autosquash 模式不支持非交互式 reabse, 需要通过环境变量控制
   # https://stackoverflow.com/questions/29094595/git-interactive-rebase-without-opening-the-editor#answer-29094904
   GIT_SEQUENCE_EDITOR=: git rebase -i $hash^ --autosquash
+}
+
+# 修改指定 commit 的日期 (AuthorDate & CommitterDate)
+# usage: git_change_date [commit] [date]
+function git_change_date() {
+  if [[ -n $(git status --porcelain) ]]; then
+    print_red "Current workspace is dirty, please save or stash first."
+    return 1
+  fi
+
+  local hash=$1
+  local date=$2
+
+  # 适配参数: 如果第二个参数为空，尝试判断第一个参数是否为日期
+  if [[ -z $date ]]; then
+    if git rev-parse --verify "$1^{commit}" >/dev/null 2>&1; then
+       print_red "Please input the date."
+       return 1
+    else
+       date=$1
+       hash="HEAD"
+    fi
+  fi
+
+  if ! git rev-parse --verify "$hash^{commit}" >/dev/null 2>&1; then
+    print_red "Invalid commit: $hash"
+    return 1
+  fi
+
+  local full_hash=$(git rev-parse "$hash")
+  local short_hash=$(git rev-parse --short "$full_hash")
+  local head_hash=$(git rev-parse HEAD)
+
+  echo "Changing date of commit ${GREEN}${short_hash}${RESET} to ${YELLOW}${date}${RESET}..."
+
+  if [[ "$full_hash" == "$head_hash" ]]; then
+    GIT_COMMITTER_DATE="$date" git commit --amend --no-edit --date "$date"
+  else
+    local cmd="GIT_COMMITTER_DATE=\"$date\" git commit --amend --no-edit --date \"$date\""
+    
+    # 使用临时文件作为 editor 脚本，避免转义问题
+    local editor_sh="${TMPDIR:-/tmp}/git_rebase_editor_$$"
+    
+    # 使用 perl 替代 sed 以获得更好的跨平台兼容性
+    cat <<EOF > "$editor_sh"
+#!/bin/sh
+perl -i -pe 's/^pick $short_hash.*/\$&\nexec $cmd/' "\$1"
+EOF
+    chmod +x "$editor_sh"
+    
+    GIT_SEQUENCE_EDITOR="$editor_sh" git rebase -i "${full_hash}^"
+    
+    /bin/rm "$editor_sh"
+  fi
+  
+  good_job
 }
 
 # 使用一个分支备份当前 git 修改
