@@ -1,7 +1,9 @@
+# vi
 *~
 
 # Mac OS X
 .DS_Store
+.DS_Store?
 ._*
 
 # Windows thumbnail cache files
@@ -10,10 +12,28 @@ Desktop.ini
 $RECYCLE.BIN/
 
 # dependencies and build artifacts
-/node_modules/
-/dist/
-/target/
-/coverage/
+node_modules
+es
+lib
+dist
+target
+coverage
+
+# packages
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.msi
+
+# environment variable
+.env
+.env.*
+!.env.example
 
 # temporary files
 *.tmp
