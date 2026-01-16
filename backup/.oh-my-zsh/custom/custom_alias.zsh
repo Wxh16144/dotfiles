@@ -174,6 +174,9 @@ alias gblhash="list_local_branch_hash"
 # 解析 url 并添加 git remote
 alias gae="git_add_remote"
 
+# 快速添加一个 worktree
+alias gwt="git_worktree_easy"
+
 # 将指定目录推送到远程仓库
 alias pudir="push_ignored_directory"
 

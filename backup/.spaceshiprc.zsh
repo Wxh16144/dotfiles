@@ -17,6 +17,11 @@ if [[ $prompt_order != *react* ]]; then
   spaceship add react --after package
 fi
 
+# git_worktree (custom)
+if [[ $prompt_order != *git_worktree* ]]; then
+  spaceship add git_worktree --after git
+fi
+
 
 # https://spaceship-prompt.sh/sections/git/#Git-commit-git_commit
 # https://github.com/spaceship-prompt/spaceship-prompt/pull/741

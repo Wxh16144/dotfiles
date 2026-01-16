@@ -151,6 +151,9 @@ plugins=(
   # source: https://github.com/Wxh16144/dotfiles/blob/master/backup/.oh-my-zsh/custom/plugins/spaceship-commit_hash/spaceship-commit_hash.plugin.zsh, PR: https://github.com/spaceship-prompt/spaceship-prompt/pull/741
   # spaceship-commit_hash
 
+  # custom spaceship plugin
+  spaceship-git_worktree
+
   # https://v2ex.com/t/532304 
   # git clone https://github.com/skywind3000/z.lua ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/z.lua
   z.lua

@@ -1079,5 +1079,54 @@ function export_raycast_preferences() {
   open "raycast://extensions/raycast/raycast/export-settings-data"
 } 
 
+# git worktree 包装函数，自动在主仓库同级目录创建 worktree
+# usage: git_worktree_easy [branch] [args...]
+# examples:
+#   git_worktree_easy feature/new-branch    # 在同级目录创建 worktree
+function git_worktree_easy() {
+  if ! is_git_repository; then
+    print_red "Not a git repository."
+    return 1
+  fi
+
+  local branch=$1
+  if [[ -z $branch ]]; then
+    print_red "Please specify a branch name."
+    echo "Usage: git_worktree_easy <branch> [git-worktree-args...]"
+    return 1
+  fi
+
+  # 获取主仓库路径和名称
+  local main_repo=$(git rev-parse --show-toplevel)
+  local repo_name=$(basename "$main_repo")
+  local parent_dir=$(dirname "$main_repo")
+  
+  # 生成 worktree 路径：将分支名中的 / 替换为 -
+  local safe_branch=$(echo "$branch" | sed 's/\//-/g')
+  
+  local worktree_path="$parent_dir/${repo_name}.worktrees/${safe_branch}"
+
+  # 检查路径是否已存在
+  if [[ -e $worktree_path ]]; then
+    print_red "Path already exists: $worktree_path"
+    return 1
+  fi
+  
+  # 获取额外的参数（从第2个参数开始）
+  local extra_args=("${@:2}")
+  
+  print_green "Creating worktree at: $worktree_path"
+  git worktree add "$worktree_path" "$branch" "${extra_args[@]}"
+  
+  if [[ $? -eq 0 ]]; then
+    print_green "Worktree created successfully!"
+    echo -n -e "${YELLOW}Do you want to cd into the worktree? [y/N] ${RESET}"
+    read agree_cd
+    if [[ $agree_cd == "y" ]]; then
+      cd "$worktree_path"
+    fi
+  fi
+}
+
 # =================== Auto run ===================
 find_and_remove_broken_links $PLAY
