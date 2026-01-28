@@ -13,11 +13,11 @@ $RECYCLE.BIN/
 
 # dependencies and build artifacts
 node_modules
-es
-lib
-dist
-target
-coverage
+/es/
+/lib/
+/dist/
+/target/
+/coverage/
 
 # packages
 *.7z

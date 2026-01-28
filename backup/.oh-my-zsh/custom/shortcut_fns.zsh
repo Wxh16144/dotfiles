@@ -959,8 +959,8 @@ function quick_start_project(){
     [antdm]="antd-mobile"
     [antdpro]="antd @ant-design/pro-components"
     [antd4]="antd@4 @ant-design/icons@5"
-    [antd5]="antd@5 @ant-design/icons@5 antd-style"
-    [antd]="antd@6 @ant-design/icons@6 antd-style"
+    [antd5]="antd@5 @ant-design/icons@5 antd-style@3"
+    [antd]="antd@6 @ant-design/icons@6 antd-style@4"
     [mui]="@mui/material @mui/icons-material @emotion/react @emotion/styled"
     [lobe-ui]="antd @lobehub/ui"
   )

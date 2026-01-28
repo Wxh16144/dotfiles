@@ -46,6 +46,7 @@ brew libpng
 brew libraw
 brew librsvg
 brew libtiff
+brew libtommath
 brew libtool
 brew libunistring
 brew libvmaf
@@ -77,6 +78,7 @@ brew readline
 brew shared-mime-info
 brew socat
 brew sqlite
+brew tcl-tk
 brew tesseract
 brew trash
 brew tree
@@ -111,19 +113,26 @@ tap ngrok/ngrok
 tap rcmdnk/file
 brew brew-file
 
+tap theboredteam/boring-notch
+cask boring-notch
+
+tap tw93/tap
+brew mole
+
 # App Store applications
 appstore 1586435171 Actions (3.8.0)
 appstore 1552555103 AutoSwitchInput Lite (1.5.1)
-appstore 1630034110 Bob (1.18.0)
+appstore 1630034110 Bob (1.19.0)
 appstore 1565629813 FastZip (2.0.7)
 appstore 1533074588 MyZip (1.2.5)
-appstore 451108668 QQ (6.9.78)
-appstore 595615424 QQMusic (10.9.5)
+appstore 1494023538 Plash (2.16.0)
+appstore 451108668 QQ (6.9.86)
+appstore 595615424 QQMusic (11.0.0)
 appstore 1555600758 ScriptWidget (6.7)
 appstore 1091675654 Shapr3D (5.991.0)
 appstore 946399090 Telegram Lite (6.0.2)
 appstore 1529999940 VideoFusion-macOS (8.7.0)
-appstore 836500024 WeChat (4.1.4)
-appstore 497799835 Xcode (16.0)
-appstore 1247341465 同花顺 (4.6.0)
+appstore 836500024 WeChat (4.1.5)
+appstore 497799835 Xcode (26.1.1)
+appstore 1247341465 同花顺 (5.2.1)
 appstore 461703208 高德地图 (0.6.2)

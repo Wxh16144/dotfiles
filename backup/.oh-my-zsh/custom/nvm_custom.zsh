@@ -90,3 +90,9 @@ function clean_nvm_versions() {
     print_yellow "No versions to delete."
   fi
 }
+
+# ========== more ==========
+# see: https://github.com/nvm-sh/nvm/blob/master/nvm.sh
+
+# 安装全局 npm 包
+# nvm_install_default_packages

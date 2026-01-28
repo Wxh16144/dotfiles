@@ -87,7 +87,7 @@ function git_change_date() {
     chmod +x "$editor_sh"
     
     GIT_SEQUENCE_EDITOR="$editor_sh" git rebase -i "${full_hash}^"
-    rm "$editor_sh"
+    /bin/rm "$editor_sh"
   fi
   
   _git_forge_log green "Job done."
@@ -121,6 +121,10 @@ start_date=$(date "+%Y-%m-%d 09:30:00")
 end_date=$(date "+%Y-%m-%d %H:%M:%S")
 # Work hours (24h format)
 work_hours=10-19
+# Week days filter:
+# Use "1,2,3,4,5" or "+1,2,3,4,5" to pick Mon-Fri.
+# Use "-6,7" to skip Sat,Sun. (1=Mon, 7=Sun)
+week_days=1,2,3,4,5
 EOF
     _git_forge_log green "Config file generated at $config_file"
     ${EDITOR:-vi} $config_file
@@ -145,6 +149,7 @@ EOF
   local start_date=$(awk -F '=' '/^start_date/{print $2}' $config_file | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
   local end_date=$(awk -F '=' '/^end_date/{print $2}' $config_file | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
   local work_hours=$(awk -F '=' '/^work_hours/{print $2}' $config_file | tr -d ' ')
+  local week_days=$(awk -F '=' '/^week_days/{print $2}' $config_file | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
   
   local work_start=$(echo $work_hours | cut -d'-' -f1)
   local work_end=$(echo $work_hours | cut -d'-' -f2)
@@ -170,12 +175,37 @@ from datetime import datetime, timedelta
 s = datetime.strptime('$start_date', '%Y-%m-%d %H:%M:%S')
 e = datetime.strptime('$end_date', '%Y-%m-%d %H:%M:%S')
 ws, we = int('$work_start'), int('$work_end')
+wd_str = '$week_days'.strip()
+
+# Parse week_days
+valid_days = set()
+if wd_str.startswith('-'):
+    valid_days = set(range(1, 8))
+    for x in wd_str.split(','):
+        raw = x.strip().lstrip('-')
+        if raw.isdigit(): valid_days.discard(int(raw))
+else:
+    for x in wd_str.split(','):
+        raw = x.strip().lstrip('+')
+        if raw.isdigit(): valid_days.add(int(raw))
+if not valid_days: valid_days = set(range(1, 8))
+
 dates = []
-while len(dates) < $count:
+failsafe = 0
+while len(dates) < $count and failsafe < $count * 100:
     days_diff = (e.date() - s.date()).days
     curr_day = s.date() + timedelta(days=random.randint(0, max(0, days_diff)))
+    
+    if curr_day.isoweekday() not in valid_days:
+        failsafe += 1
+        continue
+
     dt = datetime.combine(curr_day, datetime.min.time()).replace(hour=random.randint(ws, we - 1), minute=random.randint(0, 59), second=random.randint(0, 59))
     if s <= dt <= e: dates.append(dt)
+
+if len(dates) < $count:
+    sys.stderr.write('Warning: Could not generate enough dates. Please check date range and constraints.\\n')
+
 dates.sort()
 for d in dates: print(d.strftime('%Y-%m-%d %H:%M:%S'))
 "
@@ -203,6 +233,6 @@ for d in dates: print(d.strftime('%Y-%m-%d %H:%M:%S'))
   _git_forge_log yellow "Starting rebase..."
   GIT_SEQUENCE_EDITOR=$todo_editor git rebase -i $base_ref
 
-  rm $todo_editor
+  /bin/rm $todo_editor
   _git_forge_log green "Good job."
 }
