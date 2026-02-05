@@ -16,6 +16,7 @@ SPACESHIP_GIT_WORKTREE_SUFFIX="${SPACESHIP_GIT_WORKTREE_SUFFIX=""}"
 SPACESHIP_GIT_WORKTREE_COLOR="${SPACESHIP_GIT_WORKTREE_COLOR="cyan"}"
 SPACESHIP_GIT_WORKTREE_SYMBOL_MAIN="${SPACESHIP_GIT_WORKTREE_SYMBOL_MAIN="[🏗️root]"}"
 SPACESHIP_GIT_WORKTREE_SYMBOL_LINKED="${SPACESHIP_GIT_WORKTREE_SYMBOL_LINKED="[🌿worktree]"}"
+SPACESHIP_GIT_WORKTREE_SYMBOL_DETACHED="${SPACESHIP_GIT_WORKTREE_SYMBOL_DETACHED="[⚓worktree]"}"
 
 # ------------------------------------------------------------------------------
 # Section
@@ -43,7 +44,12 @@ spaceship_git_worktree() {
   if [[ -d "$toplevel/.git" ]]; then
     worktree_symbol="$SPACESHIP_GIT_WORKTREE_SYMBOL_MAIN"
   else
-    worktree_symbol="$SPACESHIP_GIT_WORKTREE_SYMBOL_LINKED"
+    # Linked worktrees can be either detached or linked 
+    if ! command git symbolic-ref -q HEAD &>/dev/null; then
+      worktree_symbol="$SPACESHIP_GIT_WORKTREE_SYMBOL_DETACHED"
+    else
+      worktree_symbol="$SPACESHIP_GIT_WORKTREE_SYMBOL_LINKED"
+    fi
   fi
 
   spaceship::section \
