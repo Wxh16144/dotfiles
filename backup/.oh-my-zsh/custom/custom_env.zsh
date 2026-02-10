@@ -4,14 +4,17 @@ export EDITOR=$ZSH_CUSTOM/shells/code-wait.sh
 
 export GITHUB_NAME="Wxh16144"
 
+
+# MacOS applications
+export APP=/Applications
 # /Users/{username} => ~
-export APP=$HOME/Library/Application\ Support
+export USER_APP=$HOME/Library/Application\ Support
 # chrome://apps  PWA
 export CHROME_APP=$HOME/Applications/Chrome\ Apps.localized
 export ICLOUD=$HOME/Library/Mobile\ Documents/com~apple~CloudDocs
 
 # https://support.apple.com/zh-cn/108809
-export APPLE_BACKUP=$APP/MobileSync/Backup
+export APPLE_BACKUP=$USER_APP/MobileSync/Backup
 
 # local_packages
 export PKG=$ICLOUD/local_packages
@@ -79,6 +82,9 @@ export TMPPLAY=$TMP/$(whoami)-tmp-playground
 export _ZL_NO_ALIASES=1
 export _ZL_CMD="j"
 
+# Allow to change the font size and font of the workbench 
+# https://github.com/microsoft/vscode/issues/519#issuecomment-3691806331
+export VSC_WORKBENCH_CSS_FILE=$APP/Visual\ Studio\ Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.css
 
 # ====== footer ====== #
 function __internal_ensure_dir() {
