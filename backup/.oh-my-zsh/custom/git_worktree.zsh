@@ -8,6 +8,9 @@
 # 支持在从主仓库创建 worktree 时，将 .env 等配置文件复制到新的 worktree 中。
 # ==============================================================================
 
+# 定义 worktree 目录的后缀名，例如 .worktrees 或 .workspace
+GIT_WORKTREE_DIR_SUFFIX=".worktrees"
+
 # 辅助函数：色彩输出
 function _git_worktree_log() {
   local color=$1; shift
@@ -109,7 +112,7 @@ function git_worktree_easy() {
   local parent_dir=$(dirname "$main_repo_path")
 
   local safe_branch=$(echo "$target_branch" | sed 's/\//-/g')
-  local worktree_path="$parent_dir/${repo_name}.worktrees/${safe_branch}"
+  local worktree_path="$parent_dir/${repo_name}${GIT_WORKTREE_DIR_SUFFIX}/${safe_branch}"
 
   if [[ -e $worktree_path ]]; then
     _git_worktree_log red "Path already exists: $worktree_path"
@@ -136,3 +139,25 @@ function git_worktree_easy() {
     fi
   fi
 }
+
+# 自动清理空的 workspace 目录的 hook
+function _git_worktree_cleanup_hook() {
+  # 仅在 Git 主仓库根目录触发 (跳过 worktree 和非 git 目录)
+  [[ -d ".git" ]] || return
+
+  # 推算同级 workspace 目录 (当前目录名 + 后缀，位于上级目录)
+  local workspace_dir="../${PWD:t}${GIT_WORKTREE_DIR_SUFFIX}"
+
+  # 如果目录存在，直接尝试删除
+  # 安全性提示：rmdir 命令仅在目录完全为空时才会执行删除
+  # 如果目录非空（包含任何文件），rmdir 会失败并跳过，不会造成数据丢失
+  if [[ -d "$workspace_dir" ]]; then
+    if rmdir "$workspace_dir" 2>/dev/null; then
+      _git_worktree_log yellow "Removed empty workspace directory: ${workspace_dir:t}"
+    fi
+  fi
+}
+
+# 注册 chpwd hook，在切换目录时触发
+autoload -U add-zsh-hook
+add-zsh-hook chpwd _git_worktree_cleanup_hook
