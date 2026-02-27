@@ -1,6 +1,11 @@
 # Fig pre block. Keep at the top of this file.
 [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 
+# Shell Test Operators Cheatsheet (Example):
+# [[ -f file ]] : True if file exists and is a regular file. (File)
+# [[ -s file ]] : True if file exists and has a size greater than zero. (Size / Safe source)
+# [[ -d dir  ]] : True if file exists and is a directory. (Directory)
+
 # <<<<<<<<<<<<<<<<<<<<<< ENV Variable <<<<<<<<<<<<<<<<<<<<<<
 [[ -s "$ZSH_CUSTOM/custom_env.zsh" ]] && source "$ZSH_CUSTOM/custom_env.zsh"
 
