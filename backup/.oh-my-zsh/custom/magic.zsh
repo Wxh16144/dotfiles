@@ -62,7 +62,7 @@ _generate_perms() {
 }
 
 # 生成字典并用换行符存储
-export ZW_DICT="$(_generate_perms "" "${ZW_CHARS[@]}")"
+typeset -g ZW_DICT="$(_generate_perms "" "${ZW_CHARS[@]}")"
 
 # 将索引转换为零宽字符组合
 _idx_to_zw() {

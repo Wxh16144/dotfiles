@@ -86,6 +86,21 @@ export _ZL_CMD="j"
 # https://github.com/microsoft/vscode/issues/519#issuecomment-3691806331
 export VSC_WORKBENCH_CSS_FILE=$APP/Visual\ Studio\ Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.css
 
+# Directory badges
+typeset -gA DIRECTORY_BADGES
+DIRECTORY_BADGES=(
+  [$COMPANY]="🏢"
+  [$COMPANY_ARCHIVE]="🗄️"
+  [$OSS]="🌐"
+  [$LLM]="🤖"
+  [$MY]="🏠"
+  [$PLAY]="🎢"
+  [$IDE_WORKSPACE]="💻"
+  [$ARCHIVE]="📦"
+  [$CONFIG]="🔧"
+  [$SCRIPTS]="📜"
+)
+
 # ====== footer ====== #
 function __internal_ensure_dir() {
   local dirs=(
