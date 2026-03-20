@@ -117,7 +117,7 @@ start_commit=$start_hash
 # The ending commit hash (newest)
 end_commit=$head_hash
 # Date format: YYYY-MM-DD HH:MM:SS
-start_date=$(date "+%Y-%m-%d 09:30:00")
+start_date=$(date -v-1d "+%Y-%m-%d 09:30:00")
 end_date=$(date "+%Y-%m-%d %H:%M:%S")
 # Work hours (24h format)
 work_hours=10-19
