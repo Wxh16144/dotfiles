@@ -19,6 +19,10 @@ alias st='open -a SourceTree .'
 alias f="open_fork"
 alias fk="caffeinate -u -t 3600" # prevent mac from sleeping
 
+# https://stackoverflow.com/a/39464824
+appid() { osascript -e "id of app \"$1\""; }
+apppath() { osascript -e "POSIX path of (path to app \"$1\")"; }
+
 # -------------------------------- #
 # Directory alias
 # -------------------------------- #
