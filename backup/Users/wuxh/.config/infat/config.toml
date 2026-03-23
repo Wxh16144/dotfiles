@@ -1,0 +1,25 @@
+# https://github.com/philocalyst/infat?tab=readme-ov-file#5-configuration
+[extensions]
+md = "Typora"
+html = "Google Chrome"
+pdf = "Preview"
+patch = "Fork"
+
+json = "Zed"
+jsonc = "Zed"
+
+ts = "Visual Studio Code"
+js = "Visual Studio Code"
+jsx = "Visual Studio Code"
+tsx = "Visual Studio Code"
+
+db = "TablePlus"
+sqlite = "TablePlus"
+sqlite3 = "TablePlus"
+
+[schemes]
+mailto = "Mail"
+# web = "Safari"
+
+[types]
+plain-text = "Zed"
