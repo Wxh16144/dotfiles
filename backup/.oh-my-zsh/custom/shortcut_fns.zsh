@@ -684,59 +684,6 @@ function count_lines(){
     -print0 | xargs -0 wc -l | sort -rn | head -n 300
 }
 
-# 将指定目录推送到远程仓库
-function push_ignored_directory() {
-  local igored_dir=${1:-dist}
-  local branch=${2:-gh-pages}
-  local remote_name=${3:-origin}
-  local force=${4:-false}
-  local current_dir=$(pwd)
-
-  local remote_url=$(git remote get-url $remote_name)
-
-  # ----------------- check remote start -----------------
-  if [[ -z $remote_url ]]; then
-    echo -e "${RED}$remote_name${RESET} is not a remote name"
-    return 1
-  fi
-
-  # ----------------- check dir start ----------------- 
-  if [[ ! -d $igored_dir ]]; then
-    echo -e "${RED}$igored_dir${RESET} is not a directory"
-    return 1
-  fi
-  if [[ -z $(ls -A $igored_dir) ]]; then
-    echo -e "${RED}$igored_dir${RESET} is empty"
-    return 1
-  fi
-  if [[ -d $igored_dir/.git ]]; then
-    echo -e "${RED}$igored_dir${RESET} is a git repository"
-    return 1
-  fi
-  
-  # ----------------- action -----------------
-  local tmp_dir=$(mktemp -d)
-
-  cp -R $igored_dir/. $tmp_dir
-  cd $tmp_dir
-
-  git init
-  git add -A
-  git commit -m "init" --no-verify --no-gpg-sign
-  git remote add origin $remote_url
-  local tmp_current_branch=$(git symbolic-ref --short HEAD)
-  if [[ $force == "true" ]]; then
-    git push origin $tmp_current_branch:$branch --force
-  else
-    git push origin $tmp_current_branch:$branch
-  fi
-
-  cd $current_dir
-  # rm -rf $tmp_dir
-  /bin/rm -rf $tmp_dir
-
-  echo -e "${GREEN}$igored_dir${RESET} pushed to ${GREEN}$remote_url${RESET} => ${GREEN}$branch${RESET}"
-}
 
 # 查找并删除无效软连接
 function find_and_remove_broken_links() {

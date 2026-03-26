@@ -182,7 +182,7 @@ alias gae="git_add_remote"
 alias gwt="git_worktree_easy"
 
 # 将指定目录推送到远程仓库
-alias pudir="push_ignored_directory"
+alias pudir="git_push_directory"
 
 # 覆盖 antd 依赖，仅支持 rc-xxx 依赖
 alias oad="override-antd-deps"
