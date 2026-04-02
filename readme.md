@@ -16,12 +16,13 @@ git clone --branch template --depth 1 git@github.com:Wxh16144/dotfiles.git
 [vscode-setting]: ./backup/Library/Application%20Support/Code/User/settings.json
 [vscode-snippets]: ./backup/Library/Application%20Support/Code/User/snippets
 [zshrc]: ./backup/.zshrc
+[agent skill]: ./backup/.agents/skills
 [git-config]: ./backup/.gitconfig
 
-- [.zshrc][zshrc], [git config][git-config]
+- [.zshrc][zshrc], [git config][git-config], [agent skill][agent skill]
 - [VSCode setting][vscode-setting], [snippets][vscode-snippets]
 
-## 更多
+## More
 
 - [backup-cli][backup-cli-ul]
 - [GitHub does dotfiles](https://dotfiles.github.io/)
