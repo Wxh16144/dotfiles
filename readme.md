@@ -16,12 +16,22 @@
 [registry_proxy]: ./backup/.oh-my-zsh/custom/registry_proxy.zsh
 [desensitize-script]: ./backup/.oh-my-zsh/custom/desensitize_env.zsh
 
-- [.zshrc][zshrc], [agent skills][skill]
+- [.zshrc][zshrc], [agent skills][skill]([Install now](#agent-skills))
 - [alias][alias]  _([shortcut_fns][shortcut_fns]_, _[env_vars][env_vars])_
 - [VSCode setting][vscode-setting], [snippets][vscode-snippets]
 - [git config][git-config], [registry proxy][registry_proxy]
 
 简体中文 | [English](./readme.en.md) | [Bilibili#BV1Jg4y1H7gA](https://bilibili.com/video/BV1Jg4y1H7gA)
+
+## Agent Skills
+
+> 这些我写给 Agent 的 skill，不是冰冷的代码与指令，而是我在这个时代，留给世界、也留给自己的，最虔诚的工程情书。
+
+```bash
+npx skills add Wxh16144/dotfiles 
+```
+
+---
 
 ## 构建专属于您的 Dotfiles
 

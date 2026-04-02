@@ -8,6 +8,7 @@
 [vscode-setting]: ./backup/Library/Application%20Support/Code/User/settings.json
 [vscode-snippets]: ./backup/Library/Application%20Support/Code/User/snippets
 [zshrc]: ./backup/.zshrc
+[skill]: ./backup/.agents/skills
 [alias]: ./backup/.oh-my-zsh/custom/custom_alias.zsh
 [shortcut_fns]: ./backup/.oh-my-zsh/custom/shortcut_fns.zsh
 [env_vars]: ./backup/.oh-my-zsh/custom/custom_env.zsh
@@ -15,12 +16,22 @@
 [registry_proxy]: ./backup/.oh-my-zsh/custom/registry_proxy.zsh
 [desensitize-script]: ./backup/.oh-my-zsh/custom/desensitize_env.zsh
 
-- [.zshrc][zshrc]
+- [.zshrc][zshrc], [agent skills][skill]([Install now](#agent-skills))
 - [alias][alias]  _([shortcut_fns][shortcut_fns]_, _[env_vars][env_vars])_
 - [VSCode setting][vscode-setting], [snippets][vscode-snippets]
 - [git config][git-config], [registry proxy][registry_proxy]
 
 [简体中文](./readme.md) | English
+
+## Agent Skills
+
+> All these skills I crafted for the Agent are not cold codes and commands, but the most devout engineering love letters I bequeath to the world—and to myself—in this time.
+
+```bash
+npx skills add Wxh16144/dotfiles 
+```
+
+---
 
 ## Build Your Own Dotfiles
 
