@@ -149,8 +149,8 @@ function __internal_ensure_symlink() {
   declare -A symlinks
   
   symlinks=(
-    [$TMPDIR]="${ICLOUD}/Temporary"
-    [$TMP]="${ICLOUD}/Private_var_tmp"
+    [$TMPDIR]="${ICLOUD}/TMP_short"
+    [$TMP]="${ICLOUD}/TMP_long"
     [$HOME/Desktop]="${ICLOUD}/Desktop"
     [$HOME/Documents]="${ICLOUD}/Documents"
     [$LOGS]="${ICLOUD}/$(whoami)-logs"
