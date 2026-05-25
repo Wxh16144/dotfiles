@@ -12,6 +12,10 @@
 # ref: https://code.visualstudio.com/docs/editor/versioncontrol#_vs-code-as-git-diff-tool
 [diff]
   tool = default-difftool
+
+[diff "jsonl"]
+    textconv = jq -s '.'
+
 [difftool "default-difftool"]
   cmd = code --disable-extensions --wait --diff $LOCAL $REMOTE
 
