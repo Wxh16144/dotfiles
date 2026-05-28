@@ -86,6 +86,13 @@ export _ZL_CMD="j"
 # https://github.com/microsoft/vscode/issues/519#issuecomment-3691806331
 export VSC_WORKBENCH_CSS_FILE=$APP/Visual\ Studio\ Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.css
 
+# VS Code work profile isolation
+# 个人使用 VS Code 默认 profile；公司单独使用隔离的 user-data-dir / extensions-dir
+export VSCODE_PROFILE_WORK_ROOT="$COMPANY/.vscode-profile"
+export VSCODE_PROFILE_WORK_NAME="Work"
+export VSCODE_PROFILE_WORK_USER_DATA="$VSCODE_PROFILE_WORK_ROOT/user-data"
+export VSCODE_PROFILE_WORK_EXTENSIONS="$VSCODE_PROFILE_WORK_ROOT/extensions"
+
 # ====== conditional env groups ====== #
 # 控制变量约定: ENABLE_<GROUP_NAME>=1 则启用该组环境变量
 function __register_env_group() {
@@ -123,6 +130,10 @@ function __internal_ensure_dir() {
     $MY
     $LLM
     $PLAY
+    # vscode work profile
+    $VSCODE_PROFILE_WORK_ROOT
+    $VSCODE_PROFILE_WORK_USER_DATA
+    $VSCODE_PROFILE_WORK_EXTENSIONS
     # other
     $ARCHIVE
     $PKG
@@ -144,6 +155,7 @@ function __internal_ensure_dir() {
     $IDE_WORKSPACE
     $ARCHIVE
     $LOCAL_BACKUP
+    $VSCODE_PROFILE_WORK_ROOT
   )
 
   for dir in ${hidden_dirs[@]}; do

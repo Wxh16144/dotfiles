@@ -4,6 +4,17 @@
   },
   {
     "action" : {
+      "args" : "checkout @{-1}",
+      "path" : "${git}",
+      "showOutput" : false,
+      "type" : "process",
+      "waitForExit" : true
+    },
+    "name" : "?---",
+    "target" : "repository"
+  },
+  {
+    "action" : {
       "script" : "# https:\/\/superuser.com\/questions\/288320\/whats-like-osxs-pbcopy-for-linux\n# MacOS\n${git} branch --show-current | pbcopy\n\n# https:\/\/manual.raycast.com\/deeplinks\nopen \"raycast:\/\/confetti\"\n\n",
       "showOutput" : false,
       "type" : "sh",

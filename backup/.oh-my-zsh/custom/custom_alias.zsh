@@ -131,6 +131,9 @@ alias zshrc='code --disable-extensions "${ZDOTDIR:-$HOME}"/.zshrc'
 alias reload='source "${ZDOTDIR:-$HOME}"/.zshrc'
 alias custom="code --disable-extensions $ZSH_CUSTOM"
 
+# VS Code profiles
+alias codew="vscode_work_profile" # 隔离工作环境的 VS Code 配置和扩展
+
 # -------------------------------- #
 # Git shortcut
 # -------------------------------- #
