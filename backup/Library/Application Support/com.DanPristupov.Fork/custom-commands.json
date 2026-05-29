@@ -46,6 +46,16 @@
   },
   {
     "action" : {
+      "script" : "branch=$(${git} branch --show-current)\nlocal_commit=$(${git} rev-parse --short HEAD)\n\nitems=\"\\\"⚠️  Push ALL remotes\\\"\"\nwhile IFS= read -r remote; do\n  url=$(${git} remote get-url \"$remote\" 2>\/dev\/null || echo \"N\/A\")\n  remote_commit=$(${git} rev-parse --short \"$remote\/$branch\" 2>\/dev\/null || echo \"N\/A\")\n  ahead=$(${git} log \"$remote\/$branch\"..HEAD --oneline 2>\/dev\/null | wc -l | tr -d ' ')\n  items=\"${items}, \\\"${remote}  |  ${url}  |  remote: ${remote_commit}  ahead: ${ahead}\\\"\"\ndone < <(${git} remote)\n\nselected=$(osascript -e \"choose from list {$items} with title \\\"Force Push — branch: $branch  (local: $local_commit)\\\" with prompt \\\"Select remote to force push to:\\\" default items {} OK button name \\\"Force Push\\\" cancel button name \\\"Cancel\\\"\")\n\nif [ \"$selected\" = \"false\" ]; then\n  exit 0\nfi\n\nif [[ \"$selected\" == \"⚠️  Push ALL remotes\" ]]; then\n  while IFS= read -r remote; do\n    ${git} push \"$remote\" --force-with-lease\n  done < <(${git} remote)\nelse\n  remote=$(echo \"$selected\" | awk -F'  \\\\|  ' '{print $1}')\n  ${git} push \"$remote\" --force-with-lease\nfi",
+      "showOutput" : false,
+      "type" : "sh",
+      "waitForExit" : true
+    },
+    "name" : "?Force Push (macOS Only)",
+    "target" : "repository"
+  },
+  {
+    "action" : {
       "script" : "git format-patch -1 ${sha}",
       "showOutput" : false,
       "type" : "sh",
