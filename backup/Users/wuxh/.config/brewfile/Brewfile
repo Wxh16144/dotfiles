@@ -95,6 +95,7 @@ brew zstd
 
 tap homebrew/cask
 cask chromium
+cask hammerspoon
 cask jordanbaird-ice
 cask keycastr
 cask localsend

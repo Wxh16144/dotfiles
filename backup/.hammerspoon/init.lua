@@ -1,0 +1,1 @@
+require "auto_quit_apps.auto_quit_apps"
