@@ -37,7 +37,7 @@ local APPS = {
 
 hs.application.enableSpotlightForNameSearches(true)
 
-local logger = hs.logger.new("auto_quit_apps", "info")
+local logger = require("lib.logger").new("auto_quit_apps", "info")
 
 local enabled = true
 local screenWatcher = nil
@@ -253,9 +253,21 @@ local function startWatcher()
     logger.i("监听已启动")
 end
 
-startWatcher()
-
 return {
+    start = function()
+        startWatcher()
+    end,
+
+    stop = function()
+        clearTimer()
+
+        if screenWatcher then
+            screenWatcher:stop()
+            screenWatcher = nil
+            logger.i("监听已停止")
+        end
+    end,
+
     enable = function()
         enabled = true
         logger.i("应用自动退出已启用")
