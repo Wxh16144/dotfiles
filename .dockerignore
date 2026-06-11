@@ -1,0 +1,14 @@
+.git/
+node_modules/
+logs/
+archive/
+scripts/
+*.md
+*.json
+*.yaml
+*.yml
+skills/
+.DS_Store
+bootstrap.sh
+.backup/
+.backuprc

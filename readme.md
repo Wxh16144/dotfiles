@@ -89,6 +89,20 @@ npm run restore
 
 </details>
 
+## 🐳 Docker 快速体验
+
+```bash
+# 克隆后构建
+git clone --depth 1 https://github.com/Wxh16144/dotfiles.git && cd dotfiles
+docker build -t wxh16144/dotfiles .
+docker run --rm -it wxh16144/dotfiles
+
+# 或远端直建
+docker run --rm -it $(docker build -q https://github.com/Wxh16144/dotfiles.git#master)
+```
+
+进去就能看到 **spaceship prompt + 语法高亮 + 自动补全 + 全套 alias/函数**。
+
 ## Read more
 
 - [backup-cli][backup-cli-url]

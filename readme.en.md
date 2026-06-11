@@ -87,6 +87,18 @@ npm run restore
 
 </details>
 
+## 🐳 Docker Quickstart
+
+```bash
+# clone then build
+git clone --depth 1 https://github.com/Wxh16144/dotfiles.git && cd dotfiles
+docker build -t wxh16144/dotfiles .
+docker run --rm -it wxh16144/dotfiles
+
+# or build directly from remote
+docker run --rm -it $(docker build -q https://github.com/Wxh16144/dotfiles.git#master)
+```
+
 ## Read More
 
 - [backup-cli][backup-cli-url]
