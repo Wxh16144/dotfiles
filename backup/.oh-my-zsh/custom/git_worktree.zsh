@@ -121,6 +121,8 @@ function _git_worktree_easy_help_zh() {
     例如: feature/my-feature -> feature-my-feature
   - 当前目录里的未提交改动不会自动移动到新 worktree。
     如果需要带过去，请先 commit 或 stash。
+  - 若目标分支已在本地存在（未使用 -b/-B），会提示确认再继续，
+    避免孤立 worktree 记录导致 git 意外重置分支 HEAD。
 
 选项:
   -h, --help    显示帮助
@@ -168,6 +170,9 @@ Notes:
     Example: feature/my-feature -> feature-my-feature
   - Uncommitted changes are not moved automatically.
     Commit or stash them before creating a new worktree if needed.
+  - If the target branch already exists locally (no -b/-B given), you will be
+    asked to confirm. This guards against stale worktree metadata causing git
+    to silently reset the branch HEAD to the current HEAD.
 
 Options:
   -h, --help    Show this help message
@@ -230,6 +235,39 @@ function git_worktree_easy() {
     _git_worktree_log red "Path already exists: $worktree_path"
     return 1
   fi
+
+  # 4a. 清理孤立的 worktree 记录，防止 git worktree add 因残留元数据而重置分支 HEAD
+  git worktree prune 2>/dev/null
+
+  # 4b. 若未使用 -b/-B 新建分支，而目标分支已在本地存在，则展示其当前提交并要求确认
+  #     避免意外覆盖已有 commit（尤其是分支已有 stale worktree 记录时 git 可能 reset HEAD）
+  local _has_new_branch_flag=0
+  for arg in "$@"; do
+    [[ "$arg" == "-b" || "$arg" == "-B" || "$arg" == "--orphan" ]] && _has_new_branch_flag=1 && break
+  done
+
+  if (( _has_new_branch_flag == 0 )) && git rev-parse --verify "refs/heads/$target_branch" &>/dev/null; then
+    local _tip=$(git log --oneline -1 "refs/heads/$target_branch" 2>/dev/null)
+    local _ahead=$(git rev-list --count "HEAD..refs/heads/$target_branch" 2>/dev/null || echo "?")
+    _git_worktree_log yellow "Branch '$target_branch' already exists: $_tip"
+    if [[ "$_ahead" != "0" && "$_ahead" != "?" ]]; then
+      _git_worktree_log yellow "  ↑ $_ahead commit(s) ahead of current HEAD — these will NOT be lost by a normal worktree add."
+    fi
+    echo -n -e "\e[33m[INFO] Continue creating worktree? [y/N] \e[0m"
+    read -q || { echo; return 1; }
+    echo
+  fi
+
+  # 4c. 检查分支是否已 checkout 在一个存活的 worktree 中
+  local _live_wt=""
+  while IFS= read -r _line; do
+    if [[ "$_line" == worktree\ * ]]; then
+      _live_wt="${_line#worktree }"
+    elif [[ "$_line" == "branch refs/heads/$target_branch" && -d "$_live_wt" ]]; then
+      _git_worktree_log red "Branch '$target_branch' is already checked out in: $_live_wt"
+      return 1
+    fi
+  done < <(git worktree list --porcelain)
 
   # 4. 执行创建
   _git_worktree_log green "Creating worktree at: $worktree_path"
