@@ -5,6 +5,7 @@ SPACESHIP_PROMPT_ASYNC=false
 # my custom
 # spaceship add commit_hash --before git
 prompt_order="$SPACESHIP_PROMPT_ORDER"
+SPACESHIP_GIT_USER_SHOW=false
 
 # My PR has been merged and can now be used directly. (No need to customize, if you want to customize, you can refer to it.).
 # PR: https://github.com/spaceship-prompt/spaceship-prompt/pull/741
@@ -22,6 +23,10 @@ if [[ $prompt_order != *git_worktree* ]]; then
   spaceship add git_worktree --after git
 fi
 
+# git_user (custom)
+if [[ $prompt_order != *git_worktree* ]]; then
+  spaceship add git_user --after git
+fi
 
 # https://spaceship-prompt.sh/sections/git/#Git-commit-git_commit
 # https://github.com/spaceship-prompt/spaceship-prompt/pull/741

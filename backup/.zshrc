@@ -158,6 +158,7 @@ plugins=(
 
   # custom spaceship plugin
   spaceship-git_worktree
+  spaceship-git_user
 
   # https://v2ex.com/t/532304 
   # git clone https://github.com/skywind3000/z.lua ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/z.lua

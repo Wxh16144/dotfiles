@@ -17,6 +17,7 @@ SPACESHIP_GIT_WORKTREE_COLOR="${SPACESHIP_GIT_WORKTREE_COLOR="cyan"}"
 SPACESHIP_GIT_WORKTREE_SYMBOL_MAIN="${SPACESHIP_GIT_WORKTREE_SYMBOL_MAIN="[⭐️root]"}"
 SPACESHIP_GIT_WORKTREE_SYMBOL_LINKED="${SPACESHIP_GIT_WORKTREE_SYMBOL_LINKED="[🔗worktree]"}"
 SPACESHIP_GIT_WORKTREE_SYMBOL_DETACHED="${SPACESHIP_GIT_WORKTREE_SYMBOL_DETACHED="[⛓️‍💥worktree]"}"
+SPACESHIP_GIT_WORKTREE_SHOW_COUNT="${SPACESHIP_GIT_WORKTREE_SHOW_COUNT=true}"
 
 # ------------------------------------------------------------------------------
 # Section
@@ -30,7 +31,7 @@ spaceship_git_worktree() {
   # Check if there are multiple worktrees
   # git worktree list always returns at least one line (the main worktree)
   local worktree_count
-  worktree_count=$(command git worktree list 2>/dev/null | wc -l)
+  worktree_count=$(command git worktree list 2>/dev/null | wc -l | tr -d ' ')
 
   # If there's only one worktree (the main repo itself without additional worktrees), return
   [[ $worktree_count -le 1 ]] && return
@@ -50,6 +51,11 @@ spaceship_git_worktree() {
     else
       worktree_symbol="$SPACESHIP_GIT_WORKTREE_SYMBOL_LINKED"
     fi
+  fi
+
+  # Append worktree count (e.g. [🔗worktree:3])
+  if [[ $SPACESHIP_GIT_WORKTREE_SHOW_COUNT == true ]]; then
+    worktree_symbol="${worktree_symbol%]*}:$worktree_count]"
   fi
 
   spaceship::section \
