@@ -208,6 +208,7 @@ alias path=paths
 
 autoload -Uz compinit && compinit
 
+[[ -s "$ZSH_CUSTOM/env_groups.zsh" ]] && source "$ZSH_CUSTOM/env_groups.zsh"
 # load custom alias (Ensure at the end)
 [[ -s "$ZSH_CUSTOM/custom_alias.zsh" ]] && source "$ZSH_CUSTOM/custom_alias.zsh"
 # Fig post block. Keep at the bottom of this file.
