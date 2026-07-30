@@ -79,7 +79,10 @@ alias o="open ."
 alias p="pwd"
 alias e="exit"
 alias h='history'
-alias cpwd="pwd | pbcopy && echo successfully"
+function cpwd() {
+  local current_path="$(pwd -L)"
+  printf '%s' "$current_path" | pbcopy && printf '\033[1m%s\033[0m \033[90mcopied to clipboard.\033[0m\n' "$current_path"
+}
 alias big='du -s ./* | sort -nr | awk '\''{print $2}'\'' | xargs du -sh'
 alias cl='count_lines'
 alias project='quick_start_project'

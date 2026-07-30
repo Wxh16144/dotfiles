@@ -16,10 +16,14 @@ export ICLOUD=$HOME/Library/Mobile\ Documents/com~apple~CloudDocs
 # https://support.apple.com/zh-cn/108809
 export APPLE_BACKUP=$USER_APP/MobileSync/Backup
 
-# local_packages
+# 本地私有依赖包目录
 export PKG=$ICLOUD/local_packages
+# 主机本地离线备份（仅本机存储）
 export LOCAL_BACKUP=$HOME/Backup_local
-export CLOUD_BACKUP=$ICLOUD/Backup
+# iCloud常驻云端备份目录
+export ICLOUD_BACKUP=$ICLOUD/Backup
+# 每日自动执行备份任务输出目录，存放按日期划分的定时备份文件
+export DAILY_BACKUP=$ICLOUD/daily_backups
 
 # Increase Bash history size. Allow 32³ entries; the default is 1000.
 export HISTSIZE='32768'
@@ -138,6 +142,7 @@ function __internal_ensure_dir() {
     $ARCHIVE
     $PKG
     $LOCAL_BACKUP
+    $DAILY_BACKUP
     $LOGS
     $TMPPLAY
   )
@@ -155,6 +160,7 @@ function __internal_ensure_dir() {
     $IDE_WORKSPACE
     $ARCHIVE
     $LOCAL_BACKUP
+    $DAILY_BACKUP
     $VSCODE_PROFILE_WORK_ROOT
   )
 
