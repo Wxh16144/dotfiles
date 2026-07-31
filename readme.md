@@ -13,19 +13,20 @@
 [shortcut_fns]: ./backup/.oh-my-zsh/custom/shortcut_fns.zsh
 [env_vars]: ./backup/.oh-my-zsh/custom/custom_env.zsh
 [git-config]: ./backup/.gitconfig
+[git-config_work]: ./backup/.gitconfig_work
 [registry_proxy]: ./backup/.oh-my-zsh/custom/registry_proxy.zsh
 [desensitize-script]: ./backup/.oh-my-zsh/custom/desensitize_env.zsh
 
 - [.zshrc][zshrc], [agent skills][skill]([Install now](#agent-skills))
 - [alias][alias]  _([shortcut_fns][shortcut_fns]_, _[env_vars][env_vars])_
 - [VSCode setting][vscode-setting], [snippets][vscode-snippets]
-- [git config][git-config], [registry proxy][registry_proxy]
+- [git config][git-config](_[work][git-config_work]_), [registry proxy][registry_proxy]
 
 简体中文 | [English](./readme.en.md) | [Bilibili#BV1Jg4y1H7gA](https://bilibili.com/video/BV1Jg4y1H7gA)
 
 ## Agent Skills
 
-> 这些我写给 Agent 的 skill，不是冰冷的代码与指令，而是我在这个时代，留给世界、也留给自己的，最虔诚的工程情书。
+> 这些 Skill 是我日常开发中沉淀的实践经验与工程规范。
 
 ```bash
 npx skills add Wxh16144/dotfiles 

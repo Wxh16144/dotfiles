@@ -13,13 +13,14 @@
 [shortcut_fns]: ./backup/.oh-my-zsh/custom/shortcut_fns.zsh
 [env_vars]: ./backup/.oh-my-zsh/custom/custom_env.zsh
 [git-config]: ./backup/.gitconfig
+[git-config_work]: ./backup/.gitconfig_work
 [registry_proxy]: ./backup/.oh-my-zsh/custom/registry_proxy.zsh
 [desensitize-script]: ./backup/.oh-my-zsh/custom/desensitize_env.zsh
 
 - [.zshrc][zshrc], [agent skills][skill]([Install now](#agent-skills))
 - [alias][alias]  _([shortcut_fns][shortcut_fns]_, _[env_vars][env_vars])_
 - [VSCode setting][vscode-setting], [snippets][vscode-snippets]
-- [git config][git-config], [registry proxy][registry_proxy]
+- [git config][git-config](_[work][git-config_work]_), [registry proxy][registry_proxy]
 
 [简体中文](./readme.md) | English
 
