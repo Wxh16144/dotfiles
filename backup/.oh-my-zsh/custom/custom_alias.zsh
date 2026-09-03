@@ -128,6 +128,9 @@ alias ser="quick_server"
 alias pser="private_server"
 alias port="list_common_ports" # 列举一些常用的端口占用情况
 alias portkill="kill_port" # 杀掉指定端口的进程
+# 网络链接数
+alias net='lsof -i -P -n | grep ESTABLISHED | awk "{print \$1}" | sort | uniq -c | sort -rn | head -15'
+alias netc='lsof -i -P -n | grep ESTABLISHED | wc -l'
 
 # zsh
 alias zshrc='code --disable-extensions "${ZDOTDIR:-$HOME}"/.zshrc'

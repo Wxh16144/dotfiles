@@ -90,6 +90,24 @@
   count = rev-list --all --count
   # open vscode
   code = !code --disable-extensions
+  patch = "!f() {\
+    if [ $# -eq 1 ]; then\
+      BASE=\"$1\"; TARGET=\"HEAD\";\
+    elif [ $# -eq 2 ]; then\
+      BASE=\"$1\"; TARGET=\"$2\";\
+    else\
+      echo \"Usage: git patch <commit1> | git patch <commitA> <commitB>\"; return 1;\
+    fi;\
+    OUT=\"${BASE}_${TARGET}.patch\";\
+    git diff \"$BASE\" \"$TARGET\" > \"$OUT\";\
+    if [ -s \"$OUT\" ]; then\
+      echo \"✅ Patch generated: $OUT\";\
+      echo \"   File size: $(du -h \"$OUT\" | awk '{print $1}')\";\
+    else\
+      rm -f \"$OUT\";\
+      echo \"ℹ️ No differences found; no file created.\";\
+    fi;\
+  }; f"
 
 
 [commit]
