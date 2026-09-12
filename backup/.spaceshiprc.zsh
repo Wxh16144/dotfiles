@@ -25,7 +25,7 @@ fi
 
 # git_user (custom)
 if [[ $prompt_order != *git_worktree* ]]; then
-  spaceship add git_user --after git
+  spaceship add git_user --before git
 fi
 
 # https://spaceship-prompt.sh/sections/git/#Git-commit-git_commit
