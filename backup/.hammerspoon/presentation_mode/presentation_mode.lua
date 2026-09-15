@@ -1,49 +1,45 @@
 -- presentation_mode/presentation_mode.lua
 --
--- 一键进入/退出录制演示模式：隐藏桌面文件和桌面小组件。
+-- 一键进入/退出录制演示模式：隐藏桌面图标和桌面小组件。
+--
+-- 全部设置项都写在 com.apple.WindowManager，改完立即生效，不需要 kill 任何系统进程。
 
 local HOTKEY_MODS = {"ctrl", "alt", "cmd"}
 local HOTKEY_KEY = "P"
 local runtimePaths = require "lib.runtime_paths"
 
--- 只刷新显式声明了 refresh 的设置项；不需要即时生效的设置可以省略 refresh。
-local REFRESH_ON_TOGGLE = true
-
 -- state.json 只在演示模式开启期间存在，用来标记重载后仍处于演示模式。
 local STATE_PATH = runtimePaths.stateFile("presentation_mode", "state.json")
 
 -- enabledValue/disabledValue 分别对应进入/退出演示模式；不同 key 的布尔语义不一致。
--- refresh 可省略或设为空表，表示切换时只写 defaults，不重启相关系统进程。
+-- 这些键都支持热更新，写入即生效，所以不需要刷新任何系统进程。
 local DEFAULT_SETTINGS = {
     {
-        id = "finderCreateDesktop",
-        displayName = "桌面文件",
-        domain = "com.apple.finder",
-        key = "CreateDesktop",
-        -- true=显示，false=隐藏
-        enabledValue = false,
-        disabledValue = true,
-        refresh = {"finder"},
+        id = "standardHideDesktopIcons",
+        displayName = "桌面图标",
+        domain = "com.apple.WindowManager",
+        key = "StandardHideDesktopIcons",
+        -- true=隐藏，false=显示
+        enabledValue = true,
+        disabledValue = false,
     },
     {
-        id = "windowManagerStandardHideWidgets",
+        id = "standardHideWidgets",
         displayName = "桌面小组件",
         domain = "com.apple.WindowManager",
         key = "StandardHideWidgets",
         -- true=隐藏，false=显示
         enabledValue = true,
         disabledValue = false,
-        -- refresh = {"dock", "systemUIServer"},
     },
     {
-        id = "windowManagerStageManagerHideWidgets",
+        id = "stageManagerHideWidgets",
         displayName = "Stage Manager 小组件",
         domain = "com.apple.WindowManager",
         key = "StageManagerHideWidgets",
         -- true=隐藏，false=显示
         enabledValue = true,
         disabledValue = false,
-        -- refresh = {"dock", "systemUIServer"},
     },
 }
 
@@ -144,77 +140,43 @@ local function writeDefault(setting, value)
         value and "true" or "false",
     }, " ")
 
-    return runCommand(command)
-end
-
-local function refreshFinder()
-    runCommand("killall Finder")
-end
-
-local function refreshDock()
-    runCommand("killall Dock")
-end
-
-local function refreshSystemUIServer()
-    runCommand("killall SystemUIServer")
-end
-
-local function markRefreshTargets(changedTargets, refreshTargets)
-    if type(refreshTargets) == "string" then
-        changedTargets[refreshTargets] = true
-        return
+    local ok = runCommand(command)
+    if not ok then
+        return false
     end
 
-    for _, refreshTarget in ipairs(refreshTargets or {}) do
-        changedTargets[refreshTarget] = true
+    -- 读回校验：这个模块曾被死键静默失效坑过，写成功后立刻验证实际值。
+    local readOk, output = runCommand(table.concat({
+        "defaults read",
+        shellQuote(setting.domain),
+        shellQuote(setting.key),
+    }, " "))
+
+    if not readOk then
+        return false
     end
+
+    local expected = value and "1" or "0"
+    local actual = trim(output)
+    if actual ~= expected then
+        logger.w(string.format("校验失败：%s 期望 %s 实际 %s", setting.displayName, expected, actual))
+        return false
+    end
+
+    return true
 end
 
-local function refreshChangedTargets(changedTargets)
-    if changedTargets.finder then
-        refreshFinder()
-    end
-
-    if changedTargets.dock then
-        refreshDock()
-    end
-
-    if changedTargets.systemUIServer then
-        refreshSystemUIServer()
-    end
-end
-
-local function applyPresentationDefaults(shouldRefresh)
-    local changedTargets = {}
-
+local function applyPresentationDefaults()
     for _, setting in ipairs(DEFAULT_SETTINGS) do
-        local ok = writeDefault(setting, setting.enabledValue)
-        if ok and shouldRefresh then
-            markRefreshTargets(changedTargets, setting.refresh)
-        end
-    end
-
-    if shouldRefresh then
-        refreshChangedTargets(changedTargets)
+        writeDefault(setting, setting.enabledValue)
     end
 end
 
-local function restorePresentationDefaults(shouldRefresh)
-    local changedTargets = {}
-
+local function restorePresentationDefaults()
     for _, setting in ipairs(DEFAULT_SETTINGS) do
-        local ok = writeDefault(setting, setting.disabledValue)
-        if ok then
+        if writeDefault(setting, setting.disabledValue) then
             logger.i(string.format("退出演示模式，恢复%s为 %s", setting.displayName, tostring(setting.disabledValue)))
         end
-
-        if ok and shouldRefresh then
-            markRefreshTargets(changedTargets, setting.refresh)
-        end
-    end
-
-    if shouldRefresh then
-        refreshChangedTargets(changedTargets)
     end
 end
 
@@ -237,14 +199,6 @@ local function buildMenu()
                     else
                         presentationMode.enable()
                     end
-                end)
-            end,
-        },
-        {
-            title = "🧹 修复显示（刷新一次）",
-            fn = function()
-                safeCall(function()
-                    presentationMode.refreshDisplay()
                 end)
             end,
         },
@@ -283,31 +237,19 @@ local function enablePresentationMode()
     }
 
     writeModeMarker(state)
-    applyPresentationDefaults(REFRESH_ON_TOGGLE)
+    applyPresentationDefaults()
     active = true
     updateMenubar()
     showStatus("已进入演示模式")
 end
 
 local function disablePresentationMode()
-    restorePresentationDefaults(REFRESH_ON_TOGGLE)
+    restorePresentationDefaults()
 
     active = false
     deleteFile(STATE_PATH)
     updateMenubar()
     showStatus("已退出演示模式并显示桌面和小组件")
-end
-
-local function refreshDisplay()
-    if active then
-        applyPresentationDefaults(true)
-        showStatus("已刷新演示模式显示")
-        return
-    end
-
-    restorePresentationDefaults(true)
-    deleteFile(STATE_PATH)
-    showStatus("已刷新桌面和小组件显示")
 end
 
 local function setupMenubar()
@@ -371,15 +313,11 @@ presentationMode = {
     end,
 
     forceShow = function()
-        restorePresentationDefaults(true)
+        restorePresentationDefaults()
         active = false
         deleteFile(STATE_PATH)
         updateMenubar()
         showStatus("已强制显示桌面和小组件")
-    end,
-
-    refreshDisplay = function()
-        refreshDisplay()
     end,
 
     toggle = function()
