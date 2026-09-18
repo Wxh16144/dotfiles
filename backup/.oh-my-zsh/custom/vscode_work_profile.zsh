@@ -84,7 +84,11 @@ function __vscode_profile_ensure_work_dir() {
 }
 
 function vscode_work_profile() {
-  if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+  # 不加 -D/-F: 剩余参数要透传给 code，其自身的选项需放行
+  local -A opts
+  zparseopts -E -A opts h -help
+
+  if (( ${+opts[-h]} || ${+opts[--help]} )); then
     __vscode_profile_help
     return 0
   fi

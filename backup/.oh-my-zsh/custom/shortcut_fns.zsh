@@ -15,6 +15,13 @@ print_yellow() {
 
 # ==================== Functions ====================
 
+# 带选项的函数统一用 zparseopts 解析（zsh/zutil 内建，默认已加载）
+# 常用组合: zparseopts -D -E -F -A opts <spec...> || return 1
+#   -D 解析后从 $@ 移除; -E 允许选项与位置参数混排; -F 遇到未定义选项报错返回 1; -A 结果写入关联数组
+#   spec 写 `x` 表示 -x; 写 `-help` 表示 --help; 写 `x:` 表示需要参数(透传/记录用)
+# 判断是否传入: (( ${+opts[-x]} )) / (( ${+opts[--help]} ))
+# 透传给底层命令时不要加 -D 和 -F，保持 $@ 原样并放行未知选项
+
 # 在当前目录中打开 fork 应用程序
 # https://git-fork.com/
 function open_fork() {
@@ -160,8 +167,11 @@ function list_node_modules() {
 # 输入 y 确认删除, 默认不删除, 可以使用 -a 不需要确认并删除所有
 # 这里的删除使用的是 /bin/rm, 而不是 trash, 因为 trash 会将文件移动到回收站, 但是 node_modules 通常会很大, 会占用很多空间
 function remove_node_modules() {
+  local -A opts
+  zparseopts -D -E -F -A opts a || return 1
+
   local nm=$(list_node_modules)
-  if [[ $1 == "-a" ]]; then
+  if (( ${+opts[-a]} )); then
     echo $nm | xargs -n 1 /bin/rm -rf
     print_green "All node_modules have been removed."
   else
@@ -380,8 +390,17 @@ function git_fixup_commit() {
 
 # 使用一个分支备份当前 git 修改
 # 如果工作区是干净的，你还可以进行 commit message 重写
-# 输入 -r 可以备份到远端
+# useage: git_create_branch_backup [-r] [commit-message]
+# -r: 备份到远端
 function git_create_branch_backup(){
+  local -A opts
+  zparseopts -D -E -F -A opts r || return 1
+
+  local push_remote=false
+  (( ${+opts[-r]} )) && push_remote=true
+  # 剩余的位置参数: 工作区干净时用于重写 commit message
+  local rewrite_message=$1
+
   if ! is_git_repository; then
     print_red "not a git repository"
     return 1
@@ -392,8 +411,8 @@ function git_create_branch_backup(){
   export MY_LATEST_BACKUP_BRANCH=$new_branch
 
   function try_push_backup_to_remote(){
-    # -r 参数表示推送到远端(如果在公司项目则默认推送到远端)
-    if [[ $1 == "-r" || $(pwd) =~ $COMPANY ]]; then
+    # 在公司项目则默认推送到远端
+    if $push_remote || [[ $(pwd) =~ $COMPANY ]]; then
       echo -e "${YELLOW}Will try to push to backup...${RESET}"
       push_backup_to_remote $new_branch
     fi
@@ -406,14 +425,14 @@ function git_create_branch_backup(){
 
     git branch $new_branch
 
-    if [[ -n $1 && $1 != "-r" ]]; then
+    if [[ -n $rewrite_message ]]; then
       git checkout $new_branch
-      git commit --amend -m "$1" --no-verify --no-gpg-sign
+      git commit --amend -m "$rewrite_message" --no-verify --no-gpg-sign
       git checkout -
     fi
 
     echo -e "The current workspace is clean, and a new branch:${GREEN}${new_branch}${RESET} is created"
-    try_push_backup_to_remote $1
+    try_push_backup_to_remote
     return 1
   fi
 
@@ -447,7 +466,7 @@ EOF
     git add $staged
   fi
 
-  try_push_backup_to_remote $1
+  try_push_backup_to_remote
 
   good_job
 }
@@ -759,15 +778,12 @@ function print_terminal_link() {
 # -l: 表示顺便删除 lock 文件
 # -o: 表示使用 ni --prefer-offline 安装
 # 前置依赖 remove_node_modules, remove_lock_files, npm_registry_manage, auto-install-pnpm, ni
-# zparseopts 文档: https://zsh.sourceforge.io/Doc/Release/Zsh-Modules.html#index-zparseopts
 function re-install-fe-deps() {
   local -A opts
-  # -D 解析后从 $@ 移除; -E 允许选项与位置参数混排; -F 遇到未定义选项时报错返回 1; -A 结果写入关联数组
   zparseopts -D -E -F -A opts l o || return 1
 
   echo "${YELLOW}Please wait patiently...${RESET}"
   remove_node_modules -a
-  # 关联数组用 ${+opts[key]} 判断 key 是否存在
   (( ${+opts[-l]} )) && remove_lock_files
   npm_registry_manage taobao
   auto-install-pnpm

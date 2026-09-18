@@ -193,7 +193,12 @@ function _git_worktree_easy_help() {
 # 功能：快速创建 git worktree 并处理配置同步
 # 用法：git_worktree_easy [-b <new-branch>] <branch> [args...]
 function git_worktree_easy() {
-  if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+  # 不加 -D/-F: $@ 要原样透传给 git worktree add，且 --detach/--no-checkout 等
+  # git 自己的选项必须放行，不能因为不在 spec 里就报错
+  local -A opts
+  zparseopts -E -A opts h -help b: B: -orphan
+
+  if (( ${+opts[-h]} || ${+opts[--help]} )); then
     _git_worktree_easy_help
     return 0
   fi
@@ -242,9 +247,7 @@ function git_worktree_easy() {
   # 4b. 若未使用 -b/-B 新建分支，而目标分支已在本地存在，则展示其当前提交并要求确认
   #     避免意外覆盖已有 commit（尤其是分支已有 stale worktree 记录时 git 可能 reset HEAD）
   local _has_new_branch_flag=0
-  for arg in "$@"; do
-    [[ "$arg" == "-b" || "$arg" == "-B" || "$arg" == "--orphan" ]] && _has_new_branch_flag=1 && break
-  done
+  (( ${+opts[-b]} || ${+opts[-B]} || ${+opts[--orphan]} )) && _has_new_branch_flag=1
 
   if (( _has_new_branch_flag == 0 )) && git rev-parse --verify "refs/heads/$target_branch" &>/dev/null; then
     local _tip=$(git log --oneline -1 "refs/heads/$target_branch" 2>/dev/null)
