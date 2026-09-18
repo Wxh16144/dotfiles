@@ -755,18 +755,27 @@ function print_terminal_link() {
 }
 
 # 重新安装依赖
-# useage: re-install-fe-deps [-l]
+# useage: re-install-fe-deps [-l] [-o]
 # -l: 表示顺便删除 lock 文件
+# -o: 表示使用 ni --prefer-offline 安装
 # 前置依赖 remove_node_modules, remove_lock_files, npm_registry_manage, auto-install-pnpm, ni
+# zparseopts 文档: https://zsh.sourceforge.io/Doc/Release/Zsh-Modules.html#index-zparseopts
 function re-install-fe-deps() {
+  local -A opts
+  # -D 解析后从 $@ 移除; -E 允许选项与位置参数混排; -F 遇到未定义选项时报错返回 1; -A 结果写入关联数组
+  zparseopts -D -E -F -A opts l o || return 1
+
   echo "${YELLOW}Please wait patiently...${RESET}"
   remove_node_modules -a
-  if [[ $1 == "-l" ]]; then
-    remove_lock_files
-  fi
+  # 关联数组用 ${+opts[key]} 判断 key 是否存在
+  (( ${+opts[-l]} )) && remove_lock_files
   npm_registry_manage taobao
   auto-install-pnpm
-  ni
+  if (( ${+opts[-o]} )); then
+    ni --prefer-offline
+  else
+    ni
+  fi
   good_job
 }
 
