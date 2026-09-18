@@ -43,7 +43,7 @@ export PATH="$PATH:$HOME/.local/bin"
 [[ -d "/opt/homebrew/bin" ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # https://github.com/rcmdnk/homebrew-file
-[[ -f $(brew --prefix)/etc/brew-wrap ]] && source $(brew --prefix)/etc/brew-wrap
+(( $+commands[brew] )) && [[ -f $(brew --prefix)/etc/brew-wrap ]] && source $(brew --prefix)/etc/brew-wrap
 
 # \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 # \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ PATH - END \\\\\\\\\\\\\\\\\\\\\\\\
@@ -213,3 +213,6 @@ autoload -Uz compinit && compinit
 [[ -s "$ZSH_CUSTOM/custom_alias.zsh" ]] && source "$ZSH_CUSTOM/custom_alias.zsh"
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+
+
+export PATH="/Users/wuxh/.local/bin:$PATH" # fh-savery-cli

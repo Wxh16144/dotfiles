@@ -40,7 +40,7 @@
   #   export TITLE=$(echo $1);\
   #   git commit -m \"$TITLE\" -m \"$MSG\" -m \"$COW\";\
   # }; f"
-  cmt = commit --template=/Users/wuxh/.stCommitMsg
+  cmt = "!git commit --template=\"$HOME/.stCommitMsg\""
   amend = commit --amend --no-edit # 个人需求调整
   # 一鸣惊人(ZWSP): https://codepoints.net/U+200B, https://git-scm.com/docs/git-commit#_commit_information
   amaze = "!f() {\
@@ -78,7 +78,7 @@
   # 最近活跃分支
   # active = for-each-ref --sort=-committerdate --count=10 --format='%(color:green)%(refname:short)%(color:reset) %(committerdate:relative) %(authorname)' refs/heads
   active = "!f() { \
-    SEPARATOR=$'\t'; \
+    sePARATOR=$'\t'; \
     git for-each-ref \
       --color=always \
       --sort=-committerdate \
@@ -90,29 +90,16 @@
   count = rev-list --all --count
   # open vscode
   code = !code --disable-extensions
+  # git patch <A> [B] → 导出 A 对比 B 的 patch（B 默认 HEAD）
   patch = "!f() {\
-    if [ $# -eq 1 ]; then\
-      BASE=\"$1\"; TARGET=\"HEAD\";\
-    elif [ $# -eq 2 ]; then\
-      BASE=\"$1\"; TARGET=\"$2\";\
-    else\
-      echo \"Usage: git patch <commit1> | git patch <commitA> <commitB>\"; return 1;\
-    fi;\
-    OUT=\"${BASE}_${TARGET}.patch\";\
-    git diff \"$BASE\" \"$TARGET\" > \"$OUT\";\
-    if [ -s \"$OUT\" ]; then\
-      echo \"✅ Patch generated: $OUT\";\
-      echo \"   File size: $(du -h \"$OUT\" | awk '{print $1}')\";\
-    else\
-      rm -f \"$OUT\";\
-      echo \"ℹ️ No differences found; no file created.\";\
-    fi;\
+    B=$1; T=${2:-HEAD}; O=${B//\\//-}_${T//\\//-}.patch;\
+    git diff \"$B\" \"$T\" --binary > \"$O\"; [ -s \"$O\" ] || rm -f \"$O\";\
   }; f"
 
 
 [commit]
 	gpgsign = true
-	# template = /Users/wuxh/.stCommitMsg
+	# template = ~/.stCommitMsg
 
 [includeIf "gitdir:~/Code/company/"]
   path = ~/.gitconfig_work
