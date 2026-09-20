@@ -189,6 +189,8 @@ alias gae="git_add_remote"
 
 # 快速添加一个 worktree
 alias gwt="git_worktree_easy"
+# 返回到主 worktree 根目录
+alias gwh="git_worktree_home"
 
 # 将指定目录推送到远程仓库
 alias pudir="git_push_directory"

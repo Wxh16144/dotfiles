@@ -293,6 +293,18 @@ function git_worktree_easy() {
   fi
 }
 
+# cd back to the main worktree root (the repo that owns all linked worktrees)
+function git_worktree_home() {
+  local main_root
+  # `worktree list` always prints the main worktree first
+  main_root=$(git worktree list --porcelain 2>/dev/null | awk '/^worktree /{print substr($0, 10); exit}')
+
+  [[ -z $main_root ]] && { _git_worktree_log red "Not a git repository."; return 1 }
+  [[ ${PWD:A} == ${main_root:A} ]] && { _git_worktree_log yellow "Already at main worktree: $main_root"; return 0 }
+
+  cd "$main_root" && _git_worktree_log green "→ $main_root"
+}
+
 # 自动清理空的 workspace 目录的 hook
 function _git_worktree_cleanup_hook() {
   # 仅在 Git 主仓库根目录触发 (跳过 worktree 和非 git 目录)
