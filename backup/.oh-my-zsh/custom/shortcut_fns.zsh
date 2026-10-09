@@ -1079,8 +1079,15 @@ end run'
   fi
 
   local output
-  output=$(/usr/bin/xattr -r -d com.apple.quarantine "$app_path" 2>&1)
+  output=$(/usr/bin/xattr -r "$app_path" 2>&1)
   local exit_code=$?
+  if (( exit_code == 0 )) && [[ $output != *"com.apple.quarantine"* ]]; then
+    print_yellow "No quarantine attribute: $app_path"
+    return 0
+  fi
+
+  output=$(/usr/bin/xattr -r -d com.apple.quarantine "$app_path" 2>&1)
+  exit_code=$?
   if (( exit_code == 0 )); then
     print_green "Quarantine attribute removed: $app_path"
     return 0

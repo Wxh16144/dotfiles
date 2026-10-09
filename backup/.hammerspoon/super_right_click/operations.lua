@@ -129,7 +129,7 @@ end run
     end
 end
 
-function M.removeQuarantine(path)
+local function removeQuarantine(path)
     local task = hs.task.new("/usr/bin/xattr", function(exitCode, stdOut, stdErr)
         local result, output = quarantineResult(exitCode, stdOut, stdErr)
         if result == "permission" then
@@ -142,6 +142,21 @@ function M.removeQuarantine(path)
     if not task or not task:start() then
         logger.e("无法启动 xattr 任务")
         hs.alert.show("❌ 无法执行隔离属性清理", 2)
+    end
+end
+
+function M.removeQuarantine(path)
+    local task = hs.task.new("/usr/bin/xattr", function(exitCode, stdOut)
+        if exitCode == 0 and not (stdOut or ""):match("com%.apple%.quarantine") then
+            showQuarantineResult("missing", "")
+            return
+        end
+        removeQuarantine(path)
+    end, {"-r", path})
+
+    if not task or not task:start() then
+        logger.e("无法启动 xattr 检查任务")
+        hs.alert.show("❌ 无法检查隔离属性", 2)
     end
 end
 
