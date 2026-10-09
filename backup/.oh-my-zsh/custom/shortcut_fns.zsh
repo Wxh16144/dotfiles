@@ -1051,5 +1051,58 @@ function export_raycast_preferences() {
   open "raycast://extensions/raycast/raycast/export-settings-data"
 } 
 
+# https://zhuanlan.zhihu.com/p/135948430
+# 解决Mac安装软件的“已损坏，无法打开。 您应该将它移到废纸篓”问题
+function unquarantine() {
+  if (( $# == 0 )); then
+    echo 'Usage: unquarantine <app name|path>'
+    echo '       uq WebStorm'
+    echo '       uq "/Applications/WebStorm.app"'
+    return 2
+  fi
+
+  local target="$*"
+  local app_path
+  if [[ -e $target ]]; then
+    app_path=${target%/}
+  else
+    local script='on run argv
+return POSIX path of (path to application (item 1 of argv))
+end run'
+    app_path=$(/usr/bin/osascript -e "$script" "$target" 2>/dev/null)
+    app_path=${app_path%/}
+  fi
+
+  if [[ ! -d $app_path || ${app_path:l} != *.app ]]; then
+    print_red "App not found: $target"
+    return 2
+  fi
+
+  local output
+  output=$(/usr/bin/xattr -r -d com.apple.quarantine "$app_path" 2>&1)
+  local exit_code=$?
+  if (( exit_code == 0 )); then
+    print_green "Quarantine attribute removed: $app_path"
+    return 0
+  fi
+  if [[ $output == *"No such xattr"* ]]; then
+    print_yellow "No quarantine attribute: $app_path"
+    return 0
+  fi
+  if [[ $output != *"Permission denied"* && $output != *"Operation not permitted"* ]]; then
+    print_red "Failed to remove quarantine attribute: $output"
+    return $exit_code
+  fi
+
+  sudo /usr/bin/xattr -r -d com.apple.quarantine "$app_path"
+  exit_code=$?
+  if (( exit_code == 0 )); then
+    print_green "Quarantine attribute removed: $app_path"
+  else
+    print_red "Administrator authorization canceled or failed."
+  fi
+  return $exit_code
+}
+
 # =================== Auto run ===================
 find_and_remove_broken_links $PLAY

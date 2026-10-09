@@ -85,6 +85,66 @@ function M.revealInFinder(path)
     ]], path))
 end
 
+local function quarantineResult(exitCode, stdOut, stdErr)
+    local output = (stdOut or "") .. (stdErr or "")
+    if exitCode == 0 then return "success", output end
+    if output:match("No such xattr") then return "missing", output end
+    if output:match("Permission denied") or output:match("Operation not permitted") then
+        return "permission", output
+    end
+    return "error", output
+end
+
+local function showQuarantineResult(result, output)
+    if result == "success" then
+        hs.alert.show("✅ 已移除隔离属性", 1)
+    elseif result == "missing" then
+        hs.alert.show("ℹ️ 无需处理", 1)
+    else
+        logger.e("移除隔离属性失败: " .. tostring(output))
+        hs.alert.show("❌ 移除隔离属性失败", 2)
+    end
+end
+
+local function removeQuarantineWithPrivileges(path)
+    local script = [[
+on run argv
+    set appPath to item 1 of argv
+    do shell script "/usr/bin/xattr -r -d com.apple.quarantine " & quoted form of appPath with administrator privileges
+end run
+]]
+    local task = hs.task.new("/usr/bin/osascript", function(exitCode, stdOut, stdErr)
+        local output = (stdOut or "") .. (stdErr or "")
+        if exitCode ~= 0 and (output:match("User canceled") or output:match("%-128")) then
+            hs.alert.show("已取消管理员授权", 1)
+            return
+        end
+        local result, detail = quarantineResult(exitCode, stdOut, stdErr)
+        showQuarantineResult(result, detail)
+    end, {"-e", script, path})
+
+    if not task or not task:start() then
+        logger.e("无法启动管理员授权任务")
+        hs.alert.show("❌ 无法请求管理员授权", 2)
+    end
+end
+
+function M.removeQuarantine(path)
+    local task = hs.task.new("/usr/bin/xattr", function(exitCode, stdOut, stdErr)
+        local result, output = quarantineResult(exitCode, stdOut, stdErr)
+        if result == "permission" then
+            removeQuarantineWithPrivileges(path)
+            return
+        end
+        showQuarantineResult(result, output)
+    end, {"-r", "-d", "com.apple.quarantine", path})
+
+    if not task or not task:start() then
+        logger.e("无法启动 xattr 任务")
+        hs.alert.show("❌ 无法执行隔离属性清理", 2)
+    end
+end
+
 -- ============================================================
 -- 新建
 -- ============================================================

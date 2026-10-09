@@ -235,6 +235,9 @@ local function appendOpenGroupForFolder(menu, path)
     table.insert(menu, {title = "💻 在终端打开", fn = function() M.ops.openInTerminal(path) end})
     appendToolMenu(menu, path, path, M.finder.folderName(path))
     table.insert(menu, {title = "🔍 在 Finder 中定位", fn = function() M.ops.revealInFinder(path) end})
+    if path:lower():match("%.app/?$") then
+        table.insert(menu, {title = "🔓 移除隔离属性", fn = function() M.ops.removeQuarantine(path) end})
+    end
 end
 
 local function appendOpenGroupForMulti(menu, items)
