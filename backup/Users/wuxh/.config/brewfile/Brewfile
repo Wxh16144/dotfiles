@@ -11,6 +11,7 @@ brew duti
 brew fontconfig
 brew freetype
 brew fribidi
+brew frpc
 brew gdk-pixbuf
 brew gettext
 brew gh
@@ -80,6 +81,7 @@ brew python@3.13
 brew readline
 brew shared-mime-info
 brew socat
+brew sqlcipher
 brew sqlite
 brew tcl-tk
 brew tesseract
@@ -100,7 +102,6 @@ cask jordanbaird-ice
 cask keycastr
 cask localsend
 cask ngrok
-cask shortcutdetective
 
 tap homebrew/bundle
 
@@ -110,33 +111,35 @@ tap ayangweb/bongocat
 cask bongo-cat
 
 tap dotenvx/brew
-brew dotenvx
 
 tap ngrok/ngrok
 
 tap rcmdnk/file
-brew brew-file
 
 tap theboredteam/boring-notch
 cask boring-notch
 
 tap tw93/tap
 
+# Other Cask applications
+cask shortcutdetective
+
 # App Store applications
-appstore 1586435171 Actions (3.8.0)
+appstore 1586435171 Actions (4.2.1)
 appstore 1660147028 Amazing AI (1.7.0)
 appstore 1552555103 AutoSwitchInput Lite (1.5.1)
-appstore 1630034110 Bob (1.19.0)
+appstore 1630034110 Bob (1.20.0)
 appstore 1565629813 FastZip (2.0.7)
-appstore 1533074588 MyZip (1.2.5)
 appstore 1494023538 Plash (2.16.0)
-appstore 451108668 QQ (6.9.89)
-appstore 595615424 QQMusic (11.2.1)
-appstore 1555600758 ScriptWidget (6.7)
-appstore 1091675654 Shapr3D (26.22.0)
-appstore 946399090 Telegram Lite (6.4.2)
-appstore 1529999940 VideoFusion-macOS (10.1.0)
-appstore 836500024 WeChat (4.1.7)
+appstore 451108668 QQ (7.0.0)
+appstore 595615424 QQMusic (11.9.1)
+appstore 1555600758 ScriptWidget (26.6)
+appstore 932747118 Shadowrocket (2.2.87)
+appstore 1091675654 Shapr3D (26.170.0)
+appstore 946399090 Telegram Lite (6.8.2)
+appstore 1529999940 VideoFusion-macOS (10.6.0)
+appstore 836500024 WeChat (4.1.11)
+appstore 1295203466 Windows App (11.4.1)
 appstore 497799835 Xcode (26.1.1)
-appstore 1247341465 同花顺 (5.2.1)
+appstore 1247341465 同花顺 (5.3.2)
 appstore 461703208 高德地图 (0.6.2)
