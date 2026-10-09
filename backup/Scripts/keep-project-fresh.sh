@@ -202,7 +202,7 @@ for item in "${all_repos[@]}"; do
         # 1. 先检查当前状态，如果有未提交更改，先 stash 起来，避免切换分支失败
         if [[ -n $(git status --porcelain) ]]; then
             echo "📦 当前目录不干净 ($current_branch)，正在暂存 (Stash) 更改(含新建文件)..."
-            git stash save -u "auto_stash_$current_date"
+            git stash push -u -m "auto_stash_$current_date"
         fi
 
         # 2. 确定要拉取的最终目标分支
@@ -234,6 +234,7 @@ for item in "${all_repos[@]}"; do
         fi
 
         echo "⬇️  正在拉取 $target_remote $current_branch..."
+        head_before=$(git rev-parse --short HEAD)
         pull_output=$(git pull "$target_remote" "$current_branch" 2>&1)
         pull_exit_code=$?
 
@@ -245,10 +246,10 @@ for item in "${all_repos[@]}"; do
             extra_msg=""
             current_hash=$(git rev-parse --short HEAD)
 
-            # Detect if there were actual updates
+            # 以 HEAD 是否变化判断有无更新，避免依赖 git 输出的本地化文案
             status_no_change=""
             has_updates=false
-            if [[ "$pull_output" == *"Already up to date."* ]]; then
+            if [[ "$current_hash" == "$head_before" ]]; then
                 status_no_change=" (无变动)"
             else
                 status_no_change=" 🆙"
