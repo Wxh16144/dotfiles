@@ -35,6 +35,16 @@
   },
   {
     "action" : {
+      "script" : "cd \"${repo:path}\" && zsh -c \"source ~/.zshrc >\/dev\/null 2>&1; git_backup_commit -r ${sha:abbr}\"",
+      "showOutput" : true,
+      "type" : "sh",
+      "waitForExit" : true
+    },
+    "name" : "?Backup Commit",
+    "target" : "revision"
+  },
+  {
+    "action" : {
       "args" : "commit --amend --no-edit --no-verify",
       "path" : "${git}",
       "showOutput" : false,

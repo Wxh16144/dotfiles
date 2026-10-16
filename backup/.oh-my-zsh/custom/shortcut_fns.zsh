@@ -405,18 +405,10 @@ function git_create_branch_backup(){
     print_red "not a git repository"
     return 1
   fi
-  local new_branch="$(whoami)/backup/$(date +%Y-%m-%d-%H_%M_%S)"
+  local new_branch="$(backup_branch_name)"
 
   # 写入环境变量
   export MY_LATEST_BACKUP_BRANCH=$new_branch
-
-  function try_push_backup_to_remote(){
-    # 在公司项目则默认推送到远端
-    if $push_remote || [[ $(pwd) =~ $COMPANY ]]; then
-      echo -e "${YELLOW}Will try to push to backup...${RESET}"
-      push_backup_to_remote $new_branch
-    fi
-  }
 
   # 工作区是干净的
   if [[ -z $(git status --porcelain) ]]; then
@@ -432,7 +424,7 @@ function git_create_branch_backup(){
     fi
 
     echo -e "The current workspace is clean, and a new branch:${GREEN}${new_branch}${RESET} is created"
-    try_push_backup_to_remote
+    try_push_backup_to_remote $push_remote $new_branch
     return 1
   fi
 
@@ -466,7 +458,38 @@ EOF
     git add $staged
   fi
 
-  try_push_backup_to_remote
+  try_push_backup_to_remote $push_remote $new_branch
+
+  good_job
+}
+
+# 在指定 commit 上创建备份分支（不动当前分支与工作区），可推送到远端
+# usage: git_backup_commit [-r] [sha]   # sha 缺省为 HEAD
+function git_backup_commit(){
+  local -A opts
+  zparseopts -D -E -F -A opts r || return 1
+
+  local push_remote=false
+  (( ${+opts[-r]} )) && push_remote=true
+
+  if ! is_git_repository; then
+    print_red "not a git repository"
+    return 1
+  fi
+
+  local sha=${1:-HEAD}
+  if ! git rev-parse --verify --quiet "$sha^{commit}" >/dev/null; then
+    print_red "commit > $sha < not found"
+    return 1
+  fi
+
+  local new_branch="$(backup_branch_name)"
+  git branch "$new_branch" "$sha" || return 1
+
+  echo -e "New backup branch:${GREEN}${new_branch}${RESET} at $(git rev-parse --short "$sha")"
+
+  export MY_LATEST_BACKUP_BRANCH=$new_branch
+  try_push_backup_to_remote $push_remote $new_branch
 
   good_job
 }
@@ -474,6 +497,22 @@ EOF
 function is_git_repository() {
   if [[ -z $(git rev-parse --is-inside-work-tree 2>/dev/null) ]]; then
     return 1
+  fi
+}
+
+# 备份分支命名: {whoami}/backup/{YYYY-MM-DD-HH_MM_SS}
+function backup_branch_name(){
+  print -r -- "$(whoami)/backup/$(date +%Y-%m-%d-%H_%M_%S)"
+}
+
+# 推送备份分支到 $BACKUP_REMOTE_NAME
+# 显式传 true 或当前目录命中 $COMPANY 时才会推送
+# usage: try_push_backup_to_remote <true|false> <branch>
+function try_push_backup_to_remote(){
+  local push_remote=$1 backup_branch=$2
+  if $push_remote || [[ $(pwd) =~ $COMPANY ]]; then
+    echo -e "${YELLOW}Will try to push to backup...${RESET}"
+    push_backup_to_remote $backup_branch
   fi
 }
 
