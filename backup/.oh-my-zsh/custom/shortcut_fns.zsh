@@ -412,6 +412,17 @@ function git_create_branch_backup(){
 
   # 工作区是干净的
   if [[ -z $(git status --porcelain) ]]; then
+    # 防抖: 当前 HEAD 上已存在备份分支且无需重写 message 时，直接复用
+    if [[ -z $rewrite_message ]]; then
+      local existing_branch=$(git for-each-ref --points-at HEAD --format='%(refname:short)' "refs/heads/$(whoami)/backup/" | head -n 1)
+      if [[ -n $existing_branch ]]; then
+        export MY_LATEST_BACKUP_BRANCH=$existing_branch
+        echo -e "Backup branch:${GREEN}${existing_branch}${RESET} already exists on HEAD, skip creating"
+        try_push_backup_to_remote $push_remote $existing_branch
+        return 1
+      fi
+    fi
+
     # 获取当前 commit message
     local commit_message=$(git log -1 --pretty=%B)
 

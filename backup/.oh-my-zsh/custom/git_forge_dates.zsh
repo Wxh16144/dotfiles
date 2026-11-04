@@ -6,7 +6,8 @@
 # 中文说明：
 # 本脚本用于修改 Git commit 的 AuthorDate 和 CommitterDate。
 # 支持修改单个 commit 或根据配置文件批量随机化一段历史 commit 的时间分布。
-# 每次操作前都会在 forge-backup/ 路径下创建备份 tag 以确保安全。
+# 每次操作前都会在 forge-backup/ 路径下创建备份 tag 以确保安全；
+# 若已有备份与当前 HEAD 内容一致（仅日期不同），则复用该备份，避免重复执行产生多个备份。
 # ==============================================================================
 
 # 辅助函数：色彩输出 (保持英文日志级别)
@@ -23,8 +24,24 @@ function _git_forge_log() {
 
 # 内部函数：创建备份点
 function _git_forge_create_backup() {
+  # 日期修改不会改变 tree 和提交数量；若已有备份与当前 HEAD 一致，说明是同一份历史，复用即可
+  local head_tree=$(git rev-parse "HEAD^{tree}")
+  local head_count=$(git rev-list --count HEAD)
+  local tag
+  for tag in ${(f)"$(git tag --list 'forge-backup/*' --sort=-creatordate)"}; do
+    if [[ "$(git rev-parse "$tag^{tree}")" == "$head_tree" && "$(git rev-list --count "$tag")" == "$head_count" ]]; then
+      _git_forge_log yellow "Backup already exists: $tag (same content as HEAD), skip creating."
+      _git_forge_log yellow "To restore, run: git reset --hard $tag"
+      return 0
+    fi
+  done
+
   local timestamp=$(date "+%Y%m%d_%H%M%S")
   local backup_name="forge-backup/$timestamp"
+  local n=1
+  while git rev-parse -q --verify "refs/tags/$backup_name" >/dev/null; do
+    backup_name="forge-backup/${timestamp}_$((n++))"
+  done
   # 将当前 HEAD 备份到一个特定的 tag 作用域
   if git tag "$backup_name" HEAD; then
     _git_forge_log yellow "Backup created: $backup_name"
@@ -232,7 +249,15 @@ for d in dates: print(d.strftime('%Y-%m-%d %H:%M:%S'))
 
   _git_forge_log yellow "Starting rebase..."
   GIT_SEQUENCE_EDITOR=$todo_editor git rebase -i $base_ref
+  local rebase_status=$?
 
-  /bin/rm $todo_editor
-  _git_forge_log green "Good job."
+  /bin/rm -f $todo_editor
+
+  if (( rebase_status != 0 )); then
+    _git_forge_log red "Rebase failed (exit $rebase_status). Config kept at $config_file"
+    return $rebase_status
+  fi
+
+  /bin/rm -f $config_file
+  _git_forge_log green "Good job. Config file removed."
 }

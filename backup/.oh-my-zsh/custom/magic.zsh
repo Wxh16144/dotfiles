@@ -44,7 +44,7 @@ export MAGIC_NAME=$(printf "%s" "${_MAGIC_NAME[@]}")
 # =========== Zero-width character combination generator ===========
 # ==================================================================
 
-# see: https://github.com/Wxh16144/wxh16144.github.io/blob/main/source/notes/index.md#zwsp
+# see: https://link.wxhboy.cn/zwsp
 # 零宽字符定义
 ZW_CHARS=($'\u200b' $'\u200c' $'\u200d' $'\u200e' $'\u200f' $'\ufeff')
 

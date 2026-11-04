@@ -35,8 +35,8 @@
   },
   {
     "action" : {
-      "script" : "cd \"${repo:path}\" && zsh -c \"source ~/.zshrc >\/dev\/null 2>&1; git_backup_commit -r ${sha:abbr}\"",
-      "showOutput" : true,
+      "script" : "cd \"${repo:path}\" && zsh -c \"source ~\/.zshrc >\/dev\/null 2>&1; git_backup_commit -r ${sha:abbr}\"",
+      "showOutput" : false,
       "type" : "sh",
       "waitForExit" : true
     },
