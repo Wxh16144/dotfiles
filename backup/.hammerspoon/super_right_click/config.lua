@@ -13,6 +13,9 @@ return {
     -- 是否记住最近使用的复制操作（动态调整一级菜单）
     rememberLastCopy = true,
 
+    -- 复制的路径是否加 shell 单引号（便于直接粘贴到终端 cd）
+    shellQuotePaths = true,
+
     -- 工具候选列表（按分类组织）。启动时自动过滤未安装的。
     -- code = 代码编辑器，git = Git GUI 工具（仅在 git 仓库中显示，打开仓库根）
     toolCandidates = {

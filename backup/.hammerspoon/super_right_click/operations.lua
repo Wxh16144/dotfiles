@@ -3,6 +3,7 @@
 -- 操作函数层：复制、打开、新建等具体操作。
 
 local logger = require("lib.logger").new("super_right_click", "info")
+local shell = require("lib.shell")
 
 local M = {}
 
@@ -12,6 +13,9 @@ M.TERMINAL_APP = "iTerm2"
 -- 编辑器列表（由主模块注入）
 M.EDITORS = {}
 
+-- 复制的路径是否加 shell 单引号（由主模块注入）
+M.SHELL_QUOTE_PATHS = true
+
 -- ============================================================
 -- 剪贴板 & 文件操作
 -- ============================================================
@@ -19,6 +23,20 @@ M.EDITORS = {}
 function M.copyToClipboard(text)
     hs.pasteboard.setContents(text)
     hs.alert.show("✅ 已复制", 0.8)
+end
+
+-- 复制单个路径（按配置决定是否加 shell 引号）
+function M.copyPath(path)
+    M.copyToClipboard(M.SHELL_QUOTE_PATHS and shell.quote(path) or path)
+end
+
+-- 复制多个路径：换行分隔，每行独立加引号
+function M.copyPaths(paths)
+    local lines = {}
+    for _, p in ipairs(paths) do
+        lines[#lines + 1] = M.SHELL_QUOTE_PATHS and shell.quote(p) or p
+    end
+    M.copyToClipboard(table.concat(lines, "\n"))
 end
 
 function M.copyFileContent(path)
@@ -37,10 +55,15 @@ end
 -- 打开方式
 -- ============================================================
 
+-- 转义为 AppleScript 双引号字面量内容（注意先转义反斜杠）
+local function asStringLiteral(s)
+    return (s:gsub("\\", "\\\\"):gsub('"', '\\"'))
+end
+
 function M.openInTerminal(path)
     local finder = require("super_right_click.finder")
     local dir = finder.isDirectory(path) and path or finder.parentDir(path)
-    local escaped = dir:gsub(" ", "\\ ")
+    local escaped = asStringLiteral("cd " .. shell.quote(dir) .. " && clear")
 
     if M.TERMINAL_APP == "iTerm2" then
         hs.osascript.applescript(string.format([[
@@ -49,7 +72,7 @@ function M.openInTerminal(path)
                     create window with default profile
                 end if
                 tell current session of current window
-                    write text "cd %s && clear"
+                    write text "%s"
                 end tell
                 activate
             end tell
@@ -58,7 +81,7 @@ function M.openInTerminal(path)
         hs.osascript.applescript(string.format([[
             tell application "Terminal"
                 activate
-                do script "cd %s && clear"
+                do script "%s"
             end tell
         ]], escaped))
     end
@@ -82,7 +105,7 @@ function M.revealInFinder(path)
             activate
             reveal (POSIX file "%s")
         end tell
-    ]], path))
+    ]], asStringLiteral(path)))
 end
 
 local function quarantineResult(exitCode, stdOut, stdErr)
@@ -172,12 +195,12 @@ local function createNew(parentFolder, name)
     if hasExt then
         local pd = fullPath:match("(.*)/")
         if pd then
-            hs.execute("/bin/mkdir -p " .. pd:gsub(" ", "\\ "))
+            hs.execute("/bin/mkdir -p " .. shell.quote(pd))
         end
-        hs.execute("/usr/bin/touch " .. fullPath:gsub(" ", "\\ "))
+        hs.execute("/usr/bin/touch " .. shell.quote(fullPath))
         hs.alert.show("✅ 已创建文件: " .. trimmed, 1)
     else
-        hs.execute("/bin/mkdir -p " .. fullPath:gsub(" ", "\\ "))
+        hs.execute("/bin/mkdir -p " .. shell.quote(fullPath))
         hs.alert.show("✅ 已创建文件夹: " .. trimmed, 1)
     end
 end
@@ -189,7 +212,7 @@ function M.promptNew(folderPath)
         display dialog "在 %s 中新建:" default answer "untitled" with title "新建" buttons {"取消", "创建"} default button "创建"
         set theResult to result
         return (button returned of theResult) & "|||" & (text returned of theResult)
-    ]], shortName)
+    ]], asStringLiteral(shortName))
     local ok, result = hs.osascript.applescript(script)
     if not ok then
         logger.e("AppleScript 弹窗失败: " .. tostring(result))

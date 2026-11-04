@@ -41,6 +41,7 @@ local ops = require("super_right_click.operations")
 local menuBuilder = require("super_right_click.menu")
 
 ops.TERMINAL_APP = cfg.terminalApp
+ops.SHELL_QUOTE_PATHS = cfg.shellQuotePaths
 ops.EDITORS = tools
 menuBuilder.finder = finder
 menuBuilder.ops = ops

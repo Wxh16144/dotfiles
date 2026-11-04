@@ -92,9 +92,9 @@ end
 local function copyItemsForFile(item)
     local path, name = item.path, item.name
     return {
-        {title = "📋 复制完整路径", fn = function() M.ops.copyToClipboard(path) end, copyKey = "fullPath"},
+        {title = "📋 复制完整路径", fn = function() M.ops.copyPath(path) end, copyKey = "fullPath"},
         {title = "📋 复制文件名",   fn = function() M.ops.copyToClipboard(name) end, copyKey = "fileName"},
-        {title = "📋 复制所在目录", fn = function() M.ops.copyToClipboard(M.finder.parentDir(path)) end, copyKey = "parentDir"},
+        {title = "📋 复制所在目录", fn = function() M.ops.copyPath(M.finder.parentDir(path)) end, copyKey = "parentDir"},
         {title = "📋 复制为 Markdown 链接", fn = function() M.ops.copyToClipboard("[" .. name .. "](file://" .. path .. ")") end, copyKey = "markdownLink"},
         {title = "📋 复制为 file URI", fn = function() M.ops.copyToClipboard("file://" .. path) end, copyKey = "fileURI"},
         {title = "📋 复制文件内容", fn = function() M.ops.copyFileContent(path) end, copyKey = "fileContent"},
@@ -108,9 +108,9 @@ end
 local function copyItemsForFolder(item)
     local path, name = item.path, item.name
     return {
-        {title = "📋 复制文件夹路径", fn = function() M.ops.copyToClipboard(path) end, copyKey = "folderPath"},
+        {title = "📋 复制文件夹路径", fn = function() M.ops.copyPath(path) end, copyKey = "folderPath"},
         {title = "📋 复制文件夹名",   fn = function() M.ops.copyToClipboard(name) end, copyKey = "folderName"},
-        {title = "📋 复制上级目录",   fn = function() M.ops.copyToClipboard(M.finder.parentDir(path)) end, copyKey = "folderParent"},
+        {title = "📋 复制上级目录",   fn = function() M.ops.copyPath(M.finder.parentDir(path)) end, copyKey = "folderParent"},
     }
 end
 
@@ -123,7 +123,7 @@ local function copyItemsForMulti(items)
         {title = string.format("📋 复制 %d 个路径（换行）", #items), fn = function()
             local t = {}
             for _, it in ipairs(items) do table.insert(t, it.path) end
-            M.ops.copyToClipboard(table.concat(t, "\n"))
+            M.ops.copyPaths(t)
         end, copyKey = "multiPaths"},
         {title = string.format("📋 复制 %d 个文件名（换行）", #items), fn = function()
             local t = {}
@@ -139,7 +139,7 @@ end
 
 local function copyItemsForEmpty(folderPath)
     return {
-        {title = "📋 复制当前目录路径", fn = function() M.ops.copyToClipboard(folderPath) end, copyKey = "dirPath"},
+        {title = "📋 复制当前目录路径", fn = function() M.ops.copyPath(folderPath) end, copyKey = "dirPath"},
     }
 end
 
