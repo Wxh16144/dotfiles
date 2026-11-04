@@ -7,7 +7,9 @@ brew brotli
 brew ca-certificates
 brew cairo
 brew cowsay
+brew dav1d
 brew duti
+brew ffmpeg
 brew fontconfig
 brew freetype
 brew fribidi
@@ -35,6 +37,8 @@ brew jpeg
 brew jpeg-turbo
 brew jpeg-xl
 brew jq
+brew json-c
+brew lame
 brew leptonica
 brew libarchive
 brew libb2
@@ -53,6 +57,7 @@ brew libtommath
 brew libtool
 brew libunistring
 brew libvmaf
+brew libvpx
 brew libx11
 brew libxau
 brew libxcb
@@ -66,10 +71,13 @@ brew lzo
 brew m4
 brew mole
 brew mpdecimal
+brew mpg123
 brew oniguruma
 brew openexr
 brew openjpeg
 brew openssl@3
+brew openssl@4
+brew opus
 brew pango
 brew pcre2
 brew pipx
@@ -79,16 +87,20 @@ brew python-packaging
 brew python-setuptools
 brew python@3.13
 brew readline
+brew sdl2-compat
+brew sdl3
 brew shared-mime-info
 brew socat
 brew sqlcipher
 brew sqlite
+brew svt-av1
 brew tcl-tk
 brew tesseract
 brew trash
 brew tree
 brew webp
 brew wget
+brew x264
 brew x265
 brew xorgproto
 brew xz
@@ -97,6 +109,7 @@ brew zstd
 
 tap homebrew/cask
 cask chromium
+cask claude-code
 cask hammerspoon
 cask jordanbaird-ice
 cask keycastr
@@ -121,6 +134,8 @@ cask boring-notch
 
 tap tw93/tap
 
+tap wxh/local
+
 # Other Cask applications
 cask shortcutdetective
 
@@ -128,17 +143,17 @@ cask shortcutdetective
 appstore 1586435171 Actions (4.2.1)
 appstore 1660147028 Amazing AI (1.7.0)
 appstore 1552555103 AutoSwitchInput Lite (1.5.1)
-appstore 1630034110 Bob (1.20.0)
+appstore 1630034110 Bob (1.21.2)
 appstore 1565629813 FastZip (2.0.7)
 appstore 1494023538 Plash (2.16.0)
 appstore 451108668 QQ (7.0.0)
-appstore 595615424 QQMusic (11.9.1)
+appstore 595615424 QQMusic (11.10.5)
 appstore 1555600758 ScriptWidget (26.6)
 appstore 932747118 Shadowrocket (2.2.87)
 appstore 1091675654 Shapr3D (26.170.0)
 appstore 946399090 Telegram Lite (6.8.2)
 appstore 1529999940 VideoFusion-macOS (10.6.0)
-appstore 836500024 WeChat (4.1.11)
+appstore 836500024 WeChat (4.1.13)
 appstore 1295203466 Windows App (11.4.1)
 appstore 497799835 Xcode (26.1.1)
 appstore 1247341465 同花顺 (5.3.2)
