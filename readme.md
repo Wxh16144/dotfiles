@@ -1,6 +1,6 @@
 # Wxh16144's Dotfiles
 
-[![backup-cli-img]][backup-cli-url]
+[![backup-cli-img]][backup-cli-url] [![Ask DeepWiki][deepwiki-img]][deepwiki-url]
 
 <!-- URL -->
 [backup-cli-img]: https://img.shields.io/badge/using-backup--cli-blue?style=flat-square
@@ -16,6 +16,8 @@
 [git-config_work]: ./backup/.gitconfig_work
 [registry_proxy]: ./backup/.oh-my-zsh/custom/registry_proxy.zsh
 [desensitize-script]: ./backup/.oh-my-zsh/custom/desensitize_env.zsh
+[deepwiki-img]: https://deepwiki.com/badge.svg
+[deepwiki-url]: https://deepwiki.com/Wxh16144/dotfiles
 
 - [.zshrc][zshrc], [agent skills][skill]([Install now](#agent-skills))
 - [alias][alias]  _([shortcut_fns][shortcut_fns]_, _[env_vars][env_vars])_
